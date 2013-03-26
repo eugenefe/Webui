@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.org/schema/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.org/schema/seam/pages http://jboss.org/schema/seam/pages-2.3.xsd"
+      no-conversation-view-id="/LgdSegList.xhtml"
+      login-required="true">
+
+   <begin-conversation join="true" flush-mode="MANUAL"/>
+
+   <action execute="#{lgdSegHome.wire}"/>
+
+   <param name="lgdSegFrom"/>
+   <param name="lgdSegId" value="#{lgdSegHome.lgdSegId}"/>
+
+
+   <navigation from-action="#{lgdSegHome.persist}">
+      <rule if-outcome="persisted">
+         <end-conversation/>
+         <redirect view-id="/LgdSeg.xhtml"/>
+      </rule>
+   </navigation>
+
+   <navigation from-action="#{lgdSegHome.update}">
+      <rule if-outcome="updated">
+         <end-conversation/>
+         <redirect view-id="/LgdSeg.xhtml"/>
+      </rule>
+   </navigation>
+
+   <navigation from-action="#{lgdSegHome.remove}">
+      <rule if-outcome="removed">
+         <end-conversation/>
+         <redirect view-id="/LgdSegList.xhtml"/>
+      </rule>
+   </navigation>
+
+</page>

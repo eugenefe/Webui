@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.org/schema/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.org/schema/seam/pages http://jboss.org/schema/seam/pages-2.3.xsd">
+
+   <param name="firstResult" value="#{portfolioLossList.firstResult}"/>
+   <param name="sort" value="#{portfolioLossList.orderColumn}"/>
+   <param name="dir" value="#{portfolioLossList.orderDirection}"/>
+   <param name="logic" value="#{portfolioLossList.restrictionLogicOperator}"/>
+
+   <param name="from"/>
+   <param name="bssd" value="#{portfolioLossList.portfolioLoss.id.bssd}"/>
+   <param name="portfolioId" value="#{portfolioLossList.portfolioLoss.id.portfolioId}"/>
+   <param name="lossId" value="#{portfolioLossList.portfolioLoss.id.lossId}"/>
+
+</page>

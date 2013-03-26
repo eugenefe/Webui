@@ -1,0 +1,266 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Portfolio Details</f:facet>
+
+        <s:decorate id="id" template="layout/display.xhtml">
+            <ui:define name="label">Id</ui:define>
+            <h:outputText value="#{portfolioHome.instance.id}"/>
+        </s:decorate>
+
+        <s:decorate id="name" template="layout/display.xhtml">
+            <ui:define name="label">Name</ui:define>
+            <h:outputText value="#{portfolioHome.instance.name}"/>
+        </s:decorate>
+
+        <s:decorate id="groupId" template="layout/display.xhtml">
+            <ui:define name="label">Group id</ui:define>
+            <h:outputText value="#{portfolioHome.instance.groupId}"/>
+        </s:decorate>
+
+        <s:decorate id="level1" template="layout/display.xhtml">
+            <ui:define name="label">Level1</ui:define>
+            <h:outputText value="#{portfolioHome.instance.level1}"/>
+        </s:decorate>
+
+        <s:decorate id="level2" template="layout/display.xhtml">
+            <ui:define name="label">Level2</ui:define>
+            <h:outputText value="#{portfolioHome.instance.level2}"/>
+        </s:decorate>
+
+        <s:decorate id="level3" template="layout/display.xhtml">
+            <ui:define name="label">Level3</ui:define>
+            <h:outputText value="#{portfolioHome.instance.level3}"/>
+        </s:decorate>
+
+        <s:decorate id="level4" template="layout/display.xhtml">
+            <ui:define name="label">Level4</ui:define>
+            <h:outputText value="#{portfolioHome.instance.level4}"/>
+        </s:decorate>
+
+        <s:decorate id="level5" template="layout/display.xhtml">
+            <ui:define name="label">Level5</ui:define>
+            <h:outputText value="#{portfolioHome.instance.level5}"/>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/PortfolioEdit.xhtml"
+                    id="edit"
+                 value="Edit"/>
+
+        <s:button view="/#{empty portfolioFrom ? 'PortfolioList' : portfolioFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+    <rich:tabPanel switchType="client">
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Portfolio</h:panelGroup>
+        </f:facet>
+    <div class="association" id="portfolioParent">
+
+        <h:outputText value="There is no portfolio associated with this portfolio."
+                   rendered="#{portfolioHome.instance.portfolio == null}"/>
+
+        <rich:dataTable var="_portfolio"
+                   value="#{portfolioHome.instance.portfolio}"
+                rendered="#{portfolioHome.instance.portfolio != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="portfolioTable">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_portfolio.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Portfolio id</f:facet>
+                <h:outputText value="#{_portfolio.portfolio.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{_portfolio.name}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Group id</f:facet>
+                <h:outputText value="#{_portfolio.groupId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Level1</f:facet>
+                <h:outputText value="#{_portfolio.level1}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Level2</f:facet>
+                <h:outputText value="#{_portfolio.level2}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Level3</f:facet>
+                <h:outputText value="#{_portfolio.level3}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Level4</f:facet>
+                <h:outputText value="#{_portfolio.level4}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Level5</f:facet>
+                <h:outputText value="#{_portfolio.level5}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewportfolio"
+                     value="View"
+                      view="/Portfolio.xhtml">
+                    <f:param name="portfolioId"
+                           value="#{_portfolio.id}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Portfolios</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="portfoliosChildren">
+
+        <h:outputText value="There are no portfolios associated with this portfolio."
+                   rendered="#{empty portfolioHome.portfolios}"/>
+
+        <rich:dataTable value="#{portfolioHome.portfolios}"
+                       var="_portfolio"
+                  rendered="#{not empty portfolioHome.portfolios}"
+                rowClasses="rvgRowOne,rvgRowTwo"
+                        id="portfoliosTable">
+            <rich:column sortBy="#{_portfolio.id}">
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_portfolio.id}"/>
+            </rich:column>
+            <rich:column sortBy="#{_portfolio.name}">
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{_portfolio.name}"/>
+            </rich:column>
+            <rich:column sortBy="#{_portfolio.groupId}">
+                <f:facet name="header">Group id</f:facet>
+                <h:outputText value="#{_portfolio.groupId}"/>
+            </rich:column>
+            <rich:column sortBy="#{_portfolio.level1}">
+                <f:facet name="header">Level1</f:facet>
+                <h:outputText value="#{_portfolio.level1}"/>
+            </rich:column>
+            <rich:column sortBy="#{_portfolio.level2}">
+                <f:facet name="header">Level2</f:facet>
+                <h:outputText value="#{_portfolio.level2}"/>
+            </rich:column>
+            <rich:column sortBy="#{_portfolio.level3}">
+                <f:facet name="header">Level3</f:facet>
+                <h:outputText value="#{_portfolio.level3}"/>
+            </rich:column>
+            <rich:column sortBy="#{_portfolio.level4}">
+                <f:facet name="header">Level4</f:facet>
+                <h:outputText value="#{_portfolio.level4}"/>
+            </rich:column>
+            <rich:column sortBy="#{_portfolio.level5}">
+                <f:facet name="header">Level5</f:facet>
+                <h:outputText value="#{_portfolio.level5}"/>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                <s:link id="selectportfolio"
+                     value="Select"
+                      view="/Portfolio.xhtml">
+                    <f:param name="portfolioId"
+                            value="#{_portfolio.id}"/>
+                    <f:param name="portfolioFrom" value="Portfolio"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="Add portfolio"
+                view="/PortfolioEdit.xhtml">
+            <f:param name="portfolioId"
+                    value="#{portfolioHome.instance.id}"/>
+            <f:param name="portfolioFrom" value="Portfolio"/>
+        </s:button>
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Portfolio hises</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="portfolioHisesChildren">
+
+        <h:outputText value="There are no portfolioHises associated with this portfolio."
+                   rendered="#{empty portfolioHome.portfolioHises}"/>
+
+        <rich:dataTable value="#{portfolioHome.portfolioHises}"
+                       var="_portfolioHis"
+                  rendered="#{not empty portfolioHome.portfolioHises}"
+                rowClasses="rvgRowOne,rvgRowTwo"
+                        id="portfolioHisesTable">
+            <rich:column sortBy="#{_portfolioHis.id.bssd}">
+                <f:facet name="header">Bssd</f:facet>
+                <h:outputText value="#{_portfolioHis.id.bssd}"/>
+            </rich:column>
+            <rich:column sortBy="#{_portfolioHis.id.portfolioId}">
+                <f:facet name="header">Portfolio id</f:facet>
+                <h:outputText value="#{_portfolioHis.id.portfolioId}"/>
+            </rich:column>
+            <rich:column sortBy="#{_portfolioHis.portAmt}">
+                <f:facet name="header">Port amt</f:facet>
+                <h:outputText value="#{_portfolioHis.portAmt}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                <s:link id="selectportfolioHis"
+                     value="Select"
+                      view="/PortfolioHis.xhtml">
+                    <f:param name="portfolioHisBssd"
+                            value="#{_portfolioHis.id.bssd}"/>
+                    <f:param name="portfolioHisPortfolioId"
+                            value="#{_portfolioHis.id.portfolioId}"/>
+                    <f:param name="portfolioHisFrom" value="Portfolio"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="Add portfolioHis"
+                view="/PortfolioHisEdit.xhtml">
+            <f:param name="portfolioId"
+                    value="#{portfolioHome.instance.id}"/>
+            <f:param name="portfolioHisFrom" value="Portfolio"/>
+        </s:button>
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

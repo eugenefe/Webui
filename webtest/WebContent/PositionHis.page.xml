@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.org/schema/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.org/schema/seam/pages http://jboss.org/schema/seam/pages-2.3.xsd">
+
+   <param name="positionHisFrom"/>
+   <param name="positionHisBssd" value="#{positionHisHome.positionHisId.bssd}"/>
+   <param name="positionHisPositionId" value="#{positionHisHome.positionHisId.positionId}"/>
+   <param name="positionFrom"/>
+   <param name="positionId" value="#{positionHome.positionId}"/>
+   <param name="obligorFrom"/>
+   <param name="obligorId" value="#{obligorHome.obligorId}"/>
+
+   <param name="dealerFrom"/>
+   <param name="dealerId" value="#{dealerHome.dealerId}"/>
+
+   <param name="productFrom"/>
+   <param name="productId" value="#{productHome.productId}"/>
+
+   <param name="accountMstFrom"/>
+   <param name="accountMstId" value="#{accountMstHome.accountMstId}"/>
+
+
+   <param name="baseDateFrom"/>
+   <param name="baseDateBssd" value="#{baseDateHome.baseDateBssd}"/>
+
+
+
+</page>

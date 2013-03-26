@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.org/schema/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.org/schema/seam/pages http://jboss.org/schema/seam/pages-2.3.xsd">
+
+   <param name="firstResult" value="#{pdSegList.firstResult}"/>
+   <param name="sort" value="#{pdSegList.orderColumn}"/>
+   <param name="dir" value="#{pdSegList.orderDirection}"/>
+   <param name="logic" value="#{pdSegList.restrictionLogicOperator}"/>
+
+   <param name="from"/>
+   <param name="id" value="#{pdSegList.pdSeg.id}"/>
+   <param name="name" value="#{pdSegList.pdSeg.name}"/>
+   <param name="groupId" value="#{pdSegList.pdSeg.groupId}"/>
+   <param name="rateCd" value="#{pdSegList.pdSeg.rateCd}"/>
+   <param name="indCd" value="#{pdSegList.pdSeg.indCd}"/>
+
+</page>

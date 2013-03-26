@@ -1,0 +1,108 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Dealer Details</f:facet>
+
+        <s:decorate id="id" template="layout/display.xhtml">
+            <ui:define name="label">Id</ui:define>
+            <h:outputText value="#{dealerHome.instance.id}"/>
+        </s:decorate>
+
+        <s:decorate id="name" template="layout/display.xhtml">
+            <ui:define name="label">Name</ui:define>
+            <h:outputText value="#{dealerHome.instance.name}"/>
+        </s:decorate>
+
+        <s:decorate id="departmetId" template="layout/display.xhtml">
+            <ui:define name="label">Departmet id</ui:define>
+            <h:outputText value="#{dealerHome.instance.departmetId}"/>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/DealerEdit.xhtml"
+                    id="edit"
+                 value="Edit"/>
+
+        <s:button view="/#{empty dealerFrom ? 'DealerList' : dealerFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+    <rich:tabPanel switchType="client">
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Positions</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="positionsChildren">
+
+        <h:outputText value="There are no positions associated with this dealer."
+                   rendered="#{empty dealerHome.positions}"/>
+
+        <rich:dataTable value="#{dealerHome.positions}"
+                       var="_position"
+                  rendered="#{not empty dealerHome.positions}"
+                rowClasses="rvgRowOne,rvgRowTwo"
+                        id="positionsTable">
+            <rich:column sortBy="#{_position.id}">
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_position.id}"/>
+            </rich:column>
+            <rich:column sortBy="#{_position.name}">
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{_position.name}"/>
+            </rich:column>
+            <rich:column sortBy="#{_position.colCd}">
+                <f:facet name="header">Col cd</f:facet>
+                <h:outputText value="#{_position.colCd}"/>
+            </rich:column>
+            <rich:column sortBy="#{_position.posAmt}">
+                <f:facet name="header">Pos amt</f:facet>
+                <h:outputText value="#{_position.posAmt}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                <s:link id="selectposition"
+                     value="Select"
+                      view="/Position.xhtml">
+                    <f:param name="positionId"
+                            value="#{_position.id}"/>
+                    <f:param name="positionFrom" value="Dealer"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="Add position"
+                view="/PositionEdit.xhtml">
+            <f:param name="dealerId"
+                    value="#{dealerHome.instance.id}"/>
+            <f:param name="positionFrom" value="Dealer"/>
+        </s:button>
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

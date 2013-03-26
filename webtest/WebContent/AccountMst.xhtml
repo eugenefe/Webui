@@ -1,0 +1,190 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Account mst Details</f:facet>
+
+        <s:decorate id="id" template="layout/display.xhtml">
+            <ui:define name="label">Id</ui:define>
+            <h:outputText value="#{accountMstHome.instance.id}"/>
+        </s:decorate>
+
+        <s:decorate id="name" template="layout/display.xhtml">
+            <ui:define name="label">Name</ui:define>
+            <h:outputText value="#{accountMstHome.instance.name}"/>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/AccountMstEdit.xhtml"
+                    id="edit"
+                 value="Edit"/>
+
+        <s:button view="/#{empty accountMstFrom ? 'AccountMstList' : accountMstFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+    <rich:tabPanel switchType="client">
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Account mst</h:panelGroup>
+        </f:facet>
+    <div class="association" id="accountMstParent">
+
+        <h:outputText value="There is no accountMst associated with this accountMst."
+                   rendered="#{accountMstHome.instance.accountMst == null}"/>
+
+        <rich:dataTable var="_accountMst"
+                   value="#{accountMstHome.instance.accountMst}"
+                rendered="#{accountMstHome.instance.accountMst != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="accountMstTable">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_accountMst.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Account mst id</f:facet>
+                <h:outputText value="#{_accountMst.accountMst.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{_accountMst.name}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewaccountMst"
+                     value="View"
+                      view="/AccountMst.xhtml">
+                    <f:param name="accountMstId"
+                           value="#{_accountMst.id}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Positions</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="positionsChildren">
+
+        <h:outputText value="There are no positions associated with this accountMst."
+                   rendered="#{empty accountMstHome.positions}"/>
+
+        <rich:dataTable value="#{accountMstHome.positions}"
+                       var="_position"
+                  rendered="#{not empty accountMstHome.positions}"
+                rowClasses="rvgRowOne,rvgRowTwo"
+                        id="positionsTable">
+            <rich:column sortBy="#{_position.id}">
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_position.id}"/>
+            </rich:column>
+            <rich:column sortBy="#{_position.name}">
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{_position.name}"/>
+            </rich:column>
+            <rich:column sortBy="#{_position.colCd}">
+                <f:facet name="header">Col cd</f:facet>
+                <h:outputText value="#{_position.colCd}"/>
+            </rich:column>
+            <rich:column sortBy="#{_position.posAmt}">
+                <f:facet name="header">Pos amt</f:facet>
+                <h:outputText value="#{_position.posAmt}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                <s:link id="selectposition"
+                     value="Select"
+                      view="/Position.xhtml">
+                    <f:param name="positionId"
+                            value="#{_position.id}"/>
+                    <f:param name="positionFrom" value="AccountMst"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="Add position"
+                view="/PositionEdit.xhtml">
+            <f:param name="accountMstId"
+                    value="#{accountMstHome.instance.id}"/>
+            <f:param name="positionFrom" value="AccountMst"/>
+        </s:button>
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Account msts</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="accountMstsChildren">
+
+        <h:outputText value="There are no accountMsts associated with this accountMst."
+                   rendered="#{empty accountMstHome.accountMsts}"/>
+
+        <rich:dataTable value="#{accountMstHome.accountMsts}"
+                       var="_accountMst"
+                  rendered="#{not empty accountMstHome.accountMsts}"
+                rowClasses="rvgRowOne,rvgRowTwo"
+                        id="accountMstsTable">
+            <rich:column sortBy="#{_accountMst.id}">
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_accountMst.id}"/>
+            </rich:column>
+            <rich:column sortBy="#{_accountMst.name}">
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{_accountMst.name}"/>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                <s:link id="selectaccountMst"
+                     value="Select"
+                      view="/AccountMst.xhtml">
+                    <f:param name="accountMstId"
+                            value="#{_accountMst.id}"/>
+                    <f:param name="accountMstFrom" value="AccountMst"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="Add accountMst"
+                view="/AccountMstEdit.xhtml">
+            <f:param name="accountMstId"
+                    value="#{accountMstHome.instance.id}"/>
+            <f:param name="accountMstFrom" value="AccountMst"/>
+        </s:button>
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

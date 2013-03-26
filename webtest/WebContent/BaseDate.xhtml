@@ -1,0 +1,172 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Base date Details</f:facet>
+
+        <s:decorate id="bssd" template="layout/display.xhtml">
+            <ui:define name="label">Bssd</ui:define>
+            <h:outputText value="#{baseDateHome.instance.bssd}"/>
+        </s:decorate>
+
+        <s:decorate id="prevBssd" template="layout/display.xhtml">
+            <ui:define name="label">Prev bssd</ui:define>
+            <h:outputText value="#{baseDateHome.instance.prevBssd}"/>
+        </s:decorate>
+
+        <s:decorate id="nextBssd" template="layout/display.xhtml">
+            <ui:define name="label">Next bssd</ui:define>
+            <h:outputText value="#{baseDateHome.instance.nextBssd}"/>
+        </s:decorate>
+
+        <s:decorate id="eomBssd" template="layout/display.xhtml">
+            <ui:define name="label">Eom bssd</ui:define>
+            <h:outputText value="#{baseDateHome.instance.eomBssd}"/>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/BaseDateEdit.xhtml"
+                    id="edit"
+                 value="Edit"/>
+
+        <s:button view="/#{empty baseDateFrom ? 'BaseDateList' : baseDateFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+    <rich:tabPanel switchType="client">
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Position hises</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="positionHisesChildren">
+
+        <h:outputText value="There are no positionHises associated with this baseDate."
+                   rendered="#{empty baseDateHome.positionHises}"/>
+
+        <rich:dataTable value="#{baseDateHome.positionHises}"
+                       var="_positionHis"
+                  rendered="#{not empty baseDateHome.positionHises}"
+                rowClasses="rvgRowOne,rvgRowTwo"
+                        id="positionHisesTable">
+            <rich:column sortBy="#{_positionHis.id.bssd}">
+                <f:facet name="header">Bssd</f:facet>
+                <h:outputText value="#{_positionHis.id.bssd}"/>
+            </rich:column>
+            <rich:column sortBy="#{_positionHis.id.positionId}">
+                <f:facet name="header">Position id</f:facet>
+                <h:outputText value="#{_positionHis.id.positionId}"/>
+            </rich:column>
+            <rich:column sortBy="#{_positionHis.holdQty}">
+                <f:facet name="header">Hold qty</f:facet>
+                <h:outputText value="#{_positionHis.holdQty}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </rich:column>
+            <rich:column sortBy="#{_positionHis.posAmt}">
+                <f:facet name="header">Pos amt</f:facet>
+                <h:outputText value="#{_positionHis.posAmt}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                <s:link id="selectpositionHis"
+                     value="Select"
+                      view="/PositionHis.xhtml">
+                    <f:param name="positionHisBssd"
+                            value="#{_positionHis.id.bssd}"/>
+                    <f:param name="positionHisPositionId"
+                            value="#{_positionHis.id.positionId}"/>
+                    <f:param name="positionHisFrom" value="BaseDate"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="Add positionHis"
+                view="/PositionHisEdit.xhtml">
+            <f:param name="baseDateBssd"
+                    value="#{baseDateHome.instance.bssd}"/>
+            <f:param name="positionHisFrom" value="BaseDate"/>
+        </s:button>
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Portfolio hises</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="portfolioHisesChildren">
+
+        <h:outputText value="There are no portfolioHises associated with this baseDate."
+                   rendered="#{empty baseDateHome.portfolioHises}"/>
+
+        <rich:dataTable value="#{baseDateHome.portfolioHises}"
+                       var="_portfolioHis"
+                  rendered="#{not empty baseDateHome.portfolioHises}"
+                rowClasses="rvgRowOne,rvgRowTwo"
+                        id="portfolioHisesTable">
+            <rich:column sortBy="#{_portfolioHis.id.bssd}">
+                <f:facet name="header">Bssd</f:facet>
+                <h:outputText value="#{_portfolioHis.id.bssd}"/>
+            </rich:column>
+            <rich:column sortBy="#{_portfolioHis.id.portfolioId}">
+                <f:facet name="header">Portfolio id</f:facet>
+                <h:outputText value="#{_portfolioHis.id.portfolioId}"/>
+            </rich:column>
+            <rich:column sortBy="#{_portfolioHis.portAmt}">
+                <f:facet name="header">Port amt</f:facet>
+                <h:outputText value="#{_portfolioHis.portAmt}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                <s:link id="selectportfolioHis"
+                     value="Select"
+                      view="/PortfolioHis.xhtml">
+                    <f:param name="portfolioHisBssd"
+                            value="#{_portfolioHis.id.bssd}"/>
+                    <f:param name="portfolioHisPortfolioId"
+                            value="#{_portfolioHis.id.portfolioId}"/>
+                    <f:param name="portfolioHisFrom" value="BaseDate"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="Add portfolioHis"
+                view="/PortfolioHisEdit.xhtml">
+            <f:param name="baseDateBssd"
+                    value="#{baseDateHome.instance.bssd}"/>
+            <f:param name="portfolioHisFrom" value="BaseDate"/>
+        </s:button>
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

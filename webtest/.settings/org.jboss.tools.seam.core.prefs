@@ -1,0 +1,16 @@
+action.package=org.domain.webtest.session
+action.sources=/webtest/src/hot
+eclipse.preferences.version=1
+model.package=org.domain.webtest.entity
+model.sources=/webtest/src/main
+seam.ejb.project=webtest
+seam.project.connection.profile=oracle11g
+seam.project.deployment.type=war
+seam.project.settings.version=1.1
+seam.project.web.root.folder=/webtest/WebContent
+seam.runtime.name=Seam2.3
+seam.settings.changed.by.user=true
+seam.test.creating=false
+seam.test.project=webtest-test
+test.package=org.domain.webtest.test
+test.sources=/webtest-test/test-src

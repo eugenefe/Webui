@@ -1,0 +1,66 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Lgd seg Details</f:facet>
+
+        <s:decorate id="id" template="layout/display.xhtml">
+            <ui:define name="label">Id</ui:define>
+            <h:outputText value="#{lgdSegHome.instance.id}"/>
+        </s:decorate>
+
+        <s:decorate id="name" template="layout/display.xhtml">
+            <ui:define name="label">Name</ui:define>
+            <h:outputText value="#{lgdSegHome.instance.name}"/>
+        </s:decorate>
+
+        <s:decorate id="groupId" template="layout/display.xhtml">
+            <ui:define name="label">Group id</ui:define>
+            <h:outputText value="#{lgdSegHome.instance.groupId}"/>
+        </s:decorate>
+
+        <s:decorate id="rateCd" template="layout/display.xhtml">
+            <ui:define name="label">Rate cd</ui:define>
+            <h:outputText value="#{lgdSegHome.instance.rateCd}"/>
+        </s:decorate>
+
+        <s:decorate id="collateralCd" template="layout/display.xhtml">
+            <ui:define name="label">Collateral cd</ui:define>
+            <h:outputText value="#{lgdSegHome.instance.collateralCd}"/>
+        </s:decorate>
+
+        <s:decorate id="lgd" template="layout/display.xhtml">
+            <ui:define name="label">Lgd</ui:define>
+            <h:outputText value="#{lgdSegHome.instance.lgd}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/LgdSegEdit.xhtml"
+                    id="edit"
+                 value="Edit"/>
+
+        <s:button view="/#{empty lgdSegFrom ? 'LgdSegList' : lgdSegFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+</ui:define>
+
+</ui:composition>

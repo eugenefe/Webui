@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.org/schema/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.org/schema/seam/pages http://jboss.org/schema/seam/pages-2.3.xsd">
+
+   <param name="firstResult" value="#{positionLossList.firstResult}"/>
+   <param name="sort" value="#{positionLossList.orderColumn}"/>
+   <param name="dir" value="#{positionLossList.orderDirection}"/>
+   <param name="logic" value="#{positionLossList.restrictionLogicOperator}"/>
+
+   <param name="from"/>
+   <param name="bssd" value="#{positionLossList.positionLoss.id.bssd}"/>
+   <param name="positionId" value="#{positionLossList.positionLoss.id.positionId}"/>
+   <param name="lossNo" value="#{positionLossList.positionLoss.id.lossNo}"/>
+
+</page>

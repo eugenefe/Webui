@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.org/schema/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.org/schema/seam/pages http://jboss.org/schema/seam/pages-2.3.xsd"
+      no-conversation-view-id="/PositionHisList.xhtml"
+      login-required="true">
+
+   <begin-conversation join="true" flush-mode="MANUAL"/>
+
+   <action execute="#{positionHisHome.wire}"/>
+
+   <param name="positionHisFrom"/>
+   <param name="positionHisBssd" value="#{positionHisHome.positionHisId.bssd}"/>
+   <param name="positionHisPositionId" value="#{positionHisHome.positionHisId.positionId}"/>
+   <param name="positionFrom"/>
+   <param name="positionId" value="#{positionHome.positionId}"/>
+   <param name="obligorFrom"/>
+   <param name="obligorId" value="#{obligorHome.obligorId}"/>
+
+   <param name="dealerFrom"/>
+   <param name="dealerId" value="#{dealerHome.dealerId}"/>
+
+   <param name="productFrom"/>
+   <param name="productId" value="#{productHome.productId}"/>
+
+   <param name="accountMstFrom"/>
+   <param name="accountMstId" value="#{accountMstHome.accountMstId}"/>
+
+
+   <param name="baseDateFrom"/>
+   <param name="baseDateBssd" value="#{baseDateHome.baseDateBssd}"/>
+
+
+
+   <navigation from-action="#{positionHisHome.persist}">
+      <rule if-outcome="persisted">
+         <end-conversation/>
+         <redirect view-id="/PositionHis.xhtml"/>
+      </rule>
+   </navigation>
+
+   <navigation from-action="#{positionHisHome.update}">
+      <rule if-outcome="updated">
+         <end-conversation/>
+         <redirect view-id="/PositionHis.xhtml"/>
+      </rule>
+   </navigation>
+
+   <navigation from-action="#{positionHisHome.remove}">
+      <rule if-outcome="removed">
+         <end-conversation/>
+         <redirect view-id="/PositionHisList.xhtml"/>
+      </rule>
+   </navigation>
+
+</page>

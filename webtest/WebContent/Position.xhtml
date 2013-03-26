@@ -1,0 +1,283 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Position Details</f:facet>
+
+        <s:decorate id="id" template="layout/display.xhtml">
+            <ui:define name="label">Id</ui:define>
+            <h:outputText value="#{positionHome.instance.id}"/>
+        </s:decorate>
+
+        <s:decorate id="name" template="layout/display.xhtml">
+            <ui:define name="label">Name</ui:define>
+            <h:outputText value="#{positionHome.instance.name}"/>
+        </s:decorate>
+
+        <s:decorate id="colCd" template="layout/display.xhtml">
+            <ui:define name="label">Col cd</ui:define>
+            <h:outputText value="#{positionHome.instance.colCd}"/>
+        </s:decorate>
+
+        <s:decorate id="posAmt" template="layout/display.xhtml">
+            <ui:define name="label">Pos amt</ui:define>
+            <h:outputText value="#{positionHome.instance.posAmt}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/PositionEdit.xhtml"
+                    id="edit"
+                 value="Edit"/>
+
+        <s:button view="/#{empty positionFrom ? 'PositionList' : positionFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+    <rich:tabPanel switchType="client">
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Obligor</h:panelGroup>
+        </f:facet>
+    <div class="association" id="obligorParent">
+
+        <h:outputText value="There is no obligor associated with this position."
+                   rendered="#{positionHome.instance.obligor == null}"/>
+
+        <rich:dataTable var="_obligor"
+                   value="#{positionHome.instance.obligor}"
+                rendered="#{positionHome.instance.obligor != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="obligorTable">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_obligor.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{_obligor.name}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Rate cd</f:facet>
+                <h:outputText value="#{_obligor.rateCd}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Ind cd</f:facet>
+                <h:outputText value="#{_obligor.indCd}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewobligor"
+                     value="View"
+                      view="/Obligor.xhtml">
+                    <f:param name="obligorId"
+                           value="#{_obligor.id}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Dealer</h:panelGroup>
+        </f:facet>
+    <div class="association" id="dealerParent">
+
+        <h:outputText value="There is no dealer associated with this position."
+                   rendered="#{positionHome.instance.dealer == null}"/>
+
+        <rich:dataTable var="_dealer"
+                   value="#{positionHome.instance.dealer}"
+                rendered="#{positionHome.instance.dealer != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="dealerTable">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_dealer.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{_dealer.name}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Departmet id</f:facet>
+                <h:outputText value="#{_dealer.departmetId}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewdealer"
+                     value="View"
+                      view="/Dealer.xhtml">
+                    <f:param name="dealerId"
+                           value="#{_dealer.id}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Product</h:panelGroup>
+        </f:facet>
+    <div class="association" id="productParent">
+
+        <h:outputText value="There is no product associated with this position."
+                   rendered="#{positionHome.instance.product == null}"/>
+
+        <rich:dataTable var="_product"
+                   value="#{positionHome.instance.product}"
+                rendered="#{positionHome.instance.product != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="productTable">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_product.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{_product.name}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Type</f:facet>
+                <h:outputText value="#{_product.type}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewproduct"
+                     value="View"
+                      view="/Product.xhtml">
+                    <f:param name="productId"
+                           value="#{_product.id}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Account mst</h:panelGroup>
+        </f:facet>
+    <div class="association" id="accountMstParent">
+
+        <h:outputText value="There is no accountMst associated with this position."
+                   rendered="#{positionHome.instance.accountMst == null}"/>
+
+        <rich:dataTable var="_accountMst"
+                   value="#{positionHome.instance.accountMst}"
+                rendered="#{positionHome.instance.accountMst != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="accountMstTable">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_accountMst.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Account mst id</f:facet>
+                <h:outputText value="#{_accountMst.accountMst.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{_accountMst.name}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewaccountMst"
+                     value="View"
+                      view="/AccountMst.xhtml">
+                    <f:param name="accountMstId"
+                           value="#{_accountMst.id}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Position hises</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="positionHisesChildren">
+
+        <h:outputText value="There are no positionHises associated with this position."
+                   rendered="#{empty positionHome.positionHises}"/>
+
+        <rich:dataTable value="#{positionHome.positionHises}"
+                       var="_positionHis"
+                  rendered="#{not empty positionHome.positionHises}"
+                rowClasses="rvgRowOne,rvgRowTwo"
+                        id="positionHisesTable">
+            <rich:column sortBy="#{_positionHis.id.bssd}">
+                <f:facet name="header">Bssd</f:facet>
+                <h:outputText value="#{_positionHis.id.bssd}"/>
+            </rich:column>
+            <rich:column sortBy="#{_positionHis.id.positionId}">
+                <f:facet name="header">Position id</f:facet>
+                <h:outputText value="#{_positionHis.id.positionId}"/>
+            </rich:column>
+            <rich:column sortBy="#{_positionHis.holdQty}">
+                <f:facet name="header">Hold qty</f:facet>
+                <h:outputText value="#{_positionHis.holdQty}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </rich:column>
+            <rich:column sortBy="#{_positionHis.posAmt}">
+                <f:facet name="header">Pos amt</f:facet>
+                <h:outputText value="#{_positionHis.posAmt}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                <s:link id="selectpositionHis"
+                     value="Select"
+                      view="/PositionHis.xhtml">
+                    <f:param name="positionHisBssd"
+                            value="#{_positionHis.id.bssd}"/>
+                    <f:param name="positionHisPositionId"
+                            value="#{_positionHis.id.positionId}"/>
+                    <f:param name="positionHisFrom" value="Position"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="Add positionHis"
+                view="/PositionHisEdit.xhtml">
+            <f:param name="positionId"
+                    value="#{positionHome.instance.id}"/>
+            <f:param name="positionHisFrom" value="Position"/>
+        </s:button>
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

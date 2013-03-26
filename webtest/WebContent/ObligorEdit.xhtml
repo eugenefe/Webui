@@ -1,0 +1,162 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="obligor" styleClass="edit">
+
+        <rich:panel>
+            <f:facet name="header">#{obligorHome.managed ? 'Edit' : 'Add'} Obligor</f:facet>
+
+
+            <s:decorate id="idField" template="layout/edit.xhtml">
+                <ui:define name="label">Id</ui:define>
+                <h:inputText id="id"
+                       disabled="#{obligorHome.managed}"
+                       required="true"
+                           size="50"
+                      maxlength="50"
+                          value="#{obligorHome.instance.id}">
+                    <a:ajax event="blur" render="idField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="nameField" template="layout/edit.xhtml">
+                <ui:define name="label">Name</ui:define>
+                <h:inputText id="name"
+                           size="50"
+                      maxlength="50"
+                          value="#{obligorHome.instance.name}">
+                    <a:ajax event="blur" render="nameField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="rateCdField" template="layout/edit.xhtml">
+                <ui:define name="label">Rate cd</ui:define>
+                <h:inputText id="rateCd"
+                           size="10"
+                      maxlength="10"
+                          value="#{obligorHome.instance.rateCd}">
+                    <a:ajax event="blur" render="rateCdField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="indCdField" template="layout/edit.xhtml">
+                <ui:define name="label">Ind cd</ui:define>
+                <h:inputText id="indCd"
+                           size="20"
+                      maxlength="20"
+                          value="#{obligorHome.instance.indCd}">
+                    <a:ajax event="blur" render="indCdField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <div style="clear:both">
+                <span class="required">*</span>
+                required fields
+            </div>
+
+        </rich:panel>
+
+        <div class="actionButtons">
+
+            <h:commandButton id="save"
+                          value="Save"
+                         action="#{obligorHome.persist}"
+                       disabled="#{!obligorHome.wired}"
+                       rendered="#{!obligorHome.managed}">
+                <s:conversationId/>
+            </h:commandButton>
+
+            <h:commandButton id="update"
+                          value="Save"
+                         action="#{obligorHome.update}"
+                       rendered="#{obligorHome.managed}">
+                <s:conversationId/>
+            </h:commandButton>
+
+            <h:commandButton id="delete"
+                          value="Delete"
+                         action="#{obligorHome.remove}"
+                      immediate="true"
+                       rendered="#{obligorHome.managed}"/>
+
+            <s:button id="cancelEdit"
+                   value="Cancel"
+             propagation="end"
+                    view="/Obligor.xhtml"
+                rendered="#{obligorHome.managed}"/>
+
+            <s:button id="cancelAdd"
+                   value="Cancel"
+             propagation="end"
+                    view="/#{empty obligorFrom ? 'ObligorList' : obligorFrom}.xhtml"
+                rendered="#{!obligorHome.managed}"/>
+
+        </div>
+    </h:form>
+
+<rich:tabPanel switchType="client">
+
+    <rich:tab header="Positions">
+        <h:form styleClass="association" id="positionsChildren">
+
+            <h:outputText value="There are no positions associated with this obligor."
+                       rendered="#{empty obligorHome.positions}"/>
+
+            <rich:dataTable value="#{obligorHome.positions}"
+                           var="_position"
+                      rendered="#{not empty obligorHome.positions}"
+                    rowClasses="rvgRowOne,rvgRowTwo"
+                            id="positionsTable">
+                <rich:column sortBy="#{_position.id}">
+                    <f:facet name="header">Id</f:facet>
+                    <h:outputText value="#{_position.id}"/>
+                </rich:column>
+                <rich:column sortBy="#{_position.name}">
+                    <f:facet name="header">Name</f:facet>
+                    <h:outputText value="#{_position.name}"/>
+                </rich:column>
+                <rich:column sortBy="#{_position.colCd}">
+                    <f:facet name="header">Col cd</f:facet>
+                    <h:outputText value="#{_position.colCd}"/>
+                </rich:column>
+                <rich:column sortBy="#{_position.posAmt}">
+                    <f:facet name="header">Pos amt</f:facet>
+                    <h:outputText value="#{_position.posAmt}">
+                        <f:convertNumber/>
+                    </h:outputText>
+                </rich:column>
+            </rich:dataTable>
+
+        </h:form>
+
+        <f:subview rendered="#{obligorHome.managed}" id="positions">
+        <div class="actionButtons">
+            <s:button id="addposition"
+                   value="Add position"
+                    view="/PositionEdit.xhtml"
+             propagation="none">
+                 <f:param name="obligorId"
+                         value="#{obligorHome.instance.id}"/>
+                 <f:param name="positionFrom" value="Obligor"/>
+            </s:button>
+        </div>
+        </f:subview>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

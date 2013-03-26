@@ -1,0 +1,133 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="pdSeg" styleClass="edit">
+
+        <rich:panel>
+            <f:facet name="header">#{pdSegHome.managed ? 'Edit' : 'Add'} Pd seg</f:facet>
+
+
+            <s:decorate id="idField" template="layout/edit.xhtml">
+                <ui:define name="label">Id</ui:define>
+                <h:inputText id="id"
+                       disabled="#{pdSegHome.managed}"
+                       required="true"
+                           size="20"
+                      maxlength="20"
+                          value="#{pdSegHome.instance.id}">
+                    <a:ajax event="blur" render="idField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="nameField" template="layout/edit.xhtml">
+                <ui:define name="label">Name</ui:define>
+                <h:inputText id="name"
+                           size="50"
+                      maxlength="50"
+                          value="#{pdSegHome.instance.name}">
+                    <a:ajax event="blur" render="nameField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="groupIdField" template="layout/edit.xhtml">
+                <ui:define name="label">Group id</ui:define>
+                <h:inputText id="groupId"
+                           size="20"
+                      maxlength="20"
+                          value="#{pdSegHome.instance.groupId}">
+                    <a:ajax event="blur" render="groupIdField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="rateCdField" template="layout/edit.xhtml">
+                <ui:define name="label">Rate cd</ui:define>
+                <h:inputText id="rateCd"
+                           size="20"
+                      maxlength="20"
+                          value="#{pdSegHome.instance.rateCd}">
+                    <a:ajax event="blur" render="rateCdField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="indCdField" template="layout/edit.xhtml">
+                <ui:define name="label">Ind cd</ui:define>
+                <h:inputText id="indCd"
+                           size="20"
+                      maxlength="20"
+                          value="#{pdSegHome.instance.indCd}">
+                    <a:ajax event="blur" render="indCdField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="pdField" template="layout/edit.xhtml">
+                <ui:define name="label">Pd</ui:define>
+                <h:inputText id="pd"
+                          value="#{pdSegHome.instance.pd}"
+                           size="17">
+                    <a:ajax event="blur" render="pdField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <div style="clear:both">
+                <span class="required">*</span>
+                required fields
+            </div>
+
+        </rich:panel>
+
+        <div class="actionButtons">
+
+            <h:commandButton id="save"
+                          value="Save"
+                         action="#{pdSegHome.persist}"
+                       disabled="#{!pdSegHome.wired}"
+                       rendered="#{!pdSegHome.managed}">
+                <s:conversationId/>
+            </h:commandButton>
+
+            <h:commandButton id="update"
+                          value="Save"
+                         action="#{pdSegHome.update}"
+                       rendered="#{pdSegHome.managed}">
+                <s:conversationId/>
+            </h:commandButton>
+
+            <h:commandButton id="delete"
+                          value="Delete"
+                         action="#{pdSegHome.remove}"
+                      immediate="true"
+                       rendered="#{pdSegHome.managed}"/>
+
+            <s:button id="cancelEdit"
+                   value="Cancel"
+             propagation="end"
+                    view="/PdSeg.xhtml"
+                rendered="#{pdSegHome.managed}"/>
+
+            <s:button id="cancelAdd"
+                   value="Cancel"
+             propagation="end"
+                    view="/#{empty pdSegFrom ? 'PdSegList' : pdSegFrom}.xhtml"
+                rendered="#{!pdSegHome.managed}"/>
+
+        </div>
+    </h:form>
+
+</ui:define>
+
+</ui:composition>

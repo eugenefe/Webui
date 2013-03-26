@@ -1,0 +1,266 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="positionHis" styleClass="edit">
+
+        <rich:panel>
+            <f:facet name="header">#{positionHisHome.managed ? 'Edit' : 'Add'} Position his</f:facet>
+
+
+            <s:decorate id="bssdField" template="layout/edit.xhtml">
+                <ui:define name="label">Bssd</ui:define>
+                <h:inputText id="bssd"
+                       disabled="#{positionHisHome.managed}"
+                      required="true"
+                          size="8"
+                     maxlength="8"
+                         value="#{positionHisHome.instance.id.bssd}">
+                    <a:ajax event="blur" render="bssdField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="positionIdField" template="layout/edit.xhtml">
+                <ui:define name="label">Position id</ui:define>
+                <h:inputText id="positionId"
+                       disabled="#{positionHisHome.managed}"
+                      required="true"
+                          size="50"
+                     maxlength="50"
+                         value="#{positionHisHome.instance.id.positionId}">
+                    <a:ajax event="blur" render="positionIdField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+
+
+            <s:decorate id="holdQtyField" template="layout/edit.xhtml">
+                <ui:define name="label">Hold qty</ui:define>
+                <h:inputText id="holdQty"
+                          value="#{positionHisHome.instance.holdQty}"
+                           size="26">
+                    <a:ajax event="blur" render="holdQtyField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="posAmtField" template="layout/edit.xhtml">
+                <ui:define name="label">Pos amt</ui:define>
+                <h:inputText id="posAmt"
+                          value="#{positionHisHome.instance.posAmt}"
+                           size="27">
+                    <a:ajax event="blur" render="posAmtField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+
+            <div style="clear:both">
+                <span class="required">*</span>
+                required fields
+            </div>
+
+        </rich:panel>
+
+        <div class="actionButtons">
+
+            <h:commandButton id="save"
+                          value="Save"
+                         action="#{positionHisHome.persist}"
+                       disabled="#{!positionHisHome.wired}"
+                       rendered="#{!positionHisHome.managed}">
+                <s:conversationId/>
+            </h:commandButton>
+
+            <h:commandButton id="update"
+                          value="Save"
+                         action="#{positionHisHome.update}"
+                       rendered="#{positionHisHome.managed}">
+                <s:conversationId/>
+            </h:commandButton>
+
+            <h:commandButton id="delete"
+                          value="Delete"
+                         action="#{positionHisHome.remove}"
+                      immediate="true"
+                       rendered="#{positionHisHome.managed}"/>
+
+            <s:button id="cancelEdit"
+                   value="Cancel"
+             propagation="end"
+                    view="/PositionHis.xhtml"
+                rendered="#{positionHisHome.managed}"/>
+
+            <s:button id="cancelAdd"
+                   value="Cancel"
+             propagation="end"
+                    view="/#{empty positionHisFrom ? 'PositionHisList' : positionHisFrom}.xhtml"
+                rendered="#{!positionHisHome.managed}"/>
+
+        </div>
+    </h:form>
+
+<rich:tabPanel switchType="client">
+
+    <rich:tab header="Position *" labelClass="required">
+    <div class="association" id="positionParent">
+
+        <h:outputText value="There is no position associated with this positionHis."
+                   rendered="#{positionHisHome.instance.position == null}"/>
+
+        <rich:dataTable var="_position"
+                   value="#{positionHisHome.instance.position}"
+                rendered="#{positionHisHome.instance.position != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="positionTable">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_position.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Obligor id</f:facet>
+                <h:outputText value="#{_position.obligor.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Dealer id</f:facet>
+                <h:outputText value="#{_position.dealer.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Product id</f:facet>
+                <h:outputText value="#{_position.product.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Account mst id</f:facet>
+                <h:outputText value="#{_position.accountMst.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{_position.name}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Col cd</f:facet>
+                <h:outputText value="#{_position.colCd}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Pos amt</f:facet>
+                <h:outputText value="#{_position.posAmt}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+        </rich:dataTable>
+
+        <div class="actionButtons">
+            <s:button id="#{positionHisHome.instance.position != null ? 'changeParent' : 'selectParent'}" value="#{positionHisHome.instance.position != null ? 'Change' : 'Select'} position"
+                       view="/PositionList.xhtml">
+                <f:param name="from" value="PositionHisEdit"/>
+            </s:button>
+        </div>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab header="Base date *" labelClass="required">
+    <div class="association" id="baseDateParent">
+
+        <h:outputText value="There is no baseDate associated with this positionHis."
+                   rendered="#{positionHisHome.instance.baseDate == null}"/>
+
+        <rich:dataTable var="_baseDate"
+                   value="#{positionHisHome.instance.baseDate}"
+                rendered="#{positionHisHome.instance.baseDate != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="baseDateTable">
+            <h:column>
+                <f:facet name="header">Bssd</f:facet>
+                <h:outputText value="#{_baseDate.bssd}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Prev bssd</f:facet>
+                <h:outputText value="#{_baseDate.prevBssd}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Next bssd</f:facet>
+                <h:outputText value="#{_baseDate.nextBssd}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Eom bssd</f:facet>
+                <h:outputText value="#{_baseDate.eomBssd}"/>
+            </h:column>
+        </rich:dataTable>
+
+        <div class="actionButtons">
+            <s:button id="#{positionHisHome.instance.baseDate != null ? 'changeParent' : 'selectParent'}" value="#{positionHisHome.instance.baseDate != null ? 'Change' : 'Select'} baseDate"
+                       view="/BaseDateList.xhtml">
+                <f:param name="from" value="PositionHisEdit"/>
+            </s:button>
+        </div>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab header="Position losses">
+        <h:form styleClass="association" id="positionLossesChildren">
+
+            <h:outputText value="There are no positionLosses associated with this positionHis."
+                       rendered="#{empty positionHisHome.positionLosses}"/>
+
+            <rich:dataTable value="#{positionHisHome.positionLosses}"
+                           var="_positionLoss"
+                      rendered="#{not empty positionHisHome.positionLosses}"
+                    rowClasses="rvgRowOne,rvgRowTwo"
+                            id="positionLossesTable">
+                <rich:column sortBy="#{_positionLoss.id.bssd}">
+                    <f:facet name="header">Bssd</f:facet>
+                    <h:outputText value="#{_positionLoss.id.bssd}"/>
+                </rich:column>
+                <rich:column sortBy="#{_positionLoss.id.positionId}">
+                    <f:facet name="header">Position id</f:facet>
+                    <h:outputText value="#{_positionLoss.id.positionId}"/>
+                </rich:column>
+                <rich:column sortBy="#{_positionLoss.id.lossNo}">
+                    <f:facet name="header">Loss no</f:facet>
+                    <h:outputText value="#{_positionLoss.id.lossNo}"/>
+                </rich:column>
+                <rich:column sortBy="#{_positionLoss.lossAmt}">
+                    <f:facet name="header">Loss amt</f:facet>
+                    <h:outputText value="#{_positionLoss.lossAmt}">
+                        <f:convertNumber/>
+                    </h:outputText>
+                </rich:column>
+                <rich:column sortBy="#{_positionLoss.lossProb}">
+                    <f:facet name="header">Loss prob</f:facet>
+                    <h:outputText value="#{_positionLoss.lossProb}">
+                        <f:convertNumber/>
+                    </h:outputText>
+                </rich:column>
+            </rich:dataTable>
+
+        </h:form>
+
+        <f:subview rendered="#{positionHisHome.managed}" id="positionLosses">
+        <div class="actionButtons">
+            <s:button id="addpositionLoss"
+                   value="Add positionLoss"
+                    view="/PositionLossEdit.xhtml"
+             propagation="none">
+                 <f:param name="positionHisId"
+                         value="#{positionHisHome.instance.id}"/>
+                 <f:param name="positionLossFrom" value="PositionHis"/>
+            </s:button>
+        </div>
+        </f:subview>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

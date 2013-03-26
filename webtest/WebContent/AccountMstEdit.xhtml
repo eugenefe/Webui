@@ -1,0 +1,207 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="accountMst" styleClass="edit">
+
+        <rich:panel>
+            <f:facet name="header">#{accountMstHome.managed ? 'Edit' : 'Add'} Account mst</f:facet>
+
+
+            <s:decorate id="idField" template="layout/edit.xhtml">
+                <ui:define name="label">Id</ui:define>
+                <h:inputText id="id"
+                       disabled="#{accountMstHome.managed}"
+                       required="true"
+                           size="20"
+                      maxlength="20"
+                          value="#{accountMstHome.instance.id}">
+                    <a:ajax event="blur" render="idField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+
+            <s:decorate id="nameField" template="layout/edit.xhtml">
+                <ui:define name="label">Name</ui:define>
+                <h:inputText id="name"
+                           size="50"
+                      maxlength="50"
+                          value="#{accountMstHome.instance.name}">
+                    <a:ajax event="blur" render="nameField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+
+            <div style="clear:both">
+                <span class="required">*</span>
+                required fields
+            </div>
+
+        </rich:panel>
+
+        <div class="actionButtons">
+
+            <h:commandButton id="save"
+                          value="Save"
+                         action="#{accountMstHome.persist}"
+                       disabled="#{!accountMstHome.wired}"
+                       rendered="#{!accountMstHome.managed}">
+                <s:conversationId/>
+            </h:commandButton>
+
+            <h:commandButton id="update"
+                          value="Save"
+                         action="#{accountMstHome.update}"
+                       rendered="#{accountMstHome.managed}">
+                <s:conversationId/>
+            </h:commandButton>
+
+            <h:commandButton id="delete"
+                          value="Delete"
+                         action="#{accountMstHome.remove}"
+                      immediate="true"
+                       rendered="#{accountMstHome.managed}"/>
+
+            <s:button id="cancelEdit"
+                   value="Cancel"
+             propagation="end"
+                    view="/AccountMst.xhtml"
+                rendered="#{accountMstHome.managed}"/>
+
+            <s:button id="cancelAdd"
+                   value="Cancel"
+             propagation="end"
+                    view="/#{empty accountMstFrom ? 'AccountMstList' : accountMstFrom}.xhtml"
+                rendered="#{!accountMstHome.managed}"/>
+
+        </div>
+    </h:form>
+
+<rich:tabPanel switchType="client">
+
+    <rich:tab header="Account mst">
+    <div class="association" id="accountMstParent">
+
+        <h:outputText value="There is no accountMst associated with this accountMst."
+                   rendered="#{accountMstHome.instance.accountMst == null}"/>
+
+        <rich:dataTable var="_accountMst"
+                   value="#{accountMstHome.instance.accountMst}"
+                rendered="#{accountMstHome.instance.accountMst != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="accountMstTable">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_accountMst.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Account mst id</f:facet>
+                <h:outputText value="#{_accountMst.accountMst.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{_accountMst.name}"/>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab header="Positions">
+        <h:form styleClass="association" id="positionsChildren">
+
+            <h:outputText value="There are no positions associated with this accountMst."
+                       rendered="#{empty accountMstHome.positions}"/>
+
+            <rich:dataTable value="#{accountMstHome.positions}"
+                           var="_position"
+                      rendered="#{not empty accountMstHome.positions}"
+                    rowClasses="rvgRowOne,rvgRowTwo"
+                            id="positionsTable">
+                <rich:column sortBy="#{_position.id}">
+                    <f:facet name="header">Id</f:facet>
+                    <h:outputText value="#{_position.id}"/>
+                </rich:column>
+                <rich:column sortBy="#{_position.name}">
+                    <f:facet name="header">Name</f:facet>
+                    <h:outputText value="#{_position.name}"/>
+                </rich:column>
+                <rich:column sortBy="#{_position.colCd}">
+                    <f:facet name="header">Col cd</f:facet>
+                    <h:outputText value="#{_position.colCd}"/>
+                </rich:column>
+                <rich:column sortBy="#{_position.posAmt}">
+                    <f:facet name="header">Pos amt</f:facet>
+                    <h:outputText value="#{_position.posAmt}">
+                        <f:convertNumber/>
+                    </h:outputText>
+                </rich:column>
+            </rich:dataTable>
+
+        </h:form>
+
+        <f:subview rendered="#{accountMstHome.managed}" id="positions">
+        <div class="actionButtons">
+            <s:button id="addposition"
+                   value="Add position"
+                    view="/PositionEdit.xhtml"
+             propagation="none">
+                 <f:param name="accountMstId"
+                         value="#{accountMstHome.instance.id}"/>
+                 <f:param name="positionFrom" value="AccountMst"/>
+            </s:button>
+        </div>
+        </f:subview>
+    </rich:tab>
+
+    <rich:tab header="Account msts">
+        <h:form styleClass="association" id="accountMstsChildren">
+
+            <h:outputText value="There are no accountMsts associated with this accountMst."
+                       rendered="#{empty accountMstHome.accountMsts}"/>
+
+            <rich:dataTable value="#{accountMstHome.accountMsts}"
+                           var="_accountMst"
+                      rendered="#{not empty accountMstHome.accountMsts}"
+                    rowClasses="rvgRowOne,rvgRowTwo"
+                            id="accountMstsTable">
+                <rich:column sortBy="#{_accountMst.id}">
+                    <f:facet name="header">Id</f:facet>
+                    <h:outputText value="#{_accountMst.id}"/>
+                </rich:column>
+                <rich:column sortBy="#{_accountMst.name}">
+                    <f:facet name="header">Name</f:facet>
+                    <h:outputText value="#{_accountMst.name}"/>
+                </rich:column>
+            </rich:dataTable>
+
+        </h:form>
+
+        <f:subview rendered="#{accountMstHome.managed}" id="accountMsts">
+        <div class="actionButtons">
+            <s:button id="addaccountMst"
+                   value="Add accountMst"
+                    view="/AccountMstEdit.xhtml"
+             propagation="none">
+                 <f:param name="accountMstId"
+                         value="#{accountMstHome.instance.id}"/>
+                 <f:param name="accountMstFrom" value="AccountMst"/>
+            </s:button>
+        </div>
+        </f:subview>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

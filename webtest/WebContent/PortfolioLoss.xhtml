@@ -1,0 +1,115 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Portfolio loss Details</f:facet>
+
+        <s:decorate id="bssd" template="layout/display.xhtml">
+            <ui:define name="label">Bssd</ui:define>
+            <h:outputText value="#{portfolioLossHome.instance.id.bssd}"/>
+        </s:decorate>
+        <s:decorate id="portfolioId" template="layout/display.xhtml">
+            <ui:define name="label">Portfolio id</ui:define>
+            <h:outputText value="#{portfolioLossHome.instance.id.portfolioId}"/>
+        </s:decorate>
+        <s:decorate id="lossId" template="layout/display.xhtml">
+            <ui:define name="label">Loss id</ui:define>
+            <h:outputText value="#{portfolioLossHome.instance.id.lossId}"/>
+        </s:decorate>
+
+        <s:decorate id="lossAmt" template="layout/display.xhtml">
+            <ui:define name="label">Loss amt</ui:define>
+            <h:outputText value="#{portfolioLossHome.instance.lossAmt}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="lossProb" template="layout/display.xhtml">
+            <ui:define name="label">Loss prob</ui:define>
+            <h:outputText value="#{portfolioLossHome.instance.lossProb}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/PortfolioLossEdit.xhtml"
+                    id="edit"
+                 value="Edit"/>
+
+        <s:button view="/#{empty portfolioLossFrom ? 'PortfolioLossList' : portfolioLossFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+    <rich:tabPanel switchType="client">
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Portfolio his</h:panelGroup>
+        </f:facet>
+    <div class="association" id="portfolioHisParent">
+
+        <h:outputText value="There is no portfolioHis associated with this portfolioLoss."
+                   rendered="#{portfolioLossHome.instance.portfolioHis == null}"/>
+
+        <rich:dataTable var="_portfolioHis"
+                   value="#{portfolioLossHome.instance.portfolioHis}"
+                rendered="#{portfolioLossHome.instance.portfolioHis != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="portfolioHisTable">
+            <h:column>
+                <f:facet name="header">Bssd</f:facet>
+                <h:outputText value="#{_portfolioHis.id.bssd}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Portfolio id</f:facet>
+                <h:outputText value="#{_portfolioHis.id.portfolioId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Base date bssd</f:facet>
+                <h:outputText value="#{_portfolioHis.baseDate.bssd}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Portfolio id</f:facet>
+                <h:outputText value="#{_portfolioHis.portfolio.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Port amt</f:facet>
+                <h:outputText value="#{_portfolioHis.portAmt}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewportfolioHis"
+                     value="View"
+                      view="/PortfolioHis.xhtml">
+                    <f:param name="portfolioHisBssd"
+                            value="#{_portfolioHis.id.bssd}"/>
+                    <f:param name="portfolioHisPortfolioId"
+                            value="#{_portfolioHis.id.portfolioId}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.org/schema/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.org/schema/seam/pages http://jboss.org/schema/seam/pages-2.3.xsd">
+
+   <param name="firstResult" value="#{accountMstList.firstResult}"/>
+   <param name="sort" value="#{accountMstList.orderColumn}"/>
+   <param name="dir" value="#{accountMstList.orderDirection}"/>
+   <param name="logic" value="#{accountMstList.restrictionLogicOperator}"/>
+
+   <param name="from"/>
+   <param name="id" value="#{accountMstList.accountMst.id}"/>
+   <param name="name" value="#{accountMstList.accountMst.name}"/>
+
+</page>

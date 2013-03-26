@@ -1,0 +1,232 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Position his Details</f:facet>
+
+        <s:decorate id="bssd" template="layout/display.xhtml">
+            <ui:define name="label">Bssd</ui:define>
+            <h:outputText value="#{positionHisHome.instance.id.bssd}"/>
+        </s:decorate>
+        <s:decorate id="positionId" template="layout/display.xhtml">
+            <ui:define name="label">Position id</ui:define>
+            <h:outputText value="#{positionHisHome.instance.id.positionId}"/>
+        </s:decorate>
+
+        <s:decorate id="holdQty" template="layout/display.xhtml">
+            <ui:define name="label">Hold qty</ui:define>
+            <h:outputText value="#{positionHisHome.instance.holdQty}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="posAmt" template="layout/display.xhtml">
+            <ui:define name="label">Pos amt</ui:define>
+            <h:outputText value="#{positionHisHome.instance.posAmt}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/PositionHisEdit.xhtml"
+                    id="edit"
+                 value="Edit"/>
+
+        <s:button view="/#{empty positionHisFrom ? 'PositionHisList' : positionHisFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+    <rich:tabPanel switchType="client">
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Position</h:panelGroup>
+        </f:facet>
+    <div class="association" id="positionParent">
+
+        <h:outputText value="There is no position associated with this positionHis."
+                   rendered="#{positionHisHome.instance.position == null}"/>
+
+        <rich:dataTable var="_position"
+                   value="#{positionHisHome.instance.position}"
+                rendered="#{positionHisHome.instance.position != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="positionTable">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_position.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Obligor id</f:facet>
+                <h:outputText value="#{_position.obligor.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Dealer id</f:facet>
+                <h:outputText value="#{_position.dealer.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Product id</f:facet>
+                <h:outputText value="#{_position.product.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Account mst id</f:facet>
+                <h:outputText value="#{_position.accountMst.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{_position.name}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Col cd</f:facet>
+                <h:outputText value="#{_position.colCd}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Pos amt</f:facet>
+                <h:outputText value="#{_position.posAmt}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewposition"
+                     value="View"
+                      view="/Position.xhtml">
+                    <f:param name="positionId"
+                           value="#{_position.id}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Base date</h:panelGroup>
+        </f:facet>
+    <div class="association" id="baseDateParent">
+
+        <h:outputText value="There is no baseDate associated with this positionHis."
+                   rendered="#{positionHisHome.instance.baseDate == null}"/>
+
+        <rich:dataTable var="_baseDate"
+                   value="#{positionHisHome.instance.baseDate}"
+                rendered="#{positionHisHome.instance.baseDate != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="baseDateTable">
+            <h:column>
+                <f:facet name="header">Bssd</f:facet>
+                <h:outputText value="#{_baseDate.bssd}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Prev bssd</f:facet>
+                <h:outputText value="#{_baseDate.prevBssd}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Next bssd</f:facet>
+                <h:outputText value="#{_baseDate.nextBssd}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Eom bssd</f:facet>
+                <h:outputText value="#{_baseDate.eomBssd}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewbaseDate"
+                     value="View"
+                      view="/BaseDate.xhtml">
+                    <f:param name="baseDateBssd"
+                           value="#{_baseDate.bssd}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Position losses</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="positionLossesChildren">
+
+        <h:outputText value="There are no positionLosses associated with this positionHis."
+                   rendered="#{empty positionHisHome.positionLosses}"/>
+
+        <rich:dataTable value="#{positionHisHome.positionLosses}"
+                       var="_positionLoss"
+                  rendered="#{not empty positionHisHome.positionLosses}"
+                rowClasses="rvgRowOne,rvgRowTwo"
+                        id="positionLossesTable">
+            <rich:column sortBy="#{_positionLoss.id.bssd}">
+                <f:facet name="header">Bssd</f:facet>
+                <h:outputText value="#{_positionLoss.id.bssd}"/>
+            </rich:column>
+            <rich:column sortBy="#{_positionLoss.id.positionId}">
+                <f:facet name="header">Position id</f:facet>
+                <h:outputText value="#{_positionLoss.id.positionId}"/>
+            </rich:column>
+            <rich:column sortBy="#{_positionLoss.id.lossNo}">
+                <f:facet name="header">Loss no</f:facet>
+                <h:outputText value="#{_positionLoss.id.lossNo}"/>
+            </rich:column>
+            <rich:column sortBy="#{_positionLoss.lossAmt}">
+                <f:facet name="header">Loss amt</f:facet>
+                <h:outputText value="#{_positionLoss.lossAmt}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </rich:column>
+            <rich:column sortBy="#{_positionLoss.lossProb}">
+                <f:facet name="header">Loss prob</f:facet>
+                <h:outputText value="#{_positionLoss.lossProb}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                <s:link id="selectpositionLoss"
+                     value="Select"
+                      view="/PositionLoss.xhtml">
+                    <f:param name="positionLossBssd"
+                            value="#{_positionLoss.id.bssd}"/>
+                    <f:param name="positionLossPositionId"
+                            value="#{_positionLoss.id.positionId}"/>
+                    <f:param name="positionLossLossNo"
+                            value="#{_positionLoss.id.lossNo}"/>
+                    <f:param name="positionLossFrom" value="PositionHis"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="Add positionLoss"
+                view="/PositionLossEdit.xhtml">
+            <f:param name="positionHisId"
+                    value="#{positionHisHome.instance.id}"/>
+            <f:param name="positionLossFrom" value="PositionHis"/>
+        </s:button>
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>
