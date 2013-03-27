@@ -11,7 +11,8 @@
   </h:head>
   <h:body>
     <p:layout fullPage="true">
-      <p:layoutUnit position="north" resizable="true" size="30">
+      <p:layoutUnit position="north" resizable="true" size="50">
+        <ui:include src="localeMenuAlt.xhtml" />
         <ui:include src="primeToolbar.xhtml" />
         <ui:insert name="layoutTop" />
       </p:layoutUnit>
@@ -28,7 +29,7 @@
         <ui:insert name="layoutBottom" />
       </p:layoutUnit>
     </p:layout>
-    <h:outputStylesheet library="default" name="primetakion.css" />
+    <h:outputStylesheet library="css" name="primetakion.css" />
   </h:body>
   </h:html>
 </f:view>

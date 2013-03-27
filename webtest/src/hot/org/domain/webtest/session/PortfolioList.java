@@ -18,12 +18,14 @@ public class PortfolioList extends EntityQuery<Portfolio> {
 			"lower(portfolio.level2) like lower(concat(#{portfolioList.portfolio.level2},'%'))",
 			"lower(portfolio.level3) like lower(concat(#{portfolioList.portfolio.level3},'%'))",
 			"lower(portfolio.level4) like lower(concat(#{portfolioList.portfolio.level4},'%'))",
-			"lower(portfolio.level5) like lower(concat(#{portfolioList.portfolio.level5},'%'))", };
+			"lower(portfolio.level5) like lower(concat(#{portfolioList.portfolio.level5},'%'))",};
+			
 
 	private Portfolio portfolio = new Portfolio();
 
 	public PortfolioList() {
 		setEjbql(EJBQL);
+		setOrderColumn("portfolio.id");
 		setRestrictionExpressionStrings(Arrays.asList(RESTRICTIONS));
 		setMaxResults(25);
 	}
