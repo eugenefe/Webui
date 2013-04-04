@@ -1,2 +1,2 @@
 eclipse.preferences.version=1
-org.jboss.ide.eclipse.as.core.singledeployable.deployableList=resources/mysql-connector-java-5.1.22-bin.jar\nresources/webtest-ds.xml\nresources/prototype-ds.xml\nresources/ojdbc6.jar\nresources/revtest-ds.xml\n
+org.jboss.ide.eclipse.as.core.singledeployable.deployableList=resources/webtest-ds.xml\nresources/mysql-connector-java-5.1.22-bin.jar\nresources/webtest-ds.xml\nresources/prototype-ds.xml\nresources/revtest-ds.xml\nresources/ojdbc6.jar\nresources/ojdbc6.jar\nresources/ojdbc6.jar\n

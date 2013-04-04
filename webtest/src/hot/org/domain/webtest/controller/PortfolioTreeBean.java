@@ -66,7 +66,7 @@ public class PortfolioTreeBean {
 	public void recursive(List<Portfolio> port, String parentId, TreeNode node) {
 		List<Portfolio> tempList = new ArrayList<Portfolio>();
 		tempList = getSubPortfolio(port, parentId);
-		// log.info("ParentId in SubPort : #0,#1,#2",parentId,tempList.size(),node);
+		 log.info("ParentId in SubPort : #0,#1,#2",parentId,tempList.size(),node);
 		for (Portfolio k : tempList) {
 			TreeNode childNode = new DefaultTreeNode(k.getId(), node);
 			 childNode.setExpanded(true);
