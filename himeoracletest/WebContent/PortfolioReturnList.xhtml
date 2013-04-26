@@ -1,0 +1,314 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="portfolioReturnSearch" styleClass="edit">
+
+        <rich:collapsiblePanel header="PortfolioReturn Search Filter" switchType="ajax">
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Bssd</ui:define>
+                <h:inputText id="bssd" value="#{portfolioReturnList.portfolioReturn.id.bssd}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Port id</ui:define>
+                <h:inputText id="portId" value="#{portfolioReturnList.portfolioReturn.id.portId}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Match</ui:define>
+                <h:selectOneRadio id="logic" value="#{portfolioReturnList.restrictionLogicOperator}" styleClass="radio">
+                    <f:selectItem itemLabel="All" itemValue="and"/>
+                    <f:selectItem itemLabel="Any" itemValue="or"/>
+                </h:selectOneRadio>
+            </s:decorate>
+
+        </rich:collapsiblePanel>
+
+        <div class="actionButtons">
+            <h:commandButton id="search" value="Search" action="/PortfolioReturnList.xhtml"/>
+            <s:button id="reset" value="Reset" includePageParams="false"/>
+        </div>
+
+    </h:form>
+
+    <rich:panel>
+        <f:facet name="header">PortfolioReturn Search Results (#{empty portfolioReturnList.resultList ? 0 : (portfolioReturnList.paginated ? portfolioReturnList.resultCount : portfolioReturnList.resultList.size)})</f:facet>
+    <div class="results" id="portfolioReturnList">
+
+    <h:outputText value="The portfolioReturn search returned no results."
+               rendered="#{empty portfolioReturnList.resultList}"/>
+
+    <rich:dataTable id="portfolioReturnList"
+                var="_portfolioReturn"
+              value="#{portfolioReturnList.resultList}"
+           rendered="#{not empty portfolioReturnList.resultList}">
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{portfolioReturnList}"/>
+                    <ui:param name="propertyLabel" value="Bssd"/>
+                    <ui:param name="propertyPath" value="portfolioReturn.id.bssd"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_portfolioReturn.id.bssd}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{portfolioReturnList}"/>
+                    <ui:param name="propertyLabel" value="Port id"/>
+                    <ui:param name="propertyPath" value="portfolioReturn.id.portId"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_portfolioReturn.id.portId}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{portfolioReturnList}"/>
+                    <ui:param name="propertyLabel" value="Annual return"/>
+                    <ui:param name="propertyPath" value="portfolioReturn.annualReturn"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_portfolioReturn.annualReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{portfolioReturnList}"/>
+                    <ui:param name="propertyLabel" value="Basedate bssd"/>
+                    <ui:param name="propertyPath" value="portfolioReturn.basedate.bssd"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_portfolioReturn.basedate.bssd}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{portfolioReturnList}"/>
+                    <ui:param name="propertyLabel" value="Book amt"/>
+                    <ui:param name="propertyPath" value="portfolioReturn.bookAmt"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_portfolioReturn.bookAmt}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{portfolioReturnList}"/>
+                    <ui:param name="propertyLabel" value="Daily return"/>
+                    <ui:param name="propertyPath" value="portfolioReturn.dailyReturn"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_portfolioReturn.dailyReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{portfolioReturnList}"/>
+                    <ui:param name="propertyLabel" value="Delta return"/>
+                    <ui:param name="propertyPath" value="portfolioReturn.deltaReturn"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_portfolioReturn.deltaReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{portfolioReturnList}"/>
+                    <ui:param name="propertyLabel" value="Fiscal return"/>
+                    <ui:param name="propertyPath" value="portfolioReturn.fiscalReturn"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_portfolioReturn.fiscalReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{portfolioReturnList}"/>
+                    <ui:param name="propertyLabel" value="Gamma return"/>
+                    <ui:param name="propertyPath" value="portfolioReturn.gammaReturn"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_portfolioReturn.gammaReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{portfolioReturnList}"/>
+                    <ui:param name="propertyLabel" value="Monthly return"/>
+                    <ui:param name="propertyPath" value="portfolioReturn.monthlyReturn"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_portfolioReturn.monthlyReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{portfolioReturnList}"/>
+                    <ui:param name="propertyLabel" value="Portfolio port id"/>
+                    <ui:param name="propertyPath" value="portfolioReturn.portfolio.portId"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_portfolioReturn.portfolio.portId}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{portfolioReturnList}"/>
+                    <ui:param name="propertyLabel" value="Pres value"/>
+                    <ui:param name="propertyPath" value="portfolioReturn.presValue"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_portfolioReturn.presValue}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{portfolioReturnList}"/>
+                    <ui:param name="propertyLabel" value="Quartly return"/>
+                    <ui:param name="propertyPath" value="portfolioReturn.quartlyReturn"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_portfolioReturn.quartlyReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{portfolioReturnList}"/>
+                    <ui:param name="propertyLabel" value="Rho return"/>
+                    <ui:param name="propertyPath" value="portfolioReturn.rhoReturn"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_portfolioReturn.rhoReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{portfolioReturnList}"/>
+                    <ui:param name="propertyLabel" value="Theta return"/>
+                    <ui:param name="propertyPath" value="portfolioReturn.thetaReturn"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_portfolioReturn.thetaReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{portfolioReturnList}"/>
+                    <ui:param name="propertyLabel" value="Vega return"/>
+                    <ui:param name="propertyPath" value="portfolioReturn.vegaReturn"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_portfolioReturn.vegaReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <rich:column styleClass="action">
+            <f:facet name="header">Action</f:facet>
+            <s:link view="/#{empty from ? 'PortfolioReturn' : from}.xhtml"
+                   value="#{empty from ? 'View' : 'Select'}"
+             propagation="#{empty from ? 'none' : 'default'}"
+                      id="portfolioReturnViewId">
+                <f:param name="portfolioReturnBssd"
+                        value="#{_portfolioReturn.id.bssd}"/>
+                <f:param name="portfolioReturnPortId"
+                        value="#{_portfolioReturn.id.portId}"/>
+            </s:link>
+            #{' '}
+            <s:link view="/PortfolioReturnEdit.xhtml"
+                   value="Edit"
+             propagation="none"
+                      id="portfolioReturnEdit"
+                rendered="#{empty from}">
+                <f:param name="portfolioReturnBssd"
+                        value="#{_portfolioReturn.id.bssd}"/>
+                <f:param name="portfolioReturnPortId"
+                        value="#{_portfolioReturn.id.portId}"/>
+            </s:link>
+        </rich:column>
+    </rich:dataTable>
+
+    </div>
+    </rich:panel>
+
+    <div class="tableControl">
+
+        <s:link view="/PortfolioReturnList.xhtml"
+            rendered="#{portfolioReturnList.previousExists}"
+               value="#{messages.left}#{messages.left} First Page"
+                  id="firstPage">
+          <f:param name="firstResult" value="0"/>
+        </s:link>
+
+        <s:link view="/PortfolioReturnList.xhtml"
+            rendered="#{portfolioReturnList.previousExists}"
+               value="#{messages.left} Previous Page"
+                  id="previousPage">
+            <f:param name="firstResult"
+                    value="#{portfolioReturnList.previousFirstResult}"/>
+        </s:link>
+
+        <s:link view="/PortfolioReturnList.xhtml"
+            rendered="#{portfolioReturnList.nextExists}"
+               value="Next Page #{messages.right}"
+                  id="nextPage">
+            <f:param name="firstResult"
+                    value="#{portfolioReturnList.nextFirstResult}"/>
+        </s:link>
+
+        <s:link view="/PortfolioReturnList.xhtml"
+            rendered="#{portfolioReturnList.nextExists}"
+               value="Last Page #{messages.right}#{messages.right}"
+                  id="lastPage">
+            <f:param name="firstResult"
+                    value="#{portfolioReturnList.lastFirstResult}"/>
+        </s:link>
+
+    </div>
+
+    <s:div styleClass="actionButtons" rendered="#{empty from}">
+        <s:button view="/PortfolioReturnEdit.xhtml"
+                    id="create"
+           propagation="none"
+                 value="Create portfolioReturn">
+            <f:param name="portfolioReturnBssd"/>
+            <f:param name="portfolioReturnPortId"/>
+        </s:button>
+    </s:div>
+
+</ui:define>
+
+</ui:composition>

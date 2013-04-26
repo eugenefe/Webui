@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.org/schema/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.org/schema/seam/pages http://jboss.org/schema/seam/pages-2.3.xsd"
+      no-conversation-view-id="/EmployeeList.xhtml"
+      login-required="true">
+
+   <begin-conversation join="true" flush-mode="MANUAL"/>
+
+   <action execute="#{employeeHome.wire}"/>
+
+   <param name="employeeFrom"/>
+   <param name="employeeMemberId" value="#{employeeHome.employeeMemberId}"/>
+   <param name="bizunitFrom"/>
+   <param name="bizunitOrgId" value="#{bizunitHome.bizunitOrgId}"/>
+
+
+
+   <navigation from-action="#{employeeHome.persist}">
+      <rule if-outcome="persisted">
+         <end-conversation/>
+         <redirect view-id="/Employee.xhtml"/>
+      </rule>
+   </navigation>
+
+   <navigation from-action="#{employeeHome.update}">
+      <rule if-outcome="updated">
+         <end-conversation/>
+         <redirect view-id="/Employee.xhtml"/>
+      </rule>
+   </navigation>
+
+   <navigation from-action="#{employeeHome.remove}">
+      <rule if-outcome="removed">
+         <end-conversation/>
+         <redirect view-id="/EmployeeList.xhtml"/>
+      </rule>
+   </navigation>
+
+</page>

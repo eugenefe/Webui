@@ -1,0 +1,56 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.org/schema/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+  <h:form id="portReturn">
+    <p:dataTable id="portReturn" var="_portfolio" value="#{portfolioBean.subPortfolios}" 
+      selectionMode="single"  selection="#{portfolioBean.selectedPort}" rowKey="#{_portfolio.portId}" 
+      draggableColumns="true"
+      widgetVar="portsTable" filterDelay="300"   filterEvent="keyup" 
+      emptyMessage="No cars found with given criteria" filteredValue="#{portfolioBean.filterPorts}">
+      <f:facet name="header">
+        <p:outputPanel style="float: right">
+          <h:outputText value="#{messages.datatableGlobalSearch}" />
+          <p:inputText id="globalFilter" onkeyup="portsTable.filter()" style="width:150px" />
+        </p:outputPanel>
+      </f:facet>
+      <p:ajax event="rowSelect" update=":#{p:component('takiondisplay')}"  oncomplete="portDialog.show()" />  
+                    
+      <p:column id="portId" headerText="#{messages.portfoioReturnId}" sortBy="#{_portfolio.portId}"
+        filterBy="#{_portfolio.stringId}" filterMatchMode="contains" filterStyle="display:none; visibility:hidden">
+        <h:outputText value="#{_portfolio.portId}" />
+      </p:column>
+      <p:column id="portName" headerText="#{messages.portfoioReturnName}" sortBy="#{_portfolio.portName}"
+        filterBy="#{_portfolio.portName}" filterMatchMode="contains" filterStyle="display:none; visibility:hidden">
+        <h:outputText value="#{_portfolio.portName}" />
+      </p:column>
+      <p:column headerText="#{messages.portfoioReturnPresValue}" sortBy="#{_portfolio.presValue}">
+        <h:outputText value="#{_portfolio.presValue}" />
+      </p:column>
+      <p:column headerText="#{messages.portfoioReturnDailyReturn}" sortBy="#{_portfolio.dailyReturn}">
+        <h:outputText value="#{_portfolio.dailyReturn}" />
+      </p:column>
+
+      <f:facet name="footer">
+       
+        <h:commandLink style="float: right">
+          <p:graphicImage value="/img/primefaces/csv.png" />
+          <p:dataExporter type="csv" target="eventsOverTimeExecuted" fileName="Horas Extras" />
+        </h:commandLink>
+        <h:commandLink style="float: right">
+          <p:graphicImage value="/img/primefaces/pdf.png" />
+          <p:dataExporter type="pdf" target="eventsOverTimeExecuted" fileName="Horas Extras" />
+        </h:commandLink>
+        <h:commandLink style="float: right">
+          <p:graphicImage value="/img/primefaces/excel.png" />
+          <p:dataExporter type="xls" target="eventsOverTimeExecuted" fileName="Horas Extras" />
+        </h:commandLink>
+        <h:outputText value="#{messages.datatableExport}" style="float: right" />
+      </f:facet>
+    </p:dataTable>
+
+    <ui:include src="portfolioDetailDialog.xhtml" />
+  </h:form>
+  
+</ui:composition>

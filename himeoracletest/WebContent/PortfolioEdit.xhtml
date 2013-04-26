@@ -1,0 +1,273 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="portfolio" styleClass="edit">
+
+        <rich:panel>
+            <f:facet name="header">#{portfolioHome.managed ? 'Edit' : 'Add'} Portfolio</f:facet>
+
+
+            <s:decorate id="portIdField" template="layout/edit.xhtml">
+                <ui:define name="label">Port id</ui:define>
+                <h:inputText id="portId"
+                       disabled="#{portfolioHome.managed}"
+                       required="true"
+                           size="50"
+                      maxlength="50"
+                          value="#{portfolioHome.instance.portId}">
+                    <a:ajax event="blur" render="portIdField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+
+            <s:decorate id="groupIdField" template="layout/edit.xhtml">
+                <ui:define name="label">Group id</ui:define>
+                <h:inputText id="groupId"
+                           size="20"
+                      maxlength="20"
+                          value="#{portfolioHome.instance.groupId}">
+                    <a:ajax event="blur" render="groupIdField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="level1Field" template="layout/edit.xhtml">
+                <ui:define name="label">Level1</ui:define>
+                <h:inputText id="level1"
+                           size="20"
+                      maxlength="20"
+                          value="#{portfolioHome.instance.level1}">
+                    <a:ajax event="blur" render="level1Field" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="level2Field" template="layout/edit.xhtml">
+                <ui:define name="label">Level2</ui:define>
+                <h:inputText id="level2"
+                           size="20"
+                      maxlength="20"
+                          value="#{portfolioHome.instance.level2}">
+                    <a:ajax event="blur" render="level2Field" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="level3Field" template="layout/edit.xhtml">
+                <ui:define name="label">Level3</ui:define>
+                <h:inputText id="level3"
+                           size="20"
+                      maxlength="20"
+                          value="#{portfolioHome.instance.level3}">
+                    <a:ajax event="blur" render="level3Field" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="level4Field" template="layout/edit.xhtml">
+                <ui:define name="label">Level4</ui:define>
+                <h:inputText id="level4"
+                           size="20"
+                      maxlength="20"
+                          value="#{portfolioHome.instance.level4}">
+                    <a:ajax event="blur" render="level4Field" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="level5Field" template="layout/edit.xhtml">
+                <ui:define name="label">Level5</ui:define>
+                <h:inputText id="level5"
+                           size="20"
+                      maxlength="20"
+                          value="#{portfolioHome.instance.level5}">
+                    <a:ajax event="blur" render="level5Field" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+
+            <s:decorate id="portNameField" template="layout/edit.xhtml">
+                <ui:define name="label">Port name</ui:define>
+                <h:inputText id="portName"
+                           size="50"
+                      maxlength="50"
+                          value="#{portfolioHome.instance.portName}">
+                    <a:ajax event="blur" render="portNameField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <div style="clear:both">
+                <span class="required">*</span>
+                required fields
+            </div>
+
+        </rich:panel>
+
+        <div class="actionButtons">
+
+            <h:commandButton id="save"
+                          value="Save"
+                         action="#{portfolioHome.persist}"
+                       disabled="#{!portfolioHome.wired}"
+                       rendered="#{!portfolioHome.managed}">
+                <s:conversationId/>
+            </h:commandButton>
+
+            <h:commandButton id="update"
+                          value="Save"
+                         action="#{portfolioHome.update}"
+                       rendered="#{portfolioHome.managed}">
+                <s:conversationId/>
+            </h:commandButton>
+
+            <h:commandButton id="delete"
+                          value="Delete"
+                         action="#{portfolioHome.remove}"
+                      immediate="true"
+                       rendered="#{portfolioHome.managed}"/>
+
+            <s:button id="cancelEdit"
+                   value="Cancel"
+             propagation="end"
+                    view="/Portfolio.xhtml"
+                rendered="#{portfolioHome.managed}"/>
+
+            <s:button id="cancelAdd"
+                   value="Cancel"
+             propagation="end"
+                    view="/#{empty portfolioFrom ? 'PortfolioList' : portfolioFrom}.xhtml"
+                rendered="#{!portfolioHome.managed}"/>
+
+        </div>
+    </h:form>
+
+<rich:tabPanel switchType="client">
+
+    <rich:tab header="Child portfolios">
+        <h:form styleClass="association" id="childPortfoliosChildren">
+
+            <h:outputText value="There are no childPortfolios associated with this portfolio."
+                       rendered="#{empty portfolioHome.childPortfolios}"/>
+
+            <rich:dataTable value="#{portfolioHome.childPortfolios}"
+                           var="_portfolio"
+                      rendered="#{not empty portfolioHome.childPortfolios}"
+                    rowClasses="rvgRowOne,rvgRowTwo"
+                            id="childPortfoliosTable">
+                <rich:column sortBy="#{_portfolio.portId}">
+                    <f:facet name="header">Port id</f:facet>
+                    <h:outputText value="#{_portfolio.portId}"/>
+                </rich:column>
+                <rich:column sortBy="#{_portfolio.groupId}">
+                    <f:facet name="header">Group id</f:facet>
+                    <h:outputText value="#{_portfolio.groupId}"/>
+                </rich:column>
+                <rich:column sortBy="#{_portfolio.level1}">
+                    <f:facet name="header">Level1</f:facet>
+                    <h:outputText value="#{_portfolio.level1}"/>
+                </rich:column>
+                <rich:column sortBy="#{_portfolio.level2}">
+                    <f:facet name="header">Level2</f:facet>
+                    <h:outputText value="#{_portfolio.level2}"/>
+                </rich:column>
+                <rich:column sortBy="#{_portfolio.level3}">
+                    <f:facet name="header">Level3</f:facet>
+                    <h:outputText value="#{_portfolio.level3}"/>
+                </rich:column>
+                <rich:column sortBy="#{_portfolio.level4}">
+                    <f:facet name="header">Level4</f:facet>
+                    <h:outputText value="#{_portfolio.level4}"/>
+                </rich:column>
+                <rich:column sortBy="#{_portfolio.level5}">
+                    <f:facet name="header">Level5</f:facet>
+                    <h:outputText value="#{_portfolio.level5}"/>
+                </rich:column>
+                <rich:column sortBy="#{_portfolio.portName}">
+                    <f:facet name="header">Port name</f:facet>
+                    <h:outputText value="#{_portfolio.portName}"/>
+                </rich:column>
+            </rich:dataTable>
+
+        </h:form>
+
+        <f:subview rendered="#{portfolioHome.managed}" id="childPortfolios">
+        <div class="actionButtons">
+            <s:button id="addportfolio"
+                   value="Add portfolio"
+                    view="/PortfolioEdit.xhtml"
+             propagation="none">
+                 <f:param name="portfolioPortId"
+                         value="#{portfolioHome.instance.portId}"/>
+                 <f:param name="portfolioFrom" value="Portfolio"/>
+            </s:button>
+        </div>
+        </f:subview>
+    </rich:tab>
+
+    <rich:tab header="Parent portfolio">
+    <div class="association" id="parentPortfolioParent">
+
+        <h:outputText value="There is no parentPortfolio associated with this portfolio."
+                   rendered="#{portfolioHome.instance.parentPortfolio == null}"/>
+
+        <rich:dataTable var="_portfolio"
+                   value="#{portfolioHome.instance.parentPortfolio}"
+                rendered="#{portfolioHome.instance.parentPortfolio != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="parentPortfolioTable">
+            <h:column>
+                <f:facet name="header">Port id</f:facet>
+                <h:outputText value="#{_portfolio.portId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Group id</f:facet>
+                <h:outputText value="#{_portfolio.groupId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Level1</f:facet>
+                <h:outputText value="#{_portfolio.level1}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Level2</f:facet>
+                <h:outputText value="#{_portfolio.level2}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Level3</f:facet>
+                <h:outputText value="#{_portfolio.level3}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Level4</f:facet>
+                <h:outputText value="#{_portfolio.level4}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Level5</f:facet>
+                <h:outputText value="#{_portfolio.level5}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Parent portfolio port id</f:facet>
+                <h:outputText value="#{_portfolio.parentPortfolio.portId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Port name</f:facet>
+                <h:outputText value="#{_portfolio.portName}"/>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

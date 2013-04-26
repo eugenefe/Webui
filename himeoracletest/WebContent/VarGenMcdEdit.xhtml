@@ -1,0 +1,100 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="varGenMcd" styleClass="edit">
+
+        <rich:panel>
+            <f:facet name="header">#{varGenMcdHome.managed ? 'Edit' : 'Add'} Var gen mcd</f:facet>
+
+
+            <s:decorate id="varGenIdField" template="layout/edit.xhtml">
+                <ui:define name="label">Var gen id</ui:define>
+                <h:inputText id="varGenId"
+                       disabled="#{varGenMcdHome.managed}"
+                       required="true"
+                           size="10"
+                      maxlength="10"
+                          value="#{varGenMcdHome.instance.varGenId}">
+                    <a:ajax event="blur" render="varGenIdField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="timeHorizonField" template="layout/edit.xhtml">
+                <ui:define name="label">Time horizon</ui:define>
+                <h:inputText id="timeHorizon"
+                          value="#{varGenMcdHome.instance.timeHorizon}"
+                           size="17">
+                    <a:ajax event="blur" render="timeHorizonField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="varTypeField" template="layout/edit.xhtml">
+                <ui:define name="label">Var type</ui:define>
+                <h:inputText id="varType"
+                           size="10"
+                      maxlength="10"
+                          value="#{varGenMcdHome.instance.varType}">
+                    <a:ajax event="blur" render="varTypeField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <div style="clear:both">
+                <span class="required">*</span>
+                required fields
+            </div>
+
+        </rich:panel>
+
+        <div class="actionButtons">
+
+            <h:commandButton id="save"
+                          value="Save"
+                         action="#{varGenMcdHome.persist}"
+                       disabled="#{!varGenMcdHome.wired}"
+                       rendered="#{!varGenMcdHome.managed}">
+                <s:conversationId/>
+            </h:commandButton>
+
+            <h:commandButton id="update"
+                          value="Save"
+                         action="#{varGenMcdHome.update}"
+                       rendered="#{varGenMcdHome.managed}">
+                <s:conversationId/>
+            </h:commandButton>
+
+            <h:commandButton id="delete"
+                          value="Delete"
+                         action="#{varGenMcdHome.remove}"
+                      immediate="true"
+                       rendered="#{varGenMcdHome.managed}"/>
+
+            <s:button id="cancelEdit"
+                   value="Cancel"
+             propagation="end"
+                    view="/VarGenMcd.xhtml"
+                rendered="#{varGenMcdHome.managed}"/>
+
+            <s:button id="cancelAdd"
+                   value="Cancel"
+             propagation="end"
+                    view="/#{empty varGenMcdFrom ? 'VarGenMcdList' : varGenMcdFrom}.xhtml"
+                rendered="#{!varGenMcdHome.managed}"/>
+
+        </div>
+    </h:form>
+
+</ui:define>
+
+</ui:composition>

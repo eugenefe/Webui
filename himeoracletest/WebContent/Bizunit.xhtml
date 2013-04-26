@@ -1,0 +1,184 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Bizunit Details</f:facet>
+
+        <s:decorate id="orgId" template="layout/display.xhtml">
+            <ui:define name="label">Org id</ui:define>
+            <h:outputText value="#{bizunitHome.instance.orgId}"/>
+        </s:decorate>
+
+        <s:decorate id="orgName" template="layout/display.xhtml">
+            <ui:define name="label">Org name</ui:define>
+            <h:outputText value="#{bizunitHome.instance.orgName}"/>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/BizunitEdit.xhtml"
+                    id="edit"
+                 value="Edit"/>
+
+        <s:button view="/#{empty bizunitFrom ? 'BizunitList' : bizunitFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+    <rich:tabPanel switchType="client">
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Child bizunits</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="childBizunitsChildren">
+
+        <h:outputText value="There are no childBizunits associated with this bizunit."
+                   rendered="#{empty bizunitHome.childBizunits}"/>
+
+        <rich:dataTable value="#{bizunitHome.childBizunits}"
+                       var="_bizunit"
+                  rendered="#{not empty bizunitHome.childBizunits}"
+                rowClasses="rvgRowOne,rvgRowTwo"
+                        id="childBizunitsTable">
+            <rich:column sortBy="#{_bizunit.orgId}">
+                <f:facet name="header">Org id</f:facet>
+                <h:outputText value="#{_bizunit.orgId}"/>
+            </rich:column>
+            <rich:column sortBy="#{_bizunit.orgName}">
+                <f:facet name="header">Org name</f:facet>
+                <h:outputText value="#{_bizunit.orgName}"/>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                <s:link id="selectbizunit"
+                     value="Select"
+                      view="/Bizunit.xhtml">
+                    <f:param name="bizunitOrgId"
+                            value="#{_bizunit.orgId}"/>
+                    <f:param name="bizunitFrom" value="Bizunit"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="Add bizunit"
+                view="/BizunitEdit.xhtml">
+            <f:param name="bizunitOrgId"
+                    value="#{bizunitHome.instance.orgId}"/>
+            <f:param name="bizunitFrom" value="Bizunit"/>
+        </s:button>
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Employees</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="employeesChildren">
+
+        <h:outputText value="There are no employees associated with this bizunit."
+                   rendered="#{empty bizunitHome.employees}"/>
+
+        <rich:dataTable value="#{bizunitHome.employees}"
+                       var="_employee"
+                  rendered="#{not empty bizunitHome.employees}"
+                rowClasses="rvgRowOne,rvgRowTwo"
+                        id="employeesTable">
+            <rich:column sortBy="#{_employee.memberId}">
+                <f:facet name="header">Member id</f:facet>
+                <h:outputText value="#{_employee.memberId}"/>
+            </rich:column>
+            <rich:column sortBy="#{_employee.memberName}">
+                <f:facet name="header">Member name</f:facet>
+                <h:outputText value="#{_employee.memberName}"/>
+            </rich:column>
+            <rich:column sortBy="#{_employee.memberType}">
+                <f:facet name="header">Member type</f:facet>
+                <h:outputText value="#{_employee.memberType}"/>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                <s:link id="selectemployee"
+                     value="Select"
+                      view="/Employee.xhtml">
+                    <f:param name="employeeMemberId"
+                            value="#{_employee.memberId}"/>
+                    <f:param name="employeeFrom" value="Bizunit"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="Add employee"
+                view="/EmployeeEdit.xhtml">
+            <f:param name="bizunitOrgId"
+                    value="#{bizunitHome.instance.orgId}"/>
+            <f:param name="employeeFrom" value="Bizunit"/>
+        </s:button>
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Parent bizunit</h:panelGroup>
+        </f:facet>
+    <div class="association" id="parentBizunitParent">
+
+        <h:outputText value="There is no parentBizunit associated with this bizunit."
+                   rendered="#{bizunitHome.instance.parentBizunit == null}"/>
+
+        <rich:dataTable var="_bizunit"
+                   value="#{bizunitHome.instance.parentBizunit}"
+                rendered="#{bizunitHome.instance.parentBizunit != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="parentBizunitTable">
+            <h:column>
+                <f:facet name="header">Org id</f:facet>
+                <h:outputText value="#{_bizunit.orgId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Org name</f:facet>
+                <h:outputText value="#{_bizunit.orgName}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Parent bizunit org id</f:facet>
+                <h:outputText value="#{_bizunit.parentBizunit.orgId}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewbizunit"
+                     value="View"
+                      view="/Bizunit.xhtml">
+                    <f:param name="bizunitOrgId"
+                           value="#{_bizunit.orgId}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

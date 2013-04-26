@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.org/schema/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.org/schema/seam/pages http://jboss.org/schema/seam/pages-2.3.xsd">
+
+   <param name="portfolioDetailFrom"/>
+   <param name="portfolioDetailBssd" value="#{portfolioDetailHome.portfolioDetailId.bssd}"/>
+   <param name="portfolioDetailPortId" value="#{portfolioDetailHome.portfolioDetailId.portId}"/>
+   <param name="portfolioDetailPosId" value="#{portfolioDetailHome.portfolioDetailId.posId}"/>
+   <param name="basedateFrom"/>
+   <param name="basedateBssd" value="#{basedateHome.basedateBssd}"/>
+
+   <param name="portfolioFrom"/>
+   <param name="portfolioPortId" value="#{portfolioHome.portfolioPortId}"/>
+
+   <param name="positionFrom"/>
+   <param name="positionPosId" value="#{positionHome.positionPosId}"/>
+
+
+
+</page>

@@ -1,0 +1,245 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="basedateSearch" styleClass="edit">
+
+        <rich:collapsiblePanel header="Basedate Search Filter" switchType="ajax">
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Bssd</ui:define>
+                <h:inputText id="bssd" value="#{basedateList.basedate.bssd}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Eom bizday</ui:define>
+                <h:inputText id="eomBizday" value="#{basedateList.basedate.eomBizday}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Eoq bizday</ui:define>
+                <h:inputText id="eoqBizday" value="#{basedateList.basedate.eoqBizday}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Eos bizday</ui:define>
+                <h:inputText id="eosBizday" value="#{basedateList.basedate.eosBizday}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Eoy bizday</ui:define>
+                <h:inputText id="eoyBizday" value="#{basedateList.basedate.eoyBizday}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Fiscal bizday</ui:define>
+                <h:inputText id="fiscalBizday" value="#{basedateList.basedate.fiscalBizday}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Next bizday</ui:define>
+                <h:inputText id="nextBizday" value="#{basedateList.basedate.nextBizday}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Prev bizday</ui:define>
+                <h:inputText id="prevBizday" value="#{basedateList.basedate.prevBizday}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Match</ui:define>
+                <h:selectOneRadio id="logic" value="#{basedateList.restrictionLogicOperator}" styleClass="radio">
+                    <f:selectItem itemLabel="All" itemValue="and"/>
+                    <f:selectItem itemLabel="Any" itemValue="or"/>
+                </h:selectOneRadio>
+            </s:decorate>
+
+        </rich:collapsiblePanel>
+
+        <div class="actionButtons">
+            <h:commandButton id="search" value="Search" action="/BasedateList.xhtml"/>
+            <s:button id="reset" value="Reset" includePageParams="false"/>
+        </div>
+
+    </h:form>
+
+    <rich:panel>
+        <f:facet name="header">Basedate Search Results (#{empty basedateList.resultList ? 0 : (basedateList.paginated ? basedateList.resultCount : basedateList.resultList.size)})</f:facet>
+    <div class="results" id="basedateList">
+
+    <h:outputText value="The basedate search returned no results."
+               rendered="#{empty basedateList.resultList}"/>
+
+    <rich:dataTable id="basedateList"
+                var="_basedate"
+              value="#{basedateList.resultList}"
+           rendered="#{not empty basedateList.resultList}">
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{basedateList}"/>
+                    <ui:param name="propertyLabel" value="Bssd"/>
+                    <ui:param name="propertyPath" value="basedate.bssd"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_basedate.bssd}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{basedateList}"/>
+                    <ui:param name="propertyLabel" value="Eom bizday"/>
+                    <ui:param name="propertyPath" value="basedate.eomBizday"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_basedate.eomBizday}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{basedateList}"/>
+                    <ui:param name="propertyLabel" value="Eoq bizday"/>
+                    <ui:param name="propertyPath" value="basedate.eoqBizday"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_basedate.eoqBizday}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{basedateList}"/>
+                    <ui:param name="propertyLabel" value="Eos bizday"/>
+                    <ui:param name="propertyPath" value="basedate.eosBizday"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_basedate.eosBizday}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{basedateList}"/>
+                    <ui:param name="propertyLabel" value="Eoy bizday"/>
+                    <ui:param name="propertyPath" value="basedate.eoyBizday"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_basedate.eoyBizday}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{basedateList}"/>
+                    <ui:param name="propertyLabel" value="Fiscal bizday"/>
+                    <ui:param name="propertyPath" value="basedate.fiscalBizday"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_basedate.fiscalBizday}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{basedateList}"/>
+                    <ui:param name="propertyLabel" value="Is bizday"/>
+                    <ui:param name="propertyPath" value="basedate.isBizday"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_basedate.isBizday}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{basedateList}"/>
+                    <ui:param name="propertyLabel" value="Next bizday"/>
+                    <ui:param name="propertyPath" value="basedate.nextBizday"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_basedate.nextBizday}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{basedateList}"/>
+                    <ui:param name="propertyLabel" value="Prev bizday"/>
+                    <ui:param name="propertyPath" value="basedate.prevBizday"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_basedate.prevBizday}"/>
+        </h:column>
+        <rich:column styleClass="action">
+            <f:facet name="header">Action</f:facet>
+            <s:link view="/#{empty from ? 'Basedate' : from}.xhtml"
+                   value="#{empty from ? 'View' : 'Select'}"
+             propagation="#{empty from ? 'none' : 'default'}"
+                      id="basedateViewId">
+                <f:param name="basedateBssd"
+                        value="#{_basedate.bssd}"/>
+            </s:link>
+            #{' '}
+            <s:link view="/BasedateEdit.xhtml"
+                   value="Edit"
+             propagation="none"
+                      id="basedateEdit"
+                rendered="#{empty from}">
+                <f:param name="basedateBssd"
+                        value="#{_basedate.bssd}"/>
+            </s:link>
+        </rich:column>
+    </rich:dataTable>
+
+    </div>
+    </rich:panel>
+
+    <div class="tableControl">
+
+        <s:link view="/BasedateList.xhtml"
+            rendered="#{basedateList.previousExists}"
+               value="#{messages.left}#{messages.left} First Page"
+                  id="firstPage">
+          <f:param name="firstResult" value="0"/>
+        </s:link>
+
+        <s:link view="/BasedateList.xhtml"
+            rendered="#{basedateList.previousExists}"
+               value="#{messages.left} Previous Page"
+                  id="previousPage">
+            <f:param name="firstResult"
+                    value="#{basedateList.previousFirstResult}"/>
+        </s:link>
+
+        <s:link view="/BasedateList.xhtml"
+            rendered="#{basedateList.nextExists}"
+               value="Next Page #{messages.right}"
+                  id="nextPage">
+            <f:param name="firstResult"
+                    value="#{basedateList.nextFirstResult}"/>
+        </s:link>
+
+        <s:link view="/BasedateList.xhtml"
+            rendered="#{basedateList.nextExists}"
+               value="Last Page #{messages.right}#{messages.right}"
+                  id="lastPage">
+            <f:param name="firstResult"
+                    value="#{basedateList.lastFirstResult}"/>
+        </s:link>
+
+    </div>
+
+    <s:div styleClass="actionButtons" rendered="#{empty from}">
+        <s:button view="/BasedateEdit.xhtml"
+                    id="create"
+           propagation="none"
+                 value="Create basedate">
+            <f:param name="basedateBssd"/>
+        </s:button>
+    </s:div>
+
+</ui:define>
+
+</ui:composition>

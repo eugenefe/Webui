@@ -1,0 +1,314 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="positionReturnSearch" styleClass="edit">
+
+        <rich:collapsiblePanel header="PositionReturn Search Filter" switchType="ajax">
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Bssd</ui:define>
+                <h:inputText id="bssd" value="#{positionReturnList.positionReturn.id.bssd}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Pos id</ui:define>
+                <h:inputText id="posId" value="#{positionReturnList.positionReturn.id.posId}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Match</ui:define>
+                <h:selectOneRadio id="logic" value="#{positionReturnList.restrictionLogicOperator}" styleClass="radio">
+                    <f:selectItem itemLabel="All" itemValue="and"/>
+                    <f:selectItem itemLabel="Any" itemValue="or"/>
+                </h:selectOneRadio>
+            </s:decorate>
+
+        </rich:collapsiblePanel>
+
+        <div class="actionButtons">
+            <h:commandButton id="search" value="Search" action="/PositionReturnList.xhtml"/>
+            <s:button id="reset" value="Reset" includePageParams="false"/>
+        </div>
+
+    </h:form>
+
+    <rich:panel>
+        <f:facet name="header">PositionReturn Search Results (#{empty positionReturnList.resultList ? 0 : (positionReturnList.paginated ? positionReturnList.resultCount : positionReturnList.resultList.size)})</f:facet>
+    <div class="results" id="positionReturnList">
+
+    <h:outputText value="The positionReturn search returned no results."
+               rendered="#{empty positionReturnList.resultList}"/>
+
+    <rich:dataTable id="positionReturnList"
+                var="_positionReturn"
+              value="#{positionReturnList.resultList}"
+           rendered="#{not empty positionReturnList.resultList}">
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionReturnList}"/>
+                    <ui:param name="propertyLabel" value="Bssd"/>
+                    <ui:param name="propertyPath" value="positionReturn.id.bssd"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionReturn.id.bssd}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionReturnList}"/>
+                    <ui:param name="propertyLabel" value="Pos id"/>
+                    <ui:param name="propertyPath" value="positionReturn.id.posId"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionReturn.id.posId}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionReturnList}"/>
+                    <ui:param name="propertyLabel" value="Annual return"/>
+                    <ui:param name="propertyPath" value="positionReturn.annualReturn"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionReturn.annualReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionReturnList}"/>
+                    <ui:param name="propertyLabel" value="Basedate bssd"/>
+                    <ui:param name="propertyPath" value="positionReturn.basedate.bssd"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionReturn.basedate.bssd}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionReturnList}"/>
+                    <ui:param name="propertyLabel" value="Book amt"/>
+                    <ui:param name="propertyPath" value="positionReturn.bookAmt"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionReturn.bookAmt}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionReturnList}"/>
+                    <ui:param name="propertyLabel" value="Daily return"/>
+                    <ui:param name="propertyPath" value="positionReturn.dailyReturn"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionReturn.dailyReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionReturnList}"/>
+                    <ui:param name="propertyLabel" value="Delta return"/>
+                    <ui:param name="propertyPath" value="positionReturn.deltaReturn"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionReturn.deltaReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionReturnList}"/>
+                    <ui:param name="propertyLabel" value="Fiscal return"/>
+                    <ui:param name="propertyPath" value="positionReturn.fiscalReturn"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionReturn.fiscalReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionReturnList}"/>
+                    <ui:param name="propertyLabel" value="Gamma return"/>
+                    <ui:param name="propertyPath" value="positionReturn.gammaReturn"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionReturn.gammaReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionReturnList}"/>
+                    <ui:param name="propertyLabel" value="Monthly return"/>
+                    <ui:param name="propertyPath" value="positionReturn.monthlyReturn"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionReturn.monthlyReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionReturnList}"/>
+                    <ui:param name="propertyLabel" value="Position pos id"/>
+                    <ui:param name="propertyPath" value="positionReturn.position.posId"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionReturn.position.posId}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionReturnList}"/>
+                    <ui:param name="propertyLabel" value="Pres value"/>
+                    <ui:param name="propertyPath" value="positionReturn.presValue"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionReturn.presValue}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionReturnList}"/>
+                    <ui:param name="propertyLabel" value="Quartly return"/>
+                    <ui:param name="propertyPath" value="positionReturn.quartlyReturn"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionReturn.quartlyReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionReturnList}"/>
+                    <ui:param name="propertyLabel" value="Rho return"/>
+                    <ui:param name="propertyPath" value="positionReturn.rhoReturn"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionReturn.rhoReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionReturnList}"/>
+                    <ui:param name="propertyLabel" value="Theta return"/>
+                    <ui:param name="propertyPath" value="positionReturn.thetaReturn"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionReturn.thetaReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionReturnList}"/>
+                    <ui:param name="propertyLabel" value="Vega return"/>
+                    <ui:param name="propertyPath" value="positionReturn.vegaReturn"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionReturn.vegaReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <rich:column styleClass="action">
+            <f:facet name="header">Action</f:facet>
+            <s:link view="/#{empty from ? 'PositionReturn' : from}.xhtml"
+                   value="#{empty from ? 'View' : 'Select'}"
+             propagation="#{empty from ? 'none' : 'default'}"
+                      id="positionReturnViewId">
+                <f:param name="positionReturnBssd"
+                        value="#{_positionReturn.id.bssd}"/>
+                <f:param name="positionReturnPosId"
+                        value="#{_positionReturn.id.posId}"/>
+            </s:link>
+            #{' '}
+            <s:link view="/PositionReturnEdit.xhtml"
+                   value="Edit"
+             propagation="none"
+                      id="positionReturnEdit"
+                rendered="#{empty from}">
+                <f:param name="positionReturnBssd"
+                        value="#{_positionReturn.id.bssd}"/>
+                <f:param name="positionReturnPosId"
+                        value="#{_positionReturn.id.posId}"/>
+            </s:link>
+        </rich:column>
+    </rich:dataTable>
+
+    </div>
+    </rich:panel>
+
+    <div class="tableControl">
+
+        <s:link view="/PositionReturnList.xhtml"
+            rendered="#{positionReturnList.previousExists}"
+               value="#{messages.left}#{messages.left} First Page"
+                  id="firstPage">
+          <f:param name="firstResult" value="0"/>
+        </s:link>
+
+        <s:link view="/PositionReturnList.xhtml"
+            rendered="#{positionReturnList.previousExists}"
+               value="#{messages.left} Previous Page"
+                  id="previousPage">
+            <f:param name="firstResult"
+                    value="#{positionReturnList.previousFirstResult}"/>
+        </s:link>
+
+        <s:link view="/PositionReturnList.xhtml"
+            rendered="#{positionReturnList.nextExists}"
+               value="Next Page #{messages.right}"
+                  id="nextPage">
+            <f:param name="firstResult"
+                    value="#{positionReturnList.nextFirstResult}"/>
+        </s:link>
+
+        <s:link view="/PositionReturnList.xhtml"
+            rendered="#{positionReturnList.nextExists}"
+               value="Last Page #{messages.right}#{messages.right}"
+                  id="lastPage">
+            <f:param name="firstResult"
+                    value="#{positionReturnList.lastFirstResult}"/>
+        </s:link>
+
+    </div>
+
+    <s:div styleClass="actionButtons" rendered="#{empty from}">
+        <s:button view="/PositionReturnEdit.xhtml"
+                    id="create"
+           propagation="none"
+                 value="Create positionReturn">
+            <f:param name="positionReturnBssd"/>
+            <f:param name="positionReturnPosId"/>
+        </s:button>
+    </s:div>
+
+</ui:define>
+
+</ui:composition>

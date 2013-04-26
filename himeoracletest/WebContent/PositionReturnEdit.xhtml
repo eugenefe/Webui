@@ -1,0 +1,427 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="positionReturn" styleClass="edit">
+
+        <rich:panel>
+            <f:facet name="header">#{positionReturnHome.managed ? 'Edit' : 'Add'} Position return</f:facet>
+
+
+            <s:decorate id="bssdField" template="layout/edit.xhtml">
+                <ui:define name="label">Bssd</ui:define>
+                <h:inputText id="bssd"
+                       disabled="#{positionReturnHome.managed}"
+                      required="true"
+                          size="8"
+                     maxlength="8"
+                         value="#{positionReturnHome.instance.id.bssd}">
+                    <a:ajax event="blur" render="bssdField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="posIdField" template="layout/edit.xhtml">
+                <ui:define name="label">Pos id</ui:define>
+                <h:inputText id="posId"
+                       disabled="#{positionReturnHome.managed}"
+                      required="true"
+                          size="50"
+                     maxlength="50"
+                         value="#{positionReturnHome.instance.id.posId}">
+                    <a:ajax event="blur" render="posIdField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="annualReturnField" template="layout/edit.xhtml">
+                <ui:define name="label">Annual return</ui:define>
+                <h:inputText id="annualReturn"
+                          value="#{positionReturnHome.instance.annualReturn}"
+                           size="26">
+                    <a:ajax event="blur" render="annualReturnField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+
+            <s:decorate id="bookAmtField" template="layout/edit.xhtml">
+                <ui:define name="label">Book amt</ui:define>
+                <h:inputText id="bookAmt"
+                          value="#{positionReturnHome.instance.bookAmt}"
+                           size="26">
+                    <a:ajax event="blur" render="bookAmtField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="dailyReturnField" template="layout/edit.xhtml">
+                <ui:define name="label">Daily return</ui:define>
+                <h:inputText id="dailyReturn"
+                          value="#{positionReturnHome.instance.dailyReturn}"
+                           size="26">
+                    <a:ajax event="blur" render="dailyReturnField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="deltaReturnField" template="layout/edit.xhtml">
+                <ui:define name="label">Delta return</ui:define>
+                <h:inputText id="deltaReturn"
+                          value="#{positionReturnHome.instance.deltaReturn}"
+                           size="26">
+                    <a:ajax event="blur" render="deltaReturnField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="fiscalReturnField" template="layout/edit.xhtml">
+                <ui:define name="label">Fiscal return</ui:define>
+                <h:inputText id="fiscalReturn"
+                          value="#{positionReturnHome.instance.fiscalReturn}"
+                           size="26">
+                    <a:ajax event="blur" render="fiscalReturnField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="gammaReturnField" template="layout/edit.xhtml">
+                <ui:define name="label">Gamma return</ui:define>
+                <h:inputText id="gammaReturn"
+                          value="#{positionReturnHome.instance.gammaReturn}"
+                           size="26">
+                    <a:ajax event="blur" render="gammaReturnField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="monthlyReturnField" template="layout/edit.xhtml">
+                <ui:define name="label">Monthly return</ui:define>
+                <h:inputText id="monthlyReturn"
+                          value="#{positionReturnHome.instance.monthlyReturn}"
+                           size="26">
+                    <a:ajax event="blur" render="monthlyReturnField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+
+
+            <s:decorate id="presValueField" template="layout/edit.xhtml">
+                <ui:define name="label">Pres value</ui:define>
+                <h:inputText id="presValue"
+                          value="#{positionReturnHome.instance.presValue}"
+                           size="26">
+                    <a:ajax event="blur" render="presValueField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="quartlyReturnField" template="layout/edit.xhtml">
+                <ui:define name="label">Quartly return</ui:define>
+                <h:inputText id="quartlyReturn"
+                          value="#{positionReturnHome.instance.quartlyReturn}"
+                           size="26">
+                    <a:ajax event="blur" render="quartlyReturnField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="rhoReturnField" template="layout/edit.xhtml">
+                <ui:define name="label">Rho return</ui:define>
+                <h:inputText id="rhoReturn"
+                          value="#{positionReturnHome.instance.rhoReturn}"
+                           size="26">
+                    <a:ajax event="blur" render="rhoReturnField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="thetaReturnField" template="layout/edit.xhtml">
+                <ui:define name="label">Theta return</ui:define>
+                <h:inputText id="thetaReturn"
+                          value="#{positionReturnHome.instance.thetaReturn}"
+                           size="26">
+                    <a:ajax event="blur" render="thetaReturnField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="vegaReturnField" template="layout/edit.xhtml">
+                <ui:define name="label">Vega return</ui:define>
+                <h:inputText id="vegaReturn"
+                          value="#{positionReturnHome.instance.vegaReturn}"
+                           size="26">
+                    <a:ajax event="blur" render="vegaReturnField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <div style="clear:both">
+                <span class="required">*</span>
+                required fields
+            </div>
+
+        </rich:panel>
+
+        <div class="actionButtons">
+
+            <h:commandButton id="save"
+                          value="Save"
+                         action="#{positionReturnHome.persist}"
+                       disabled="#{!positionReturnHome.wired}"
+                       rendered="#{!positionReturnHome.managed}">
+                <s:conversationId/>
+            </h:commandButton>
+
+            <h:commandButton id="update"
+                          value="Save"
+                         action="#{positionReturnHome.update}"
+                       rendered="#{positionReturnHome.managed}">
+                <s:conversationId/>
+            </h:commandButton>
+
+            <h:commandButton id="delete"
+                          value="Delete"
+                         action="#{positionReturnHome.remove}"
+                      immediate="true"
+                       rendered="#{positionReturnHome.managed}"/>
+
+            <s:button id="cancelEdit"
+                   value="Cancel"
+             propagation="end"
+                    view="/PositionReturn.xhtml"
+                rendered="#{positionReturnHome.managed}"/>
+
+            <s:button id="cancelAdd"
+                   value="Cancel"
+             propagation="end"
+                    view="/#{empty positionReturnFrom ? 'PositionReturnList' : positionReturnFrom}.xhtml"
+                rendered="#{!positionReturnHome.managed}"/>
+
+        </div>
+    </h:form>
+
+<rich:tabPanel switchType="client">
+
+    <rich:tab header="Basedate *" labelClass="required">
+    <div class="association" id="basedateParent">
+
+        <h:outputText value="There is no basedate associated with this positionReturn."
+                   rendered="#{positionReturnHome.instance.basedate == null}"/>
+
+        <rich:dataTable var="_basedate"
+                   value="#{positionReturnHome.instance.basedate}"
+                rendered="#{positionReturnHome.instance.basedate != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="basedateTable">
+            <h:column>
+                <f:facet name="header">Bssd</f:facet>
+                <h:outputText value="#{_basedate.bssd}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Eom bizday</f:facet>
+                <h:outputText value="#{_basedate.eomBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Eoq bizday</f:facet>
+                <h:outputText value="#{_basedate.eoqBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Eos bizday</f:facet>
+                <h:outputText value="#{_basedate.eosBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Eoy bizday</f:facet>
+                <h:outputText value="#{_basedate.eoyBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Fiscal bizday</f:facet>
+                <h:outputText value="#{_basedate.fiscalBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Is bizday</f:facet>
+                <h:outputText value="#{_basedate.isBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Next bizday</f:facet>
+                <h:outputText value="#{_basedate.nextBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Prev bizday</f:facet>
+                <h:outputText value="#{_basedate.prevBizday}"/>
+            </h:column>
+        </rich:dataTable>
+
+        <div class="actionButtons">
+            <s:button id="#{positionReturnHome.instance.basedate != null ? 'changeParent' : 'selectParent'}" value="#{positionReturnHome.instance.basedate != null ? 'Change' : 'Select'} basedate"
+                       view="/BasedateList.xhtml">
+                <f:param name="from" value="PositionReturnEdit"/>
+            </s:button>
+        </div>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab header="Pos risk">
+        <h:form styleClass="association" id="posRiskChildren">
+
+            <h:outputText value="There are no posRisk associated with this positionReturn."
+                       rendered="#{empty positionReturnHome.posRisk}"/>
+
+            <rich:dataTable value="#{positionReturnHome.posRisk}"
+                           var="_positionRisk"
+                      rendered="#{not empty positionReturnHome.posRisk}"
+                    rowClasses="rvgRowOne,rvgRowTwo"
+                            id="posRiskTable">
+                <rich:column sortBy="#{_positionRisk.id.bssd}">
+                    <f:facet name="header">Bssd</f:facet>
+                    <h:outputText value="#{_positionRisk.id.bssd}"/>
+                </rich:column>
+                <rich:column sortBy="#{_positionRisk.id.posId}">
+                    <f:facet name="header">Pos id</f:facet>
+                    <h:outputText value="#{_positionRisk.id.posId}"/>
+                </rich:column>
+                <rich:column sortBy="#{_positionRisk.id.varGenId}">
+                    <f:facet name="header">Var gen id</f:facet>
+                    <h:outputText value="#{_positionRisk.id.varGenId}"/>
+                </rich:column>
+                <rich:column sortBy="#{_positionRisk.coVar}">
+                    <f:facet name="header">Co var</f:facet>
+                    <h:outputText value="#{_positionRisk.coVar}">
+                        <f:convertNumber/>
+                    </h:outputText>
+                </rich:column>
+                <rich:column sortBy="#{_positionRisk.contributionVar}">
+                    <f:facet name="header">Contribution var</f:facet>
+                    <h:outputText value="#{_positionRisk.contributionVar}">
+                        <f:convertNumber/>
+                    </h:outputText>
+                </rich:column>
+                <rich:column sortBy="#{_positionRisk.eqVar}">
+                    <f:facet name="header">Eq var</f:facet>
+                    <h:outputText value="#{_positionRisk.eqVar}">
+                        <f:convertNumber/>
+                    </h:outputText>
+                </rich:column>
+                <rich:column sortBy="#{_positionRisk.expectedShortfall}">
+                    <f:facet name="header">Expected shortfall</f:facet>
+                    <h:outputText value="#{_positionRisk.expectedShortfall}">
+                        <f:convertNumber/>
+                    </h:outputText>
+                </rich:column>
+                <rich:column sortBy="#{_positionRisk.fxVar}">
+                    <f:facet name="header">Fx var</f:facet>
+                    <h:outputText value="#{_positionRisk.fxVar}">
+                        <f:convertNumber/>
+                    </h:outputText>
+                </rich:column>
+                <rich:column sortBy="#{_positionRisk.irVar}">
+                    <f:facet name="header">Ir var</f:facet>
+                    <h:outputText value="#{_positionRisk.irVar}">
+                        <f:convertNumber/>
+                    </h:outputText>
+                </rich:column>
+                <rich:column sortBy="#{_positionRisk.marginalVar}">
+                    <f:facet name="header">Marginal var</f:facet>
+                    <h:outputText value="#{_positionRisk.marginalVar}">
+                        <f:convertNumber/>
+                    </h:outputText>
+                </rich:column>
+                <rich:column sortBy="#{_positionRisk.var}">
+                    <f:facet name="header">Var</f:facet>
+                    <h:outputText value="#{_positionRisk.var}">
+                        <f:convertNumber/>
+                    </h:outputText>
+                </rich:column>
+            </rich:dataTable>
+
+        </h:form>
+
+        <f:subview rendered="#{positionReturnHome.managed}" id="posRisk">
+        <div class="actionButtons">
+            <s:button id="addpositionRisk"
+                   value="Add positionRisk"
+                    view="/PositionRiskEdit.xhtml"
+             propagation="none">
+                 <f:param name="positionReturnId"
+                         value="#{positionReturnHome.instance.id}"/>
+                 <f:param name="positionRiskFrom" value="PositionReturn"/>
+            </s:button>
+        </div>
+        </f:subview>
+    </rich:tab>
+
+    <rich:tab header="Position *" labelClass="required">
+    <div class="association" id="positionParent">
+
+        <h:outputText value="There is no position associated with this positionReturn."
+                   rendered="#{positionReturnHome.instance.position == null}"/>
+
+        <rich:dataTable var="_position"
+                   value="#{positionReturnHome.instance.position}"
+                rendered="#{positionReturnHome.instance.position != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="positionTable">
+            <h:column>
+                <f:facet name="header">Pos id</f:facet>
+                <h:outputText value="#{_position.posId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Holding qty</f:facet>
+                <h:outputText value="#{_position.holdingQty}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Init fee amt</f:facet>
+                <h:outputText value="#{_position.initFeeAmt}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Init tx amt</f:facet>
+                <h:outputText value="#{_position.initTxAmt}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Init tx date</f:facet>
+                <h:outputText value="#{_position.initTxDate}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Init tx price</f:facet>
+                <h:outputText value="#{_position.initTxPrice}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Last tx date</f:facet>
+                <h:outputText value="#{_position.lastTxDate}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Pos name</f:facet>
+                <h:outputText value="#{_position.posName}"/>
+            </h:column>
+        </rich:dataTable>
+
+        <div class="actionButtons">
+            <s:button id="#{positionReturnHome.instance.position != null ? 'changeParent' : 'selectParent'}" value="#{positionReturnHome.instance.position != null ? 'Change' : 'Select'} position"
+                       view="/PositionList.xhtml">
+                <f:param name="from" value="PositionReturnEdit"/>
+            </s:button>
+        </div>
+
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

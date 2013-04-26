@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+  xmlns:s="http://jboss.org/schema/seam/taglib">
+  <h:form>
+    <h:selectOneMenu value="#{localeSelector.localeString}">
+      <f:selectItem itemLabel="English" itemValue="en" />
+      <f:selectItem itemLabel="Korean" itemValue="ko" />
+      <f:selectItem itemLabel="Japanese" itemValue="ja" />
+      <f:selectItem itemLabel="Francais" itemValue="fr" />
+    </h:selectOneMenu>
+    <h:commandButton action="#{localeSelector.select}" value="#{messages['ChangeLanguage']}" />
+  </h:form>
+  <!--   <h:form>
+
+    <h:selectOneMenu value="#{localeSelector.localeString}" onselect="submit();" >
+      <f:selectItems value="#{localeSelector.supportedLocales}" />
+    </h:selectOneMenu>
+        <h:commandButton action="#{localeSelector.select}" value="#{messages['ChangeLanguage']}" rendered="false"/>
+  </h:form> -->
+  <!-- <h:form>
+    <p:selectOneMenu value="#{localeSelector.localeString}" onchange="submit();">
+      <f:selectItems value="#{localeSelector.supportedLocales}" />
+      <p:ajax event="change" update="#{localeSelector.select}" />
+    </p:selectOneMenu>
+  </h:form> -->
+</ui:composition>

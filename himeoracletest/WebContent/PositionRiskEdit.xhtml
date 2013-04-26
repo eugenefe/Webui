@@ -1,0 +1,347 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="positionRisk" styleClass="edit">
+
+        <rich:panel>
+            <f:facet name="header">#{positionRiskHome.managed ? 'Edit' : 'Add'} Position risk</f:facet>
+
+
+            <s:decorate id="bssdField" template="layout/edit.xhtml">
+                <ui:define name="label">Bssd</ui:define>
+                <h:inputText id="bssd"
+                       disabled="#{positionRiskHome.managed}"
+                      required="true"
+                          size="8"
+                     maxlength="8"
+                         value="#{positionRiskHome.instance.id.bssd}">
+                    <a:ajax event="blur" render="bssdField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="posIdField" template="layout/edit.xhtml">
+                <ui:define name="label">Pos id</ui:define>
+                <h:inputText id="posId"
+                       disabled="#{positionRiskHome.managed}"
+                      required="true"
+                          size="50"
+                     maxlength="50"
+                         value="#{positionRiskHome.instance.id.posId}">
+                    <a:ajax event="blur" render="posIdField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="varGenIdField" template="layout/edit.xhtml">
+                <ui:define name="label">Var gen id</ui:define>
+                <h:inputText id="varGenId"
+                       disabled="#{positionRiskHome.managed}"
+                      required="true"
+                          size="10"
+                     maxlength="10"
+                         value="#{positionRiskHome.instance.id.varGenId}">
+                    <a:ajax event="blur" render="varGenIdField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+
+            <s:decorate id="coVarField" template="layout/edit.xhtml">
+                <ui:define name="label">Co var</ui:define>
+                <h:inputText id="coVar"
+                          value="#{positionRiskHome.instance.coVar}"
+                           size="26">
+                    <a:ajax event="blur" render="coVarField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="contributionVarField" template="layout/edit.xhtml">
+                <ui:define name="label">Contribution var</ui:define>
+                <h:inputText id="contributionVar"
+                          value="#{positionRiskHome.instance.contributionVar}"
+                           size="26">
+                    <a:ajax event="blur" render="contributionVarField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="eqVarField" template="layout/edit.xhtml">
+                <ui:define name="label">Eq var</ui:define>
+                <h:inputText id="eqVar"
+                          value="#{positionRiskHome.instance.eqVar}"
+                           size="26">
+                    <a:ajax event="blur" render="eqVarField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="expectedShortfallField" template="layout/edit.xhtml">
+                <ui:define name="label">Expected shortfall</ui:define>
+                <h:inputText id="expectedShortfall"
+                          value="#{positionRiskHome.instance.expectedShortfall}"
+                           size="26">
+                    <a:ajax event="blur" render="expectedShortfallField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="fxVarField" template="layout/edit.xhtml">
+                <ui:define name="label">Fx var</ui:define>
+                <h:inputText id="fxVar"
+                          value="#{positionRiskHome.instance.fxVar}"
+                           size="26">
+                    <a:ajax event="blur" render="fxVarField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="irVarField" template="layout/edit.xhtml">
+                <ui:define name="label">Ir var</ui:define>
+                <h:inputText id="irVar"
+                          value="#{positionRiskHome.instance.irVar}"
+                           size="26">
+                    <a:ajax event="blur" render="irVarField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="marginalVarField" template="layout/edit.xhtml">
+                <ui:define name="label">Marginal var</ui:define>
+                <h:inputText id="marginalVar"
+                          value="#{positionRiskHome.instance.marginalVar}"
+                           size="26">
+                    <a:ajax event="blur" render="marginalVarField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+
+            <s:decorate id="varField" template="layout/edit.xhtml">
+                <ui:define name="label">Var</ui:define>
+                <h:inputText id="var"
+                          value="#{positionRiskHome.instance.var}"
+                           size="26">
+                    <a:ajax event="blur" render="varField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <div style="clear:both">
+                <span class="required">*</span>
+                required fields
+            </div>
+
+        </rich:panel>
+
+        <div class="actionButtons">
+
+            <h:commandButton id="save"
+                          value="Save"
+                         action="#{positionRiskHome.persist}"
+                       disabled="#{!positionRiskHome.wired}"
+                       rendered="#{!positionRiskHome.managed}">
+                <s:conversationId/>
+            </h:commandButton>
+
+            <h:commandButton id="update"
+                          value="Save"
+                         action="#{positionRiskHome.update}"
+                       rendered="#{positionRiskHome.managed}">
+                <s:conversationId/>
+            </h:commandButton>
+
+            <h:commandButton id="delete"
+                          value="Delete"
+                         action="#{positionRiskHome.remove}"
+                      immediate="true"
+                       rendered="#{positionRiskHome.managed}"/>
+
+            <s:button id="cancelEdit"
+                   value="Cancel"
+             propagation="end"
+                    view="/PositionRisk.xhtml"
+                rendered="#{positionRiskHome.managed}"/>
+
+            <s:button id="cancelAdd"
+                   value="Cancel"
+             propagation="end"
+                    view="/#{empty positionRiskFrom ? 'PositionRiskList' : positionRiskFrom}.xhtml"
+                rendered="#{!positionRiskHome.managed}"/>
+
+        </div>
+    </h:form>
+
+<rich:tabPanel switchType="client">
+
+    <rich:tab header="Basedate *" labelClass="required">
+    <div class="association" id="basedateParent">
+
+        <h:outputText value="There is no basedate associated with this positionRisk."
+                   rendered="#{positionRiskHome.instance.basedate == null}"/>
+
+        <rich:dataTable var="_basedate"
+                   value="#{positionRiskHome.instance.basedate}"
+                rendered="#{positionRiskHome.instance.basedate != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="basedateTable">
+            <h:column>
+                <f:facet name="header">Bssd</f:facet>
+                <h:outputText value="#{_basedate.bssd}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Eom bizday</f:facet>
+                <h:outputText value="#{_basedate.eomBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Eoq bizday</f:facet>
+                <h:outputText value="#{_basedate.eoqBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Eos bizday</f:facet>
+                <h:outputText value="#{_basedate.eosBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Eoy bizday</f:facet>
+                <h:outputText value="#{_basedate.eoyBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Fiscal bizday</f:facet>
+                <h:outputText value="#{_basedate.fiscalBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Is bizday</f:facet>
+                <h:outputText value="#{_basedate.isBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Next bizday</f:facet>
+                <h:outputText value="#{_basedate.nextBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Prev bizday</f:facet>
+                <h:outputText value="#{_basedate.prevBizday}"/>
+            </h:column>
+        </rich:dataTable>
+
+        <div class="actionButtons">
+            <s:button id="#{positionRiskHome.instance.basedate != null ? 'changeParent' : 'selectParent'}" value="#{positionRiskHome.instance.basedate != null ? 'Change' : 'Select'} basedate"
+                       view="/BasedateList.xhtml">
+                <f:param name="from" value="PositionRiskEdit"/>
+            </s:button>
+        </div>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab header="Position *" labelClass="required">
+    <div class="association" id="positionParent">
+
+        <h:outputText value="There is no position associated with this positionRisk."
+                   rendered="#{positionRiskHome.instance.position == null}"/>
+
+        <rich:dataTable var="_position"
+                   value="#{positionRiskHome.instance.position}"
+                rendered="#{positionRiskHome.instance.position != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="positionTable">
+            <h:column>
+                <f:facet name="header">Pos id</f:facet>
+                <h:outputText value="#{_position.posId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Holding qty</f:facet>
+                <h:outputText value="#{_position.holdingQty}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Init fee amt</f:facet>
+                <h:outputText value="#{_position.initFeeAmt}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Init tx amt</f:facet>
+                <h:outputText value="#{_position.initTxAmt}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Init tx date</f:facet>
+                <h:outputText value="#{_position.initTxDate}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Init tx price</f:facet>
+                <h:outputText value="#{_position.initTxPrice}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Last tx date</f:facet>
+                <h:outputText value="#{_position.lastTxDate}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Pos name</f:facet>
+                <h:outputText value="#{_position.posName}"/>
+            </h:column>
+        </rich:dataTable>
+
+        <div class="actionButtons">
+            <s:button id="#{positionRiskHome.instance.position != null ? 'changeParent' : 'selectParent'}" value="#{positionRiskHome.instance.position != null ? 'Change' : 'Select'} position"
+                       view="/PositionList.xhtml">
+                <f:param name="from" value="PositionRiskEdit"/>
+            </s:button>
+        </div>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab header="Var gen mcd *" labelClass="required">
+    <div class="association" id="varGenMcdParent">
+
+        <h:outputText value="There is no varGenMcd associated with this positionRisk."
+                   rendered="#{positionRiskHome.instance.varGenMcd == null}"/>
+
+        <rich:dataTable var="_varGenMcd"
+                   value="#{positionRiskHome.instance.varGenMcd}"
+                rendered="#{positionRiskHome.instance.varGenMcd != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="varGenMcdTable">
+            <h:column>
+                <f:facet name="header">Var gen id</f:facet>
+                <h:outputText value="#{_varGenMcd.varGenId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Time horizon</f:facet>
+                <h:outputText value="#{_varGenMcd.timeHorizon}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Var type</f:facet>
+                <h:outputText value="#{_varGenMcd.varType}"/>
+            </h:column>
+        </rich:dataTable>
+
+        <div class="actionButtons">
+            <s:button id="#{positionRiskHome.instance.varGenMcd != null ? 'changeParent' : 'selectParent'}" value="#{positionRiskHome.instance.varGenMcd != null ? 'Change' : 'Select'} varGenMcd"
+                       view="/VarGenMcdList.xhtml">
+                <f:param name="from" value="PositionRiskEdit"/>
+            </s:button>
+        </div>
+
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

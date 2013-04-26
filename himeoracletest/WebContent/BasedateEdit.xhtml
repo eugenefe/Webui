@@ -1,0 +1,165 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="basedate" styleClass="edit">
+
+        <rich:panel>
+            <f:facet name="header">#{basedateHome.managed ? 'Edit' : 'Add'} Basedate</f:facet>
+
+
+            <s:decorate id="bssdField" template="layout/edit.xhtml">
+                <ui:define name="label">Bssd</ui:define>
+                <h:inputText id="bssd"
+                       disabled="#{basedateHome.managed}"
+                       required="true"
+                           size="8"
+                      maxlength="8"
+                          value="#{basedateHome.instance.bssd}">
+                    <a:ajax event="blur" render="bssdField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="eomBizdayField" template="layout/edit.xhtml">
+                <ui:define name="label">Eom bizday</ui:define>
+                <h:inputText id="eomBizday"
+                           size="8"
+                      maxlength="8"
+                          value="#{basedateHome.instance.eomBizday}">
+                    <a:ajax event="blur" render="eomBizdayField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="eoqBizdayField" template="layout/edit.xhtml">
+                <ui:define name="label">Eoq bizday</ui:define>
+                <h:inputText id="eoqBizday"
+                           size="8"
+                      maxlength="8"
+                          value="#{basedateHome.instance.eoqBizday}">
+                    <a:ajax event="blur" render="eoqBizdayField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="eosBizdayField" template="layout/edit.xhtml">
+                <ui:define name="label">Eos bizday</ui:define>
+                <h:inputText id="eosBizday"
+                           size="8"
+                      maxlength="8"
+                          value="#{basedateHome.instance.eosBizday}">
+                    <a:ajax event="blur" render="eosBizdayField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="eoyBizdayField" template="layout/edit.xhtml">
+                <ui:define name="label">Eoy bizday</ui:define>
+                <h:inputText id="eoyBizday"
+                           size="8"
+                      maxlength="8"
+                          value="#{basedateHome.instance.eoyBizday}">
+                    <a:ajax event="blur" render="eoyBizdayField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="fiscalBizdayField" template="layout/edit.xhtml">
+                <ui:define name="label">Fiscal bizday</ui:define>
+                <h:inputText id="fiscalBizday"
+                           size="8"
+                      maxlength="8"
+                          value="#{basedateHome.instance.fiscalBizday}">
+                    <a:ajax event="blur" render="fiscalBizdayField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="isBizdayField" template="layout/edit.xhtml">
+                <ui:define name="label">Is bizday</ui:define>
+                <h:inputText id="isBizday"
+                          value="#{basedateHome.instance.isBizday}">
+                    <a:ajax event="blur" render="isBizdayField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="nextBizdayField" template="layout/edit.xhtml">
+                <ui:define name="label">Next bizday</ui:define>
+                <h:inputText id="nextBizday"
+                           size="8"
+                      maxlength="8"
+                          value="#{basedateHome.instance.nextBizday}">
+                    <a:ajax event="blur" render="nextBizdayField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="prevBizdayField" template="layout/edit.xhtml">
+                <ui:define name="label">Prev bizday</ui:define>
+                <h:inputText id="prevBizday"
+                           size="8"
+                      maxlength="8"
+                          value="#{basedateHome.instance.prevBizday}">
+                    <a:ajax event="blur" render="prevBizdayField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <div style="clear:both">
+                <span class="required">*</span>
+                required fields
+            </div>
+
+        </rich:panel>
+
+        <div class="actionButtons">
+
+            <h:commandButton id="save"
+                          value="Save"
+                         action="#{basedateHome.persist}"
+                       disabled="#{!basedateHome.wired}"
+                       rendered="#{!basedateHome.managed}">
+                <s:conversationId/>
+            </h:commandButton>
+
+            <h:commandButton id="update"
+                          value="Save"
+                         action="#{basedateHome.update}"
+                       rendered="#{basedateHome.managed}">
+                <s:conversationId/>
+            </h:commandButton>
+
+            <h:commandButton id="delete"
+                          value="Delete"
+                         action="#{basedateHome.remove}"
+                      immediate="true"
+                       rendered="#{basedateHome.managed}"/>
+
+            <s:button id="cancelEdit"
+                   value="Cancel"
+             propagation="end"
+                    view="/Basedate.xhtml"
+                rendered="#{basedateHome.managed}"/>
+
+            <s:button id="cancelAdd"
+                   value="Cancel"
+             propagation="end"
+                    view="/#{empty basedateFrom ? 'BasedateList' : basedateFrom}.xhtml"
+                rendered="#{!basedateHome.managed}"/>
+
+        </div>
+    </h:form>
+
+</ui:define>
+
+</ui:composition>

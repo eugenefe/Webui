@@ -1,0 +1,91 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Employee Details</f:facet>
+
+        <s:decorate id="memberId" template="layout/display.xhtml">
+            <ui:define name="label">Member id</ui:define>
+            <h:outputText value="#{employeeHome.instance.memberId}"/>
+        </s:decorate>
+
+        <s:decorate id="memberName" template="layout/display.xhtml">
+            <ui:define name="label">Member name</ui:define>
+            <h:outputText value="#{employeeHome.instance.memberName}"/>
+        </s:decorate>
+
+        <s:decorate id="memberType" template="layout/display.xhtml">
+            <ui:define name="label">Member type</ui:define>
+            <h:outputText value="#{employeeHome.instance.memberType}"/>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/EmployeeEdit.xhtml"
+                    id="edit"
+                 value="Edit"/>
+
+        <s:button view="/#{empty employeeFrom ? 'EmployeeList' : employeeFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+    <rich:tabPanel switchType="client">
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Bizunit</h:panelGroup>
+        </f:facet>
+    <div class="association" id="bizunitParent">
+
+        <h:outputText value="There is no bizunit associated with this employee."
+                   rendered="#{employeeHome.instance.bizunit == null}"/>
+
+        <rich:dataTable var="_bizunit"
+                   value="#{employeeHome.instance.bizunit}"
+                rendered="#{employeeHome.instance.bizunit != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="bizunitTable">
+            <h:column>
+                <f:facet name="header">Org id</f:facet>
+                <h:outputText value="#{_bizunit.orgId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Org name</f:facet>
+                <h:outputText value="#{_bizunit.orgName}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Parent bizunit org id</f:facet>
+                <h:outputText value="#{_bizunit.parentBizunit.orgId}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewbizunit"
+                     value="View"
+                      view="/Bizunit.xhtml">
+                    <f:param name="bizunitOrgId"
+                           value="#{_bizunit.orgId}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

@@ -1,0 +1,139 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="employee" styleClass="edit">
+
+        <rich:panel>
+            <f:facet name="header">#{employeeHome.managed ? 'Edit' : 'Add'} Employee</f:facet>
+
+
+            <s:decorate id="memberIdField" template="layout/edit.xhtml">
+                <ui:define name="label">Member id</ui:define>
+                <h:inputText id="memberId"
+                       disabled="#{employeeHome.managed}"
+                       required="true"
+                           size="20"
+                      maxlength="20"
+                          value="#{employeeHome.instance.memberId}">
+                    <a:ajax event="blur" render="memberIdField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+
+            <s:decorate id="memberNameField" template="layout/edit.xhtml">
+                <ui:define name="label">Member name</ui:define>
+                <h:inputText id="memberName"
+                           size="50"
+                      maxlength="50"
+                          value="#{employeeHome.instance.memberName}">
+                    <a:ajax event="blur" render="memberNameField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="memberTypeField" template="layout/edit.xhtml">
+                <ui:define name="label">Member type</ui:define>
+                <h:inputText id="memberType"
+                           size="10"
+                      maxlength="10"
+                          value="#{employeeHome.instance.memberType}">
+                    <a:ajax event="blur" render="memberTypeField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <div style="clear:both">
+                <span class="required">*</span>
+                required fields
+            </div>
+
+        </rich:panel>
+
+        <div class="actionButtons">
+
+            <h:commandButton id="save"
+                          value="Save"
+                         action="#{employeeHome.persist}"
+                       disabled="#{!employeeHome.wired}"
+                       rendered="#{!employeeHome.managed}">
+                <s:conversationId/>
+            </h:commandButton>
+
+            <h:commandButton id="update"
+                          value="Save"
+                         action="#{employeeHome.update}"
+                       rendered="#{employeeHome.managed}">
+                <s:conversationId/>
+            </h:commandButton>
+
+            <h:commandButton id="delete"
+                          value="Delete"
+                         action="#{employeeHome.remove}"
+                      immediate="true"
+                       rendered="#{employeeHome.managed}"/>
+
+            <s:button id="cancelEdit"
+                   value="Cancel"
+             propagation="end"
+                    view="/Employee.xhtml"
+                rendered="#{employeeHome.managed}"/>
+
+            <s:button id="cancelAdd"
+                   value="Cancel"
+             propagation="end"
+                    view="/#{empty employeeFrom ? 'EmployeeList' : employeeFrom}.xhtml"
+                rendered="#{!employeeHome.managed}"/>
+
+        </div>
+    </h:form>
+
+<rich:tabPanel switchType="client">
+
+    <rich:tab header="Bizunit">
+    <div class="association" id="bizunitParent">
+
+        <h:outputText value="There is no bizunit associated with this employee."
+                   rendered="#{employeeHome.instance.bizunit == null}"/>
+
+        <rich:dataTable var="_bizunit"
+                   value="#{employeeHome.instance.bizunit}"
+                rendered="#{employeeHome.instance.bizunit != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="bizunitTable">
+            <h:column>
+                <f:facet name="header">Org id</f:facet>
+                <h:outputText value="#{_bizunit.orgId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Org name</f:facet>
+                <h:outputText value="#{_bizunit.orgName}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Parent bizunit org id</f:facet>
+                <h:outputText value="#{_bizunit.parentBizunit.orgId}"/>
+            </h:column>
+        </rich:dataTable>
+
+        <div class="actionButtons">
+            <s:button id="#{employeeHome.instance.bizunit != null ? 'changeParent' : 'selectParent'}" value="#{employeeHome.instance.bizunit != null ? 'Change' : 'Select'} bizunit"
+                       view="/BizunitList.xhtml">
+                <f:param name="from" value="EmployeeEdit"/>
+            </s:button>
+        </div>
+
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

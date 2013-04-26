@@ -1,0 +1,245 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="portfolioSearch" styleClass="edit">
+
+        <rich:collapsiblePanel header="Portfolio Search Filter" switchType="ajax">
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Port id</ui:define>
+                <h:inputText id="portId" value="#{portfolioList.portfolio.portId}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Group id</ui:define>
+                <h:inputText id="groupId" value="#{portfolioList.portfolio.groupId}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Level1</ui:define>
+                <h:inputText id="level1" value="#{portfolioList.portfolio.level1}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Level2</ui:define>
+                <h:inputText id="level2" value="#{portfolioList.portfolio.level2}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Level3</ui:define>
+                <h:inputText id="level3" value="#{portfolioList.portfolio.level3}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Level4</ui:define>
+                <h:inputText id="level4" value="#{portfolioList.portfolio.level4}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Level5</ui:define>
+                <h:inputText id="level5" value="#{portfolioList.portfolio.level5}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Port name</ui:define>
+                <h:inputText id="portName" value="#{portfolioList.portfolio.portName}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Match</ui:define>
+                <h:selectOneRadio id="logic" value="#{portfolioList.restrictionLogicOperator}" styleClass="radio">
+                    <f:selectItem itemLabel="All" itemValue="and"/>
+                    <f:selectItem itemLabel="Any" itemValue="or"/>
+                </h:selectOneRadio>
+            </s:decorate>
+
+        </rich:collapsiblePanel>
+
+        <div class="actionButtons">
+            <h:commandButton id="search" value="Search" action="/PortfolioList.xhtml"/>
+            <s:button id="reset" value="Reset" includePageParams="false"/>
+        </div>
+
+    </h:form>
+
+    <rich:panel>
+        <f:facet name="header">Portfolio Search Results (#{empty portfolioList.resultList ? 0 : (portfolioList.paginated ? portfolioList.resultCount : portfolioList.resultList.size)})</f:facet>
+    <div class="results" id="portfolioList">
+
+    <h:outputText value="The portfolio search returned no results."
+               rendered="#{empty portfolioList.resultList}"/>
+
+    <rich:dataTable id="portfolioList"
+                var="_portfolio"
+              value="#{portfolioList.resultList}"
+           rendered="#{not empty portfolioList.resultList}">
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{portfolioList}"/>
+                    <ui:param name="propertyLabel" value="Port id"/>
+                    <ui:param name="propertyPath" value="portfolio.portId"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_portfolio.portId}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{portfolioList}"/>
+                    <ui:param name="propertyLabel" value="Group id"/>
+                    <ui:param name="propertyPath" value="portfolio.groupId"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_portfolio.groupId}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{portfolioList}"/>
+                    <ui:param name="propertyLabel" value="Level1"/>
+                    <ui:param name="propertyPath" value="portfolio.level1"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_portfolio.level1}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{portfolioList}"/>
+                    <ui:param name="propertyLabel" value="Level2"/>
+                    <ui:param name="propertyPath" value="portfolio.level2"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_portfolio.level2}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{portfolioList}"/>
+                    <ui:param name="propertyLabel" value="Level3"/>
+                    <ui:param name="propertyPath" value="portfolio.level3"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_portfolio.level3}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{portfolioList}"/>
+                    <ui:param name="propertyLabel" value="Level4"/>
+                    <ui:param name="propertyPath" value="portfolio.level4"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_portfolio.level4}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{portfolioList}"/>
+                    <ui:param name="propertyLabel" value="Level5"/>
+                    <ui:param name="propertyPath" value="portfolio.level5"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_portfolio.level5}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{portfolioList}"/>
+                    <ui:param name="propertyLabel" value="Parent portfolio port id"/>
+                    <ui:param name="propertyPath" value="portfolio.parentPortfolio.portId"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_portfolio.parentPortfolio.portId}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{portfolioList}"/>
+                    <ui:param name="propertyLabel" value="Port name"/>
+                    <ui:param name="propertyPath" value="portfolio.portName"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_portfolio.portName}"/>
+        </h:column>
+        <rich:column styleClass="action">
+            <f:facet name="header">Action</f:facet>
+            <s:link view="/#{empty from ? 'Portfolio' : from}.xhtml"
+                   value="#{empty from ? 'View' : 'Select'}"
+             propagation="#{empty from ? 'none' : 'default'}"
+                      id="portfolioViewId">
+                <f:param name="portfolioPortId"
+                        value="#{_portfolio.portId}"/>
+            </s:link>
+            #{' '}
+            <s:link view="/PortfolioEdit.xhtml"
+                   value="Edit"
+             propagation="none"
+                      id="portfolioEdit"
+                rendered="#{empty from}">
+                <f:param name="portfolioPortId"
+                        value="#{_portfolio.portId}"/>
+            </s:link>
+        </rich:column>
+    </rich:dataTable>
+
+    </div>
+    </rich:panel>
+
+    <div class="tableControl">
+
+        <s:link view="/PortfolioList.xhtml"
+            rendered="#{portfolioList.previousExists}"
+               value="#{messages.left}#{messages.left} First Page"
+                  id="firstPage">
+          <f:param name="firstResult" value="0"/>
+        </s:link>
+
+        <s:link view="/PortfolioList.xhtml"
+            rendered="#{portfolioList.previousExists}"
+               value="#{messages.left} Previous Page"
+                  id="previousPage">
+            <f:param name="firstResult"
+                    value="#{portfolioList.previousFirstResult}"/>
+        </s:link>
+
+        <s:link view="/PortfolioList.xhtml"
+            rendered="#{portfolioList.nextExists}"
+               value="Next Page #{messages.right}"
+                  id="nextPage">
+            <f:param name="firstResult"
+                    value="#{portfolioList.nextFirstResult}"/>
+        </s:link>
+
+        <s:link view="/PortfolioList.xhtml"
+            rendered="#{portfolioList.nextExists}"
+               value="Last Page #{messages.right}#{messages.right}"
+                  id="lastPage">
+            <f:param name="firstResult"
+                    value="#{portfolioList.lastFirstResult}"/>
+        </s:link>
+
+    </div>
+
+    <s:div styleClass="actionButtons" rendered="#{empty from}">
+        <s:button view="/PortfolioEdit.xhtml"
+                    id="create"
+           propagation="none"
+                 value="Create portfolio">
+            <f:param name="portfolioPortId"/>
+        </s:button>
+    </s:div>
+
+</ui:define>
+
+</ui:composition>

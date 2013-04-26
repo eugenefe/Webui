@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.org/schema/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.org/schema/seam/pages http://jboss.org/schema/seam/pages-2.3.xsd">
+
+   <param name="positionRiskFrom"/>
+   <param name="positionRiskBssd" value="#{positionRiskHome.positionRiskId.bssd}"/>
+   <param name="positionRiskPosId" value="#{positionRiskHome.positionRiskId.posId}"/>
+   <param name="positionRiskVarGenId" value="#{positionRiskHome.positionRiskId.varGenId}"/>
+   <param name="basedateFrom"/>
+   <param name="basedateBssd" value="#{basedateHome.basedateBssd}"/>
+
+   <param name="positionFrom"/>
+   <param name="positionPosId" value="#{positionHome.positionPosId}"/>
+
+   <param name="varGenMcdFrom"/>
+   <param name="varGenMcdVarGenId" value="#{varGenMcdHome.varGenMcdVarGenId}"/>
+
+
+
+</page>

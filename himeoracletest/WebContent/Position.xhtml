@@ -1,0 +1,82 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Position Details</f:facet>
+
+        <s:decorate id="posId" template="layout/display.xhtml">
+            <ui:define name="label">Pos id</ui:define>
+            <h:outputText value="#{positionHome.instance.posId}"/>
+        </s:decorate>
+
+        <s:decorate id="holdingQty" template="layout/display.xhtml">
+            <ui:define name="label">Holding qty</ui:define>
+            <h:outputText value="#{positionHome.instance.holdingQty}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="initFeeAmt" template="layout/display.xhtml">
+            <ui:define name="label">Init fee amt</ui:define>
+            <h:outputText value="#{positionHome.instance.initFeeAmt}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="initTxAmt" template="layout/display.xhtml">
+            <ui:define name="label">Init tx amt</ui:define>
+            <h:outputText value="#{positionHome.instance.initTxAmt}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="initTxDate" template="layout/display.xhtml">
+            <ui:define name="label">Init tx date</ui:define>
+            <h:outputText value="#{positionHome.instance.initTxDate}"/>
+        </s:decorate>
+
+        <s:decorate id="initTxPrice" template="layout/display.xhtml">
+            <ui:define name="label">Init tx price</ui:define>
+            <h:outputText value="#{positionHome.instance.initTxPrice}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="lastTxDate" template="layout/display.xhtml">
+            <ui:define name="label">Last tx date</ui:define>
+            <h:outputText value="#{positionHome.instance.lastTxDate}"/>
+        </s:decorate>
+
+        <s:decorate id="posName" template="layout/display.xhtml">
+            <ui:define name="label">Pos name</ui:define>
+            <h:outputText value="#{positionHome.instance.posName}"/>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/PositionEdit.xhtml"
+                    id="edit"
+                 value="Edit"/>
+
+        <s:button view="/#{empty positionFrom ? 'PositionList' : positionFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+</ui:define>
+
+</ui:composition>

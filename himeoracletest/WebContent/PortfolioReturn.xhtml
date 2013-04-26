@@ -1,0 +1,257 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Portfolio return Details</f:facet>
+
+        <s:decorate id="bssd" template="layout/display.xhtml">
+            <ui:define name="label">Bssd</ui:define>
+            <h:outputText value="#{portfolioReturnHome.instance.id.bssd}"/>
+        </s:decorate>
+        <s:decorate id="portId" template="layout/display.xhtml">
+            <ui:define name="label">Port id</ui:define>
+            <h:outputText value="#{portfolioReturnHome.instance.id.portId}"/>
+        </s:decorate>
+
+        <s:decorate id="annualReturn" template="layout/display.xhtml">
+            <ui:define name="label">Annual return</ui:define>
+            <h:outputText value="#{portfolioReturnHome.instance.annualReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="bookAmt" template="layout/display.xhtml">
+            <ui:define name="label">Book amt</ui:define>
+            <h:outputText value="#{portfolioReturnHome.instance.bookAmt}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="dailyReturn" template="layout/display.xhtml">
+            <ui:define name="label">Daily return</ui:define>
+            <h:outputText value="#{portfolioReturnHome.instance.dailyReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="deltaReturn" template="layout/display.xhtml">
+            <ui:define name="label">Delta return</ui:define>
+            <h:outputText value="#{portfolioReturnHome.instance.deltaReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="fiscalReturn" template="layout/display.xhtml">
+            <ui:define name="label">Fiscal return</ui:define>
+            <h:outputText value="#{portfolioReturnHome.instance.fiscalReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="gammaReturn" template="layout/display.xhtml">
+            <ui:define name="label">Gamma return</ui:define>
+            <h:outputText value="#{portfolioReturnHome.instance.gammaReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="monthlyReturn" template="layout/display.xhtml">
+            <ui:define name="label">Monthly return</ui:define>
+            <h:outputText value="#{portfolioReturnHome.instance.monthlyReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="presValue" template="layout/display.xhtml">
+            <ui:define name="label">Pres value</ui:define>
+            <h:outputText value="#{portfolioReturnHome.instance.presValue}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="quartlyReturn" template="layout/display.xhtml">
+            <ui:define name="label">Quartly return</ui:define>
+            <h:outputText value="#{portfolioReturnHome.instance.quartlyReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="rhoReturn" template="layout/display.xhtml">
+            <ui:define name="label">Rho return</ui:define>
+            <h:outputText value="#{portfolioReturnHome.instance.rhoReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="thetaReturn" template="layout/display.xhtml">
+            <ui:define name="label">Theta return</ui:define>
+            <h:outputText value="#{portfolioReturnHome.instance.thetaReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="vegaReturn" template="layout/display.xhtml">
+            <ui:define name="label">Vega return</ui:define>
+            <h:outputText value="#{portfolioReturnHome.instance.vegaReturn}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/PortfolioReturnEdit.xhtml"
+                    id="edit"
+                 value="Edit"/>
+
+        <s:button view="/#{empty portfolioReturnFrom ? 'PortfolioReturnList' : portfolioReturnFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+    <rich:tabPanel switchType="client">
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Basedate</h:panelGroup>
+        </f:facet>
+    <div class="association" id="basedateParent">
+
+        <h:outputText value="There is no basedate associated with this portfolioReturn."
+                   rendered="#{portfolioReturnHome.instance.basedate == null}"/>
+
+        <rich:dataTable var="_basedate"
+                   value="#{portfolioReturnHome.instance.basedate}"
+                rendered="#{portfolioReturnHome.instance.basedate != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="basedateTable">
+            <h:column>
+                <f:facet name="header">Bssd</f:facet>
+                <h:outputText value="#{_basedate.bssd}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Eom bizday</f:facet>
+                <h:outputText value="#{_basedate.eomBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Eoq bizday</f:facet>
+                <h:outputText value="#{_basedate.eoqBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Eos bizday</f:facet>
+                <h:outputText value="#{_basedate.eosBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Eoy bizday</f:facet>
+                <h:outputText value="#{_basedate.eoyBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Fiscal bizday</f:facet>
+                <h:outputText value="#{_basedate.fiscalBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Is bizday</f:facet>
+                <h:outputText value="#{_basedate.isBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Next bizday</f:facet>
+                <h:outputText value="#{_basedate.nextBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Prev bizday</f:facet>
+                <h:outputText value="#{_basedate.prevBizday}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewbasedate"
+                     value="View"
+                      view="/Basedate.xhtml">
+                    <f:param name="basedateBssd"
+                           value="#{_basedate.bssd}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Portfolio</h:panelGroup>
+        </f:facet>
+    <div class="association" id="portfolioParent">
+
+        <h:outputText value="There is no portfolio associated with this portfolioReturn."
+                   rendered="#{portfolioReturnHome.instance.portfolio == null}"/>
+
+        <rich:dataTable var="_portfolio"
+                   value="#{portfolioReturnHome.instance.portfolio}"
+                rendered="#{portfolioReturnHome.instance.portfolio != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="portfolioTable">
+            <h:column>
+                <f:facet name="header">Port id</f:facet>
+                <h:outputText value="#{_portfolio.portId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Group id</f:facet>
+                <h:outputText value="#{_portfolio.groupId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Level1</f:facet>
+                <h:outputText value="#{_portfolio.level1}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Level2</f:facet>
+                <h:outputText value="#{_portfolio.level2}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Level3</f:facet>
+                <h:outputText value="#{_portfolio.level3}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Level4</f:facet>
+                <h:outputText value="#{_portfolio.level4}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Level5</f:facet>
+                <h:outputText value="#{_portfolio.level5}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Parent portfolio port id</f:facet>
+                <h:outputText value="#{_portfolio.parentPortfolio.portId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Port name</f:facet>
+                <h:outputText value="#{_portfolio.portName}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewportfolio"
+                     value="View"
+                      view="/Portfolio.xhtml">
+                    <f:param name="portfolioPortId"
+                           value="#{_portfolio.portId}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

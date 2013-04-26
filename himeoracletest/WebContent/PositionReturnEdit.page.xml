@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.org/schema/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.org/schema/seam/pages http://jboss.org/schema/seam/pages-2.3.xsd"
+      no-conversation-view-id="/PositionReturnList.xhtml"
+      login-required="true">
+
+   <begin-conversation join="true" flush-mode="MANUAL"/>
+
+   <action execute="#{positionReturnHome.wire}"/>
+
+   <param name="positionReturnFrom"/>
+   <param name="positionReturnBssd" value="#{positionReturnHome.positionReturnId.bssd}"/>
+   <param name="positionReturnPosId" value="#{positionReturnHome.positionReturnId.posId}"/>
+   <param name="basedateFrom"/>
+   <param name="basedateBssd" value="#{basedateHome.basedateBssd}"/>
+
+   <param name="positionFrom"/>
+   <param name="positionPosId" value="#{positionHome.positionPosId}"/>
+
+
+
+   <navigation from-action="#{positionReturnHome.persist}">
+      <rule if-outcome="persisted">
+         <end-conversation/>
+         <redirect view-id="/PositionReturn.xhtml"/>
+      </rule>
+   </navigation>
+
+   <navigation from-action="#{positionReturnHome.update}">
+      <rule if-outcome="updated">
+         <end-conversation/>
+         <redirect view-id="/PositionReturn.xhtml"/>
+      </rule>
+   </navigation>
+
+   <navigation from-action="#{positionReturnHome.remove}">
+      <rule if-outcome="removed">
+         <end-conversation/>
+         <redirect view-id="/PositionReturnList.xhtml"/>
+      </rule>
+   </navigation>
+
+</page>

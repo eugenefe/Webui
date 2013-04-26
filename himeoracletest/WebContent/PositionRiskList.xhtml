@@ -1,0 +1,296 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="positionRiskSearch" styleClass="edit">
+
+        <rich:collapsiblePanel header="PositionRisk Search Filter" switchType="ajax">
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Bssd</ui:define>
+                <h:inputText id="bssd" value="#{positionRiskList.positionRisk.id.bssd}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Pos id</ui:define>
+                <h:inputText id="posId" value="#{positionRiskList.positionRisk.id.posId}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Var gen id</ui:define>
+                <h:inputText id="varGenId" value="#{positionRiskList.positionRisk.id.varGenId}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Match</ui:define>
+                <h:selectOneRadio id="logic" value="#{positionRiskList.restrictionLogicOperator}" styleClass="radio">
+                    <f:selectItem itemLabel="All" itemValue="and"/>
+                    <f:selectItem itemLabel="Any" itemValue="or"/>
+                </h:selectOneRadio>
+            </s:decorate>
+
+        </rich:collapsiblePanel>
+
+        <div class="actionButtons">
+            <h:commandButton id="search" value="Search" action="/PositionRiskList.xhtml"/>
+            <s:button id="reset" value="Reset" includePageParams="false"/>
+        </div>
+
+    </h:form>
+
+    <rich:panel>
+        <f:facet name="header">PositionRisk Search Results (#{empty positionRiskList.resultList ? 0 : (positionRiskList.paginated ? positionRiskList.resultCount : positionRiskList.resultList.size)})</f:facet>
+    <div class="results" id="positionRiskList">
+
+    <h:outputText value="The positionRisk search returned no results."
+               rendered="#{empty positionRiskList.resultList}"/>
+
+    <rich:dataTable id="positionRiskList"
+                var="_positionRisk"
+              value="#{positionRiskList.resultList}"
+           rendered="#{not empty positionRiskList.resultList}">
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionRiskList}"/>
+                    <ui:param name="propertyLabel" value="Bssd"/>
+                    <ui:param name="propertyPath" value="positionRisk.id.bssd"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionRisk.id.bssd}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionRiskList}"/>
+                    <ui:param name="propertyLabel" value="Pos id"/>
+                    <ui:param name="propertyPath" value="positionRisk.id.posId"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionRisk.id.posId}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionRiskList}"/>
+                    <ui:param name="propertyLabel" value="Var gen id"/>
+                    <ui:param name="propertyPath" value="positionRisk.id.varGenId"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionRisk.id.varGenId}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionRiskList}"/>
+                    <ui:param name="propertyLabel" value="Basedate bssd"/>
+                    <ui:param name="propertyPath" value="positionRisk.basedate.bssd"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionRisk.basedate.bssd}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionRiskList}"/>
+                    <ui:param name="propertyLabel" value="Co var"/>
+                    <ui:param name="propertyPath" value="positionRisk.coVar"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionRisk.coVar}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionRiskList}"/>
+                    <ui:param name="propertyLabel" value="Contribution var"/>
+                    <ui:param name="propertyPath" value="positionRisk.contributionVar"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionRisk.contributionVar}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionRiskList}"/>
+                    <ui:param name="propertyLabel" value="Eq var"/>
+                    <ui:param name="propertyPath" value="positionRisk.eqVar"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionRisk.eqVar}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionRiskList}"/>
+                    <ui:param name="propertyLabel" value="Expected shortfall"/>
+                    <ui:param name="propertyPath" value="positionRisk.expectedShortfall"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionRisk.expectedShortfall}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionRiskList}"/>
+                    <ui:param name="propertyLabel" value="Fx var"/>
+                    <ui:param name="propertyPath" value="positionRisk.fxVar"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionRisk.fxVar}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionRiskList}"/>
+                    <ui:param name="propertyLabel" value="Ir var"/>
+                    <ui:param name="propertyPath" value="positionRisk.irVar"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionRisk.irVar}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionRiskList}"/>
+                    <ui:param name="propertyLabel" value="Marginal var"/>
+                    <ui:param name="propertyPath" value="positionRisk.marginalVar"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionRisk.marginalVar}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionRiskList}"/>
+                    <ui:param name="propertyLabel" value="Position pos id"/>
+                    <ui:param name="propertyPath" value="positionRisk.position.posId"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionRisk.position.posId}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionRiskList}"/>
+                    <ui:param name="propertyLabel" value="Var"/>
+                    <ui:param name="propertyPath" value="positionRisk.var"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionRisk.var}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{positionRiskList}"/>
+                    <ui:param name="propertyLabel" value="Var gen mcd var gen id"/>
+                    <ui:param name="propertyPath" value="positionRisk.varGenMcd.varGenId"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_positionRisk.varGenMcd.varGenId}"/>
+        </h:column>
+        <rich:column styleClass="action">
+            <f:facet name="header">Action</f:facet>
+            <s:link view="/#{empty from ? 'PositionRisk' : from}.xhtml"
+                   value="#{empty from ? 'View' : 'Select'}"
+             propagation="#{empty from ? 'none' : 'default'}"
+                      id="positionRiskViewId">
+                <f:param name="positionRiskBssd"
+                        value="#{_positionRisk.id.bssd}"/>
+                <f:param name="positionRiskPosId"
+                        value="#{_positionRisk.id.posId}"/>
+                <f:param name="positionRiskVarGenId"
+                        value="#{_positionRisk.id.varGenId}"/>
+            </s:link>
+            #{' '}
+            <s:link view="/PositionRiskEdit.xhtml"
+                   value="Edit"
+             propagation="none"
+                      id="positionRiskEdit"
+                rendered="#{empty from}">
+                <f:param name="positionRiskBssd"
+                        value="#{_positionRisk.id.bssd}"/>
+                <f:param name="positionRiskPosId"
+                        value="#{_positionRisk.id.posId}"/>
+                <f:param name="positionRiskVarGenId"
+                        value="#{_positionRisk.id.varGenId}"/>
+            </s:link>
+        </rich:column>
+    </rich:dataTable>
+
+    </div>
+    </rich:panel>
+
+    <div class="tableControl">
+
+        <s:link view="/PositionRiskList.xhtml"
+            rendered="#{positionRiskList.previousExists}"
+               value="#{messages.left}#{messages.left} First Page"
+                  id="firstPage">
+          <f:param name="firstResult" value="0"/>
+        </s:link>
+
+        <s:link view="/PositionRiskList.xhtml"
+            rendered="#{positionRiskList.previousExists}"
+               value="#{messages.left} Previous Page"
+                  id="previousPage">
+            <f:param name="firstResult"
+                    value="#{positionRiskList.previousFirstResult}"/>
+        </s:link>
+
+        <s:link view="/PositionRiskList.xhtml"
+            rendered="#{positionRiskList.nextExists}"
+               value="Next Page #{messages.right}"
+                  id="nextPage">
+            <f:param name="firstResult"
+                    value="#{positionRiskList.nextFirstResult}"/>
+        </s:link>
+
+        <s:link view="/PositionRiskList.xhtml"
+            rendered="#{positionRiskList.nextExists}"
+               value="Last Page #{messages.right}#{messages.right}"
+                  id="lastPage">
+            <f:param name="firstResult"
+                    value="#{positionRiskList.lastFirstResult}"/>
+        </s:link>
+
+    </div>
+
+    <s:div styleClass="actionButtons" rendered="#{empty from}">
+        <s:button view="/PositionRiskEdit.xhtml"
+                    id="create"
+           propagation="none"
+                 value="Create positionRisk">
+            <f:param name="positionRiskBssd"/>
+            <f:param name="positionRiskPosId"/>
+            <f:param name="positionRiskVarGenId"/>
+        </s:button>
+    </s:div>
+
+</ui:define>
+
+</ui:composition>

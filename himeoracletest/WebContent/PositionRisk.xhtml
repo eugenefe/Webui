@@ -1,0 +1,279 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Position risk Details</f:facet>
+
+        <s:decorate id="bssd" template="layout/display.xhtml">
+            <ui:define name="label">Bssd</ui:define>
+            <h:outputText value="#{positionRiskHome.instance.id.bssd}"/>
+        </s:decorate>
+        <s:decorate id="posId" template="layout/display.xhtml">
+            <ui:define name="label">Pos id</ui:define>
+            <h:outputText value="#{positionRiskHome.instance.id.posId}"/>
+        </s:decorate>
+        <s:decorate id="varGenId" template="layout/display.xhtml">
+            <ui:define name="label">Var gen id</ui:define>
+            <h:outputText value="#{positionRiskHome.instance.id.varGenId}"/>
+        </s:decorate>
+
+        <s:decorate id="coVar" template="layout/display.xhtml">
+            <ui:define name="label">Co var</ui:define>
+            <h:outputText value="#{positionRiskHome.instance.coVar}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="contributionVar" template="layout/display.xhtml">
+            <ui:define name="label">Contribution var</ui:define>
+            <h:outputText value="#{positionRiskHome.instance.contributionVar}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="eqVar" template="layout/display.xhtml">
+            <ui:define name="label">Eq var</ui:define>
+            <h:outputText value="#{positionRiskHome.instance.eqVar}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="expectedShortfall" template="layout/display.xhtml">
+            <ui:define name="label">Expected shortfall</ui:define>
+            <h:outputText value="#{positionRiskHome.instance.expectedShortfall}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="fxVar" template="layout/display.xhtml">
+            <ui:define name="label">Fx var</ui:define>
+            <h:outputText value="#{positionRiskHome.instance.fxVar}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="irVar" template="layout/display.xhtml">
+            <ui:define name="label">Ir var</ui:define>
+            <h:outputText value="#{positionRiskHome.instance.irVar}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="marginalVar" template="layout/display.xhtml">
+            <ui:define name="label">Marginal var</ui:define>
+            <h:outputText value="#{positionRiskHome.instance.marginalVar}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="var" template="layout/display.xhtml">
+            <ui:define name="label">Var</ui:define>
+            <h:outputText value="#{positionRiskHome.instance.var}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/PositionRiskEdit.xhtml"
+                    id="edit"
+                 value="Edit"/>
+
+        <s:button view="/#{empty positionRiskFrom ? 'PositionRiskList' : positionRiskFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+    <rich:tabPanel switchType="client">
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Basedate</h:panelGroup>
+        </f:facet>
+    <div class="association" id="basedateParent">
+
+        <h:outputText value="There is no basedate associated with this positionRisk."
+                   rendered="#{positionRiskHome.instance.basedate == null}"/>
+
+        <rich:dataTable var="_basedate"
+                   value="#{positionRiskHome.instance.basedate}"
+                rendered="#{positionRiskHome.instance.basedate != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="basedateTable">
+            <h:column>
+                <f:facet name="header">Bssd</f:facet>
+                <h:outputText value="#{_basedate.bssd}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Eom bizday</f:facet>
+                <h:outputText value="#{_basedate.eomBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Eoq bizday</f:facet>
+                <h:outputText value="#{_basedate.eoqBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Eos bizday</f:facet>
+                <h:outputText value="#{_basedate.eosBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Eoy bizday</f:facet>
+                <h:outputText value="#{_basedate.eoyBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Fiscal bizday</f:facet>
+                <h:outputText value="#{_basedate.fiscalBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Is bizday</f:facet>
+                <h:outputText value="#{_basedate.isBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Next bizday</f:facet>
+                <h:outputText value="#{_basedate.nextBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Prev bizday</f:facet>
+                <h:outputText value="#{_basedate.prevBizday}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewbasedate"
+                     value="View"
+                      view="/Basedate.xhtml">
+                    <f:param name="basedateBssd"
+                           value="#{_basedate.bssd}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Position</h:panelGroup>
+        </f:facet>
+    <div class="association" id="positionParent">
+
+        <h:outputText value="There is no position associated with this positionRisk."
+                   rendered="#{positionRiskHome.instance.position == null}"/>
+
+        <rich:dataTable var="_position"
+                   value="#{positionRiskHome.instance.position}"
+                rendered="#{positionRiskHome.instance.position != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="positionTable">
+            <h:column>
+                <f:facet name="header">Pos id</f:facet>
+                <h:outputText value="#{_position.posId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Holding qty</f:facet>
+                <h:outputText value="#{_position.holdingQty}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Init fee amt</f:facet>
+                <h:outputText value="#{_position.initFeeAmt}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Init tx amt</f:facet>
+                <h:outputText value="#{_position.initTxAmt}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Init tx date</f:facet>
+                <h:outputText value="#{_position.initTxDate}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Init tx price</f:facet>
+                <h:outputText value="#{_position.initTxPrice}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Last tx date</f:facet>
+                <h:outputText value="#{_position.lastTxDate}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Pos name</f:facet>
+                <h:outputText value="#{_position.posName}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewposition"
+                     value="View"
+                      view="/Position.xhtml">
+                    <f:param name="positionPosId"
+                           value="#{_position.posId}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Var gen mcd</h:panelGroup>
+        </f:facet>
+    <div class="association" id="varGenMcdParent">
+
+        <h:outputText value="There is no varGenMcd associated with this positionRisk."
+                   rendered="#{positionRiskHome.instance.varGenMcd == null}"/>
+
+        <rich:dataTable var="_varGenMcd"
+                   value="#{positionRiskHome.instance.varGenMcd}"
+                rendered="#{positionRiskHome.instance.varGenMcd != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="varGenMcdTable">
+            <h:column>
+                <f:facet name="header">Var gen id</f:facet>
+                <h:outputText value="#{_varGenMcd.varGenId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Time horizon</f:facet>
+                <h:outputText value="#{_varGenMcd.timeHorizon}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Var type</f:facet>
+                <h:outputText value="#{_varGenMcd.varType}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewvarGenMcd"
+                     value="View"
+                      view="/VarGenMcd.xhtml">
+                    <f:param name="varGenMcdVarGenId"
+                           value="#{_varGenMcd.varGenId}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

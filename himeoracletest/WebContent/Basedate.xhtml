@@ -1,0 +1,79 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Basedate Details</f:facet>
+
+        <s:decorate id="bssd" template="layout/display.xhtml">
+            <ui:define name="label">Bssd</ui:define>
+            <h:outputText value="#{basedateHome.instance.bssd}"/>
+        </s:decorate>
+
+        <s:decorate id="eomBizday" template="layout/display.xhtml">
+            <ui:define name="label">Eom bizday</ui:define>
+            <h:outputText value="#{basedateHome.instance.eomBizday}"/>
+        </s:decorate>
+
+        <s:decorate id="eoqBizday" template="layout/display.xhtml">
+            <ui:define name="label">Eoq bizday</ui:define>
+            <h:outputText value="#{basedateHome.instance.eoqBizday}"/>
+        </s:decorate>
+
+        <s:decorate id="eosBizday" template="layout/display.xhtml">
+            <ui:define name="label">Eos bizday</ui:define>
+            <h:outputText value="#{basedateHome.instance.eosBizday}"/>
+        </s:decorate>
+
+        <s:decorate id="eoyBizday" template="layout/display.xhtml">
+            <ui:define name="label">Eoy bizday</ui:define>
+            <h:outputText value="#{basedateHome.instance.eoyBizday}"/>
+        </s:decorate>
+
+        <s:decorate id="fiscalBizday" template="layout/display.xhtml">
+            <ui:define name="label">Fiscal bizday</ui:define>
+            <h:outputText value="#{basedateHome.instance.fiscalBizday}"/>
+        </s:decorate>
+
+        <s:decorate id="isBizday" template="layout/display.xhtml">
+            <ui:define name="label">Is bizday</ui:define>
+            <h:outputText value="#{basedateHome.instance.isBizday}"/>
+        </s:decorate>
+
+        <s:decorate id="nextBizday" template="layout/display.xhtml">
+            <ui:define name="label">Next bizday</ui:define>
+            <h:outputText value="#{basedateHome.instance.nextBizday}"/>
+        </s:decorate>
+
+        <s:decorate id="prevBizday" template="layout/display.xhtml">
+            <ui:define name="label">Prev bizday</ui:define>
+            <h:outputText value="#{basedateHome.instance.prevBizday}"/>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/BasedateEdit.xhtml"
+                    id="edit"
+                 value="Edit"/>
+
+        <s:button view="/#{empty basedateFrom ? 'BasedateList' : basedateFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+</ui:define>
+
+</ui:composition>

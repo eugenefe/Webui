@@ -1,0 +1,114 @@
+<rich:toolbar
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:rich="http://richfaces.org/rich">
+    <rich:toolbarGroup>
+        <h:outputText value="#{projectName}:"/>
+        <s:link id="menuHomeId" view="/home.xhtml" value="Home" propagation="none"/>
+        <s:link id="menuPrimeHomeId" view="/view/primeHome.xhtml" value="PrimeHome" propagation="none"/>
+        <s:link id="menuSampleId" view="/view/sample.xhtml" value="Sample" propagation="none"/>
+    </rich:toolbarGroup>
+    <rich:dropDownMenu showDelay="250" hideDelay="0" submitMode="none">
+        <f:facet name="label">Browse data</f:facet>
+	<rich:menuItem>
+    	<s:link view="/PortfolioLossList.xhtml"
+           	value="PortfolioLoss List"
+           	id="PortfolioLossId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/DealerList.xhtml"
+           	value="Dealer List"
+           	id="DealerId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/PositionList.xhtml"
+           	value="Position List"
+           	id="PositionId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/AccountMstList.xhtml"
+           	value="AccountMst List"
+           	id="AccountMstId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/LgdSegList.xhtml"
+           	value="LgdSeg List"
+           	id="LgdSegId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/ObligorList.xhtml"
+           	value="Obligor List"
+           	id="ObligorId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/PositionHisList.xhtml"
+           	value="PositionHis List"
+           	id="PositionHisId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/PositionLossList.xhtml"
+           	value="PositionLoss List"
+           	id="PositionLossId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/BaseDateList.xhtml"
+           	value="BaseDate List"
+           	id="BaseDateId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/PdSegList.xhtml"
+           	value="PdSeg List"
+           	id="PdSegId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/PortfolioHisList.xhtml"
+           	value="PortfolioHis List"
+           	id="PortfolioHisId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/PortfolioList.xhtml"
+           	value="Portfolio List"
+           	id="PortfolioId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/ProductList.xhtml"
+           	value="Product List"
+           	id="ProductId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+    </rich:dropDownMenu>
+    <!-- @newMenuItem@ -->
+    <rich:toolbarGroup location="right">
+        <h:outputText id="menuWelcomeId" value="signed in as: #{credentials.username}" rendered="#{identity.loggedIn}"/>
+        <s:link id="menuLoginId" view="/login.xhtml" value="Login" rendered="#{not identity.loggedIn}" propagation="none"/>
+        <s:link id="menuLogoutId" view="/home.xhtml" action="#{identity.logout}" value="Logout" rendered="#{identity.loggedIn}" propagation="none"/>
+    </rich:toolbarGroup>
+</rich:toolbar>

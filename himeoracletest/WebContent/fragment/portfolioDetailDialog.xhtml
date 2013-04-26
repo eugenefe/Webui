@@ -1,0 +1,38 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.org/schema/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+  <!--   <p:tabView id="tabView">
+    <p:tab id="portfolioTreeTable" title="Portfolio Info"> -->
+
+  <h:form id="portDialogForm">
+    <p:dialog id="dialog" header="AAA" widgetVar="portDialog" resizable="false" width="200" showEffect="clip"
+      hideEffect="fold">
+
+      <h:panelGrid id="takiondisplay" columns="2" cellpadding="4">
+
+        <f:facet name="header">
+          <p:graphicImage value="/img/primefaces/excel.png" />
+        </f:facet>
+
+        <!-- <h:outputText value="Name:" />
+        <h:outputText value="#{portfolioBean.selectedPort.name}" />
+
+        <h:outputText value="Year:" />
+        <h:outputText value="#{portfolioBean.selectedPort.name}" />
+
+        <h:outputText value="Manufacturer:" />
+        <h:outputText value="#{portfolioBean.selectedPort.presValue}" /> -->
+
+        <h:outputText value="Color:" />
+        <h:outputText value="#{selectedPortfolio.dailyReturn}" />
+      </h:panelGrid>
+    </p:dialog>
+
+  </h:form>
+
+
+  <!--     </p:tab>
+  </p:tabView> -->
+</ui:composition>

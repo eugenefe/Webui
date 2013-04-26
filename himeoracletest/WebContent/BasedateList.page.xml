@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.org/schema/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.org/schema/seam/pages http://jboss.org/schema/seam/pages-2.3.xsd">
+
+   <param name="firstResult" value="#{basedateList.firstResult}"/>
+   <param name="sort" value="#{basedateList.orderColumn}"/>
+   <param name="dir" value="#{basedateList.orderDirection}"/>
+   <param name="logic" value="#{basedateList.restrictionLogicOperator}"/>
+
+   <param name="from"/>
+   <param name="bssd" value="#{basedateList.basedate.bssd}"/>
+   <param name="eomBizday" value="#{basedateList.basedate.eomBizday}"/>
+   <param name="eoqBizday" value="#{basedateList.basedate.eoqBizday}"/>
+   <param name="eosBizday" value="#{basedateList.basedate.eosBizday}"/>
+   <param name="eoyBizday" value="#{basedateList.basedate.eoyBizday}"/>
+   <param name="fiscalBizday" value="#{basedateList.basedate.fiscalBizday}"/>
+   <param name="nextBizday" value="#{basedateList.basedate.nextBizday}"/>
+   <param name="prevBizday" value="#{basedateList.basedate.prevBizday}"/>
+
+</page>

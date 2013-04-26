@@ -1,0 +1,21 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+  xmlns:s="http://jboss.org/schema/seam/taglib">
+  <p:dock >
+    <p:menuitem value="Home" icon="/img/prime/home.png" url="#{messages.url}/home.seam" />
+    <p:menuitem value="PrimeHome" icon="/img/prime/music.png" url="#{messages.url}/view/primeHome.seam" />
+    <p:menuitem value="Sample" icon="/img/prime/video.png" url="#{messages.url}/view/sample.seam" />
+    <p:menuitem value="Email" icon="/img/prime/email.png" url="#" />
+    <p:menuitem value="Portfolio" icon="/img/prime/portfolio.png" url="#" />
+    <p:menuitem value="Link" icon="/img/prime/link.png" url="#" />
+    <p:menuitem value="RSS" icon="/img/prime/rss.png" url="#" />
+    <p:menuitem value="History" icon="/img/prime/history.png" url="#" />
+  </p:dock>
+  <p:stack icon="/img/prime/stack.png">
+    <p:menuitem value="Limit/RAPM" icon="/img/prime/aperture.png" url="#" />
+    <p:menuitem value="RiskManagement" icon="/img/prime/photoshop.png" url="#" />
+    <p:menuitem value="PortfolioManagement" icon="/img/prime/coda.png" url="#" />
+    <p:menuitem value="Simulation" icon="/img/prime/safari.png" url="#" />
+    <p:menuitem value="MarketData" icon="/img/prime/finder.png" url="#" />
+  </p:stack>
+</ui:composition>

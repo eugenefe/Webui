@@ -1,0 +1,24 @@
+<p:toolbar height="40px" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:p="http://primefaces.org/ui">
+  <p:toolbarGroup align="left">
+    <p:separator />
+    <s:link id="toolbarHomeId" view="/home.xhtml" value="#{messages.Home}" propagation="none" />
+    <p:separator />
+    <s:link id="toolbarPrimeHomeId" view="/view/primeHome.xhtml" value="PrimeHome" propagation="join" />
+    <p:separator />
+    <s:link id="toolbarSampleId" view="/view/sample.xhtml" value="Sample" propagation="none" />
+    <p:separator />
+    <s:link id="toolbarSampleOldId" view="/view/sampleOld.xhtml" value="Old Sample" propagation="none" />
+    <s:link id="toolbarSampleNewId" view="/view/sampleNew.xhtml" value="New Sample" propagation="none" />
+  </p:toolbarGroup>
+
+  <p:toolbarGroup align="right">
+    <h:outputText id="toolbarWelcomeId" value="#{messages.signedAs}: #{credentials.username}" rendered="#{identity.loggedIn}" />
+    <p:separator />
+    <s:link id="toolbarLoginId" view="/login.xhtml" value="Login" rendered="#{not identity.loggedIn}" propagation="none" />
+    <s:link id="toolbarLogoutId" view="/home.xhtml" action="#{identity.logout}" value="Logout"
+      rendered="#{identity.loggedIn}" propagation="none"  />
+  </p:toolbarGroup>
+</p:toolbar>
+

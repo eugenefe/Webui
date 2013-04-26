@@ -1,0 +1,170 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="employeeSearch" styleClass="edit">
+
+        <rich:collapsiblePanel header="Employee Search Filter" switchType="ajax">
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Member id</ui:define>
+                <h:inputText id="memberId" value="#{employeeList.employee.memberId}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Member name</ui:define>
+                <h:inputText id="memberName" value="#{employeeList.employee.memberName}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Member type</ui:define>
+                <h:inputText id="memberType" value="#{employeeList.employee.memberType}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Match</ui:define>
+                <h:selectOneRadio id="logic" value="#{employeeList.restrictionLogicOperator}" styleClass="radio">
+                    <f:selectItem itemLabel="All" itemValue="and"/>
+                    <f:selectItem itemLabel="Any" itemValue="or"/>
+                </h:selectOneRadio>
+            </s:decorate>
+
+        </rich:collapsiblePanel>
+
+        <div class="actionButtons">
+            <h:commandButton id="search" value="Search" action="/EmployeeList.xhtml"/>
+            <s:button id="reset" value="Reset" includePageParams="false"/>
+        </div>
+
+    </h:form>
+
+    <rich:panel>
+        <f:facet name="header">Employee Search Results (#{empty employeeList.resultList ? 0 : (employeeList.paginated ? employeeList.resultCount : employeeList.resultList.size)})</f:facet>
+    <div class="results" id="employeeList">
+
+    <h:outputText value="The employee search returned no results."
+               rendered="#{empty employeeList.resultList}"/>
+
+    <rich:dataTable id="employeeList"
+                var="_employee"
+              value="#{employeeList.resultList}"
+           rendered="#{not empty employeeList.resultList}">
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{employeeList}"/>
+                    <ui:param name="propertyLabel" value="Member id"/>
+                    <ui:param name="propertyPath" value="employee.memberId"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_employee.memberId}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{employeeList}"/>
+                    <ui:param name="propertyLabel" value="Bizunit org id"/>
+                    <ui:param name="propertyPath" value="employee.bizunit.orgId"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_employee.bizunit.orgId}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{employeeList}"/>
+                    <ui:param name="propertyLabel" value="Member name"/>
+                    <ui:param name="propertyPath" value="employee.memberName"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_employee.memberName}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{employeeList}"/>
+                    <ui:param name="propertyLabel" value="Member type"/>
+                    <ui:param name="propertyPath" value="employee.memberType"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_employee.memberType}"/>
+        </h:column>
+        <rich:column styleClass="action">
+            <f:facet name="header">Action</f:facet>
+            <s:link view="/#{empty from ? 'Employee' : from}.xhtml"
+                   value="#{empty from ? 'View' : 'Select'}"
+             propagation="#{empty from ? 'none' : 'default'}"
+                      id="employeeViewId">
+                <f:param name="employeeMemberId"
+                        value="#{_employee.memberId}"/>
+            </s:link>
+            #{' '}
+            <s:link view="/EmployeeEdit.xhtml"
+                   value="Edit"
+             propagation="none"
+                      id="employeeEdit"
+                rendered="#{empty from}">
+                <f:param name="employeeMemberId"
+                        value="#{_employee.memberId}"/>
+            </s:link>
+        </rich:column>
+    </rich:dataTable>
+
+    </div>
+    </rich:panel>
+
+    <div class="tableControl">
+
+        <s:link view="/EmployeeList.xhtml"
+            rendered="#{employeeList.previousExists}"
+               value="#{messages.left}#{messages.left} First Page"
+                  id="firstPage">
+          <f:param name="firstResult" value="0"/>
+        </s:link>
+
+        <s:link view="/EmployeeList.xhtml"
+            rendered="#{employeeList.previousExists}"
+               value="#{messages.left} Previous Page"
+                  id="previousPage">
+            <f:param name="firstResult"
+                    value="#{employeeList.previousFirstResult}"/>
+        </s:link>
+
+        <s:link view="/EmployeeList.xhtml"
+            rendered="#{employeeList.nextExists}"
+               value="Next Page #{messages.right}"
+                  id="nextPage">
+            <f:param name="firstResult"
+                    value="#{employeeList.nextFirstResult}"/>
+        </s:link>
+
+        <s:link view="/EmployeeList.xhtml"
+            rendered="#{employeeList.nextExists}"
+               value="Last Page #{messages.right}#{messages.right}"
+                  id="lastPage">
+            <f:param name="firstResult"
+                    value="#{employeeList.lastFirstResult}"/>
+        </s:link>
+
+    </div>
+
+    <s:div styleClass="actionButtons" rendered="#{empty from}">
+        <s:button view="/EmployeeEdit.xhtml"
+                    id="create"
+           propagation="none"
+                 value="Create employee">
+            <f:param name="employeeMemberId"/>
+        </s:button>
+    </s:div>
+
+</ui:define>
+
+</ui:composition>

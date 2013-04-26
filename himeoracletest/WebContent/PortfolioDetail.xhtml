@@ -1,0 +1,245 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Portfolio detail Details</f:facet>
+
+        <s:decorate id="bssd" template="layout/display.xhtml">
+            <ui:define name="label">Bssd</ui:define>
+            <h:outputText value="#{portfolioDetailHome.instance.id.bssd}"/>
+        </s:decorate>
+        <s:decorate id="portId" template="layout/display.xhtml">
+            <ui:define name="label">Port id</ui:define>
+            <h:outputText value="#{portfolioDetailHome.instance.id.portId}"/>
+        </s:decorate>
+        <s:decorate id="posId" template="layout/display.xhtml">
+            <ui:define name="label">Pos id</ui:define>
+            <h:outputText value="#{portfolioDetailHome.instance.id.posId}"/>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/PortfolioDetailEdit.xhtml"
+                    id="edit"
+                 value="Edit"/>
+
+        <s:button view="/#{empty portfolioDetailFrom ? 'PortfolioDetailList' : portfolioDetailFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+    <rich:tabPanel switchType="client">
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Basedate</h:panelGroup>
+        </f:facet>
+    <div class="association" id="basedateParent">
+
+        <h:outputText value="There is no basedate associated with this portfolioDetail."
+                   rendered="#{portfolioDetailHome.instance.basedate == null}"/>
+
+        <rich:dataTable var="_basedate"
+                   value="#{portfolioDetailHome.instance.basedate}"
+                rendered="#{portfolioDetailHome.instance.basedate != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="basedateTable">
+            <h:column>
+                <f:facet name="header">Bssd</f:facet>
+                <h:outputText value="#{_basedate.bssd}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Eom bizday</f:facet>
+                <h:outputText value="#{_basedate.eomBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Eoq bizday</f:facet>
+                <h:outputText value="#{_basedate.eoqBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Eos bizday</f:facet>
+                <h:outputText value="#{_basedate.eosBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Eoy bizday</f:facet>
+                <h:outputText value="#{_basedate.eoyBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Fiscal bizday</f:facet>
+                <h:outputText value="#{_basedate.fiscalBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Is bizday</f:facet>
+                <h:outputText value="#{_basedate.isBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Next bizday</f:facet>
+                <h:outputText value="#{_basedate.nextBizday}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Prev bizday</f:facet>
+                <h:outputText value="#{_basedate.prevBizday}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewbasedate"
+                     value="View"
+                      view="/Basedate.xhtml">
+                    <f:param name="basedateBssd"
+                           value="#{_basedate.bssd}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Portfolio</h:panelGroup>
+        </f:facet>
+    <div class="association" id="portfolioParent">
+
+        <h:outputText value="There is no portfolio associated with this portfolioDetail."
+                   rendered="#{portfolioDetailHome.instance.portfolio == null}"/>
+
+        <rich:dataTable var="_portfolio"
+                   value="#{portfolioDetailHome.instance.portfolio}"
+                rendered="#{portfolioDetailHome.instance.portfolio != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="portfolioTable">
+            <h:column>
+                <f:facet name="header">Port id</f:facet>
+                <h:outputText value="#{_portfolio.portId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Group id</f:facet>
+                <h:outputText value="#{_portfolio.groupId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Level1</f:facet>
+                <h:outputText value="#{_portfolio.level1}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Level2</f:facet>
+                <h:outputText value="#{_portfolio.level2}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Level3</f:facet>
+                <h:outputText value="#{_portfolio.level3}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Level4</f:facet>
+                <h:outputText value="#{_portfolio.level4}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Level5</f:facet>
+                <h:outputText value="#{_portfolio.level5}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Parent portfolio port id</f:facet>
+                <h:outputText value="#{_portfolio.parentPortfolio.portId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Port name</f:facet>
+                <h:outputText value="#{_portfolio.portName}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewportfolio"
+                     value="View"
+                      view="/Portfolio.xhtml">
+                    <f:param name="portfolioPortId"
+                           value="#{_portfolio.portId}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="header">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Position</h:panelGroup>
+        </f:facet>
+    <div class="association" id="positionParent">
+
+        <h:outputText value="There is no position associated with this portfolioDetail."
+                   rendered="#{portfolioDetailHome.instance.position == null}"/>
+
+        <rich:dataTable var="_position"
+                   value="#{portfolioDetailHome.instance.position}"
+                rendered="#{portfolioDetailHome.instance.position != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="positionTable">
+            <h:column>
+                <f:facet name="header">Pos id</f:facet>
+                <h:outputText value="#{_position.posId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Holding qty</f:facet>
+                <h:outputText value="#{_position.holdingQty}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Init fee amt</f:facet>
+                <h:outputText value="#{_position.initFeeAmt}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Init tx amt</f:facet>
+                <h:outputText value="#{_position.initTxAmt}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Init tx date</f:facet>
+                <h:outputText value="#{_position.initTxDate}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Init tx price</f:facet>
+                <h:outputText value="#{_position.initTxPrice}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Last tx date</f:facet>
+                <h:outputText value="#{_position.lastTxDate}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Pos name</f:facet>
+                <h:outputText value="#{_position.posName}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewposition"
+                     value="View"
+                      view="/Position.xhtml">
+                    <f:param name="positionPosId"
+                           value="#{_position.posId}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

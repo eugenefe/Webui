@@ -1,0 +1,201 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.org/schema/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="bizunit" styleClass="edit">
+
+        <rich:panel>
+            <f:facet name="header">#{bizunitHome.managed ? 'Edit' : 'Add'} Bizunit</f:facet>
+
+
+            <s:decorate id="orgIdField" template="layout/edit.xhtml">
+                <ui:define name="label">Org id</ui:define>
+                <h:inputText id="orgId"
+                       disabled="#{bizunitHome.managed}"
+                       required="true"
+                           size="20"
+                      maxlength="20"
+                          value="#{bizunitHome.instance.orgId}">
+                    <a:ajax event="blur" render="orgIdField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+
+
+            <s:decorate id="orgNameField" template="layout/edit.xhtml">
+                <ui:define name="label">Org name</ui:define>
+                <h:inputText id="orgName"
+                           size="50"
+                      maxlength="50"
+                          value="#{bizunitHome.instance.orgName}">
+                    <a:ajax event="blur" render="orgNameField" bypassUpdates="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <div style="clear:both">
+                <span class="required">*</span>
+                required fields
+            </div>
+
+        </rich:panel>
+
+        <div class="actionButtons">
+
+            <h:commandButton id="save"
+                          value="Save"
+                         action="#{bizunitHome.persist}"
+                       disabled="#{!bizunitHome.wired}"
+                       rendered="#{!bizunitHome.managed}">
+                <s:conversationId/>
+            </h:commandButton>
+
+            <h:commandButton id="update"
+                          value="Save"
+                         action="#{bizunitHome.update}"
+                       rendered="#{bizunitHome.managed}">
+                <s:conversationId/>
+            </h:commandButton>
+
+            <h:commandButton id="delete"
+                          value="Delete"
+                         action="#{bizunitHome.remove}"
+                      immediate="true"
+                       rendered="#{bizunitHome.managed}"/>
+
+            <s:button id="cancelEdit"
+                   value="Cancel"
+             propagation="end"
+                    view="/Bizunit.xhtml"
+                rendered="#{bizunitHome.managed}"/>
+
+            <s:button id="cancelAdd"
+                   value="Cancel"
+             propagation="end"
+                    view="/#{empty bizunitFrom ? 'BizunitList' : bizunitFrom}.xhtml"
+                rendered="#{!bizunitHome.managed}"/>
+
+        </div>
+    </h:form>
+
+<rich:tabPanel switchType="client">
+
+    <rich:tab header="Child bizunits">
+        <h:form styleClass="association" id="childBizunitsChildren">
+
+            <h:outputText value="There are no childBizunits associated with this bizunit."
+                       rendered="#{empty bizunitHome.childBizunits}"/>
+
+            <rich:dataTable value="#{bizunitHome.childBizunits}"
+                           var="_bizunit"
+                      rendered="#{not empty bizunitHome.childBizunits}"
+                    rowClasses="rvgRowOne,rvgRowTwo"
+                            id="childBizunitsTable">
+                <rich:column sortBy="#{_bizunit.orgId}">
+                    <f:facet name="header">Org id</f:facet>
+                    <h:outputText value="#{_bizunit.orgId}"/>
+                </rich:column>
+                <rich:column sortBy="#{_bizunit.orgName}">
+                    <f:facet name="header">Org name</f:facet>
+                    <h:outputText value="#{_bizunit.orgName}"/>
+                </rich:column>
+            </rich:dataTable>
+
+        </h:form>
+
+        <f:subview rendered="#{bizunitHome.managed}" id="childBizunits">
+        <div class="actionButtons">
+            <s:button id="addbizunit"
+                   value="Add bizunit"
+                    view="/BizunitEdit.xhtml"
+             propagation="none">
+                 <f:param name="bizunitOrgId"
+                         value="#{bizunitHome.instance.orgId}"/>
+                 <f:param name="bizunitFrom" value="Bizunit"/>
+            </s:button>
+        </div>
+        </f:subview>
+    </rich:tab>
+
+    <rich:tab header="Employees">
+        <h:form styleClass="association" id="employeesChildren">
+
+            <h:outputText value="There are no employees associated with this bizunit."
+                       rendered="#{empty bizunitHome.employees}"/>
+
+            <rich:dataTable value="#{bizunitHome.employees}"
+                           var="_employee"
+                      rendered="#{not empty bizunitHome.employees}"
+                    rowClasses="rvgRowOne,rvgRowTwo"
+                            id="employeesTable">
+                <rich:column sortBy="#{_employee.memberId}">
+                    <f:facet name="header">Member id</f:facet>
+                    <h:outputText value="#{_employee.memberId}"/>
+                </rich:column>
+                <rich:column sortBy="#{_employee.memberName}">
+                    <f:facet name="header">Member name</f:facet>
+                    <h:outputText value="#{_employee.memberName}"/>
+                </rich:column>
+                <rich:column sortBy="#{_employee.memberType}">
+                    <f:facet name="header">Member type</f:facet>
+                    <h:outputText value="#{_employee.memberType}"/>
+                </rich:column>
+            </rich:dataTable>
+
+        </h:form>
+
+        <f:subview rendered="#{bizunitHome.managed}" id="employees">
+        <div class="actionButtons">
+            <s:button id="addemployee"
+                   value="Add employee"
+                    view="/EmployeeEdit.xhtml"
+             propagation="none">
+                 <f:param name="bizunitOrgId"
+                         value="#{bizunitHome.instance.orgId}"/>
+                 <f:param name="employeeFrom" value="Bizunit"/>
+            </s:button>
+        </div>
+        </f:subview>
+    </rich:tab>
+
+    <rich:tab header="Parent bizunit">
+    <div class="association" id="parentBizunitParent">
+
+        <h:outputText value="There is no parentBizunit associated with this bizunit."
+                   rendered="#{bizunitHome.instance.parentBizunit == null}"/>
+
+        <rich:dataTable var="_bizunit"
+                   value="#{bizunitHome.instance.parentBizunit}"
+                rendered="#{bizunitHome.instance.parentBizunit != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="parentBizunitTable">
+            <h:column>
+                <f:facet name="header">Org id</f:facet>
+                <h:outputText value="#{_bizunit.orgId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Org name</f:facet>
+                <h:outputText value="#{_bizunit.orgName}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Parent bizunit org id</f:facet>
+                <h:outputText value="#{_bizunit.parentBizunit.orgId}"/>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>
