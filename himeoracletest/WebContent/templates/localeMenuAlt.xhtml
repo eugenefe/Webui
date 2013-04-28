@@ -3,11 +3,11 @@
   xmlns:s="http://jboss.org/schema/seam/taglib">
   <h:form>
     <h:panelGrid columns="4" >
-      <h:outputText value="Default Switcher:" />
+     <!--  <h:outputText value="Default Switcher:" />
       <p:themeSwitcher style="width:200px" id="defaultSwitcher">
         <f:selectItem itemLabel="Choose Theme" itemValue="" />
         <f:selectItems value="#{themeSwitcher.themes}" />
-      </p:themeSwitcher>
+      </p:themeSwitcher> -->
       
       <h:selectOneMenu value="#{localeSelector.localeString}">
         <f:selectItems value="#{localeSelector.supportedLocales}" />

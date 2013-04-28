@@ -6,25 +6,27 @@
 
   <h:form id="portTreeForm">
 
-    <p:accordionPanel value="#{messages.portfolio}">
+    <p:accordionPanel value="#{messages.portfolio}" multiple="true">
       <p:tab title="#{messages.hierarchy}">
          <p:growl id="messages" showDetail="true" />  
 
         <p:contextMenu for="portfolioTree">
-          <p:menuitem value="View Details" update=":#{p:component('takiondisplay')}" oncomplete="portDialog.show()"
+          <p:menuitem value="View Details" onclick="portDialog.show()"
             icon="ui-icon-search" />
            <p:menuitem value="Add New..." update="messages" actionListener="#{portfolioTreeBean.displaySelectedSingle}"
             icon="ui-icon-circle-plus" /> 
           <p:menuitem value="Delete" actionListener="#{portfolioTree.deleteNode}" icon="ui-icon-close" disabled="true" />
         </p:contextMenu>
 
-        <p:tree id="portfolioTree" value="#{portfolioRoot}" var="node" selection="#{portfolioTreeBean.selectedNode}"
-          selectionMode="single">
+        <p:tree id="portfolioTree" value="#{portfolioRoot}" var="node" 
+                selection="#{portfolioTreeBean.selectedNode}"   selectionMode="single">
 
-          <p:ajax event="select" listener="#{portfolioTableBean.onNodeSelect}" update=":#{p:component('takiondisplay')}"/>
+          <p:ajax event="select" listener="#{portfolioTableBean.onNodeSelect}" update= "@(form)" />
+
           <p:treeNode expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed">
             <h:outputText value="#{node.name}" />
           </p:treeNode>
+
         </p:tree>
       </p:tab>
 
@@ -37,10 +39,11 @@
           <p:menuitem value="aa" icon="ui-icon-disk">
           </p:menuitem>
         </p:menubar>
-        <p:commandButton value="#{selectedNode.name}" />
+        <p:commandButton value="AAA" />
         
       </p:tab>
     </p:accordionPanel>
+    
     <ui:include src="/fragment/portfolioDetailDialog.xhtml" />
   </h:form>
 

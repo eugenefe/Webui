@@ -41,7 +41,7 @@ public class PortfolioTreeBean {
 	@Out(required=false)
 	private Portfolio selectedPortfolio;
 	
-	@Out(required=false , scope=ScopeType.EVENT)
+	@Out(required=false)
 	private TreeNode selectedNode;
 	
 	
@@ -55,6 +55,7 @@ public class PortfolioTreeBean {
 		System.out.println("In the Creation CTRL");
 	}
 	
+//----------------------- Getter and Setter--------------------------------	
 	public TreeNode getPortfolioRoot() {
 		return portfolioRoot;
 	}
@@ -92,7 +93,6 @@ public class PortfolioTreeBean {
 			FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 	}
-
 
 	@Create
 	public void init(){
@@ -135,7 +135,12 @@ public class PortfolioTreeBean {
 		log.info("Init portfolio Tree :#0" , portfolioRoot.getChildCount());
 	}
 	
-
+	// -----------------Evnet Listener---------------------------------
+		public void onNodeSelect(NodeSelectEvent event) {
+			log.info("Call Node Select Event: #0", ((IPortfolio) event.getTreeNode().getData()).getStringId());
+			selectedPortfolio = (Portfolio) event.getTreeNode().getData();
+		}
+		
 	// ----------------------------- helper method----------------------------------------
 
 	private void recursive(List<Portfolio> port, TreeNode node) {
