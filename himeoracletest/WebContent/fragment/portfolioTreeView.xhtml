@@ -21,7 +21,9 @@
         <p:tree id="portfolioTree" value="#{portfolioRoot}" var="node" 
                 selection="#{portfolioTreeBean.selectedNode}"   selectionMode="single">
 
-          <p:ajax event="select" listener="#{portfolioTableBean.onNodeSelect}" update= "@(form)" />
+          <p:ajax event="select" listener="#{portfolioTableBean.onNodeSelect}" update="@(form)">
+              <!-- <p:resetInput target=":#{p:component('globalFilter')}" /> -->
+           </p:ajax> 
 
           <p:treeNode expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed">
             <h:outputText value="#{node.name}" />
@@ -45,6 +47,7 @@
     </p:accordionPanel>
     
     <ui:include src="/fragment/portfolioDetailDialog.xhtml" />
+
   </h:form>
 
 </ui:composition>

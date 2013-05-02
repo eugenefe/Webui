@@ -9,13 +9,14 @@
     <title>HimeTest</title>
     <link rel="shortcut icon" href="#{request.contextPath}/favicon.ico" />
     
-    <link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/default.css" />
-    <link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/syntaxhighlighter/syntaxhighlighter.css" />
+    <link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/default.css" />
+    <link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/syntaxhighlighter/syntaxhighlighter.css" />
 
   </h:head>
   <h:body>
     <p:layout fullPage="true">
       <p:layoutUnit position="north" resizable="true" size="60">
+        
         <ui:include src="localeMenuAlt.xhtml" />
         <ui:include src="primeToolbar.xhtml" />
         <ui:insert name="layoutTop" />

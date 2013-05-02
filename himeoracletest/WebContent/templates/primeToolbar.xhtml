@@ -1,7 +1,7 @@
 <p:toolbar height="40px" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
   xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:p="http://primefaces.org/ui">
-  <p:toolbarGroup align="left">
+  <p:toolbarGroup align="left" styleClass="tak">
     <p:separator />
     <s:link id="toolbarHomeId" view="/home.xhtml" value="#{messages.Home}" propagation="none" />
     <p:separator />
@@ -11,6 +11,7 @@
     <p:separator />
     <s:link id="toolbarSampleOldId" view="/view/sampleOld.xhtml" value="Old Sample" propagation="none" />
     <s:link id="toolbarSampleNewId" view="/view/sampleNew.xhtml" value="New Sample" propagation="none" />
+    <s:link id="toolbarSettingsId" view="/view/settings.xhtml" value="Settings" propagation="join" />
   </p:toolbarGroup>
 
   <p:toolbarGroup align="right">

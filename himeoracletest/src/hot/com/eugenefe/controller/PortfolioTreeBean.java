@@ -69,6 +69,7 @@ public class PortfolioTreeBean {
 	}
 
 	public void setSelectedNode(TreeNode selectedNode) {
+		this.selectedPortfolio = (Portfolio)selectedNode.getData();
 		this.selectedNode = selectedNode;
 	}
 	

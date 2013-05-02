@@ -29,11 +29,12 @@ public class PortfolioTableBean implements Serializable {
 	@In(create = true)
 	private PortfolioList portfolioList;
 
-	// @In(required= false)
+//	 @In(required= false)
+//	 @Out
 	List<Portfolio> fullPort = new ArrayList<Portfolio>();
 
 //	@Out(required = false)
-//	@In(create = true, required = false)
+	@In(required = false)
 	private Portfolio selectedPortfolio;
 
 	@Out
@@ -121,19 +122,22 @@ public class PortfolioTableBean implements Serializable {
 
 	// -----------------Evnet Listener---------------------------------
 	public void onNodeSelect(NodeSelectEvent event) {
-		log.info("Call Node Select Event: #0", ((IPortfolio) event.getTreeNode().getData()).getStringId());
-		selectedPortfolio = (Portfolio) event.getTreeNode().getData();
-		List<Portfolio> temp  = new ArrayList<Portfolio>();
-		for(Portfolio aa : fullPort){
-			if(aa.getParentPortfolio()!=null 
-					&& aa.getParentPortfolio().getPortId().equals(selectedPortfolio.getPortId())){
-				temp.add(aa);
-				log.info("IN the Add in ");
-			}
-		}
+		log.info("Call Node Select Event: #0,#1", 
+					((IPortfolio) event.getTreeNode().getData()).getStringId(), selectedPortfolio.getPortId());
+//		selectedPortfolio = (Portfolio) event.getTreeNode().getData();
+//		List<Portfolio> temp  = new ArrayList<Portfolio>();
+//		for(Portfolio aa : fullPort){
+//			if(aa.getParentPortfolio()!=null 
+//					&& aa.getParentPortfolio().getPortId().equals(selectedPortfolio.getPortId())){
+//				temp.add(aa);
+//				log.info("IN the Add in ");
+//			}
+//		}
+//		portfolios = temp;
+//		filterPorts  = temp;
 		
-		portfolios = temp;
-		filterPorts  = temp;
+		portfolios = selectedPortfolio.getChildPortfolios();
+		filterPorts = selectedPortfolio.getChildPortfolios();
 		log.info("Size of Portfolios : #0 #1 " , portfolios.size(), fullPort.size());
 	}
 

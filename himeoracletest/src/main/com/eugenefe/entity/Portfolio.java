@@ -49,7 +49,7 @@ public class Portfolio implements IPortfolio, Serializable {
 	private List<Portfolio> childPortfolios = new ArrayList<Portfolio>(0);
 	
 	private List<PortfolioReturn> portfolioReturns = new ArrayList<PortfolioReturn>();
-//	private Set<PositionReturn> positions = new HashSet<PositionReturn>();
+//	private List<PositionReturn> positions = new ArrayList<PositionReturn>();
 	
 	public Portfolio() {
 	}
@@ -218,9 +218,11 @@ public class Portfolio implements IPortfolio, Serializable {
 
 	@Override
 	@Transient
-	public Set<IPortfolio> getChildren() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<IPortfolio> getChildren() {
+		List<IPortfolio> rst = new ArrayList<IPortfolio>();
+//		temp = getChildren();
+//		temp.addAll(this.getpo
+		return rst; 
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package com.eugenefe.entity;
 
 // Generated Apr 10, 2013 4:09:22 PM by Hibernate Tools 3.4.0.CR1
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -19,7 +20,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "PORTFOLIO_RETURN")
-public class PortfolioReturn implements java.io.Serializable {
+public class PortfolioReturn implements Serializable{
 
 	private PortfolioReturnId id;
 	private Basedate basedate;
@@ -112,7 +113,8 @@ public class PortfolioReturn implements java.io.Serializable {
 	public void setBookAmt(BigDecimal bookAmt) {
 		this.bookAmt = bookAmt;
 	}
-
+	
+	
 	@Column(name = "PRES_VALUE", scale = 4)
 	public BigDecimal getPresValue() {
 		return this.presValue;

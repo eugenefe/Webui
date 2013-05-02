@@ -4,7 +4,9 @@ package com.eugenefe.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -147,8 +149,8 @@ public class Position implements IPortfolio, Serializable {
 
 	@Override
 	@Transient
-	public Set<IPortfolio> getChildren() {
-		return new HashSet<IPortfolio>();
+	public List<IPortfolio> getChildren() {
+		return new ArrayList<IPortfolio>();
 	}
 
 	@Override
