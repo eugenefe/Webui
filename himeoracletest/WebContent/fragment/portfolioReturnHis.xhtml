@@ -1,0 +1,23 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.org/schema/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+  <h:form id="portReturnHisForm" >
+
+    <p:dataTable id="portReturnHisId" var="_portfolio" value="#{portfolioReturnBean.portReturns}" 
+      widgetVar="portsTableHis" filterDelay="300" filterEvent="keyup" emptyMessage="No cars found with given criteria" >
+
+      <p:column id="portId" headerText="#{messages.portfoioReturnId}" sortBy="#{_portfolio.basedate.bssd}"  >
+        <h:outputText value="#{_portfolio.basedate.bssd}" />
+      </p:column>
+
+      <p:column id="portName" headerText="#{messages.portfoioReturnName}" sortBy="#{_portfolio.portfolio.portId}">
+        <h:outputText value="#{_portfolio.portfolio.portId}" />
+      </p:column>
+   </p:dataTable>
+  </h:form> 
+      
+
+</ui:composition>

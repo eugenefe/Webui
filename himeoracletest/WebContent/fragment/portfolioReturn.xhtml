@@ -8,8 +8,10 @@
 
     <p:dataTable id="portReturnId" var="_portfolio" value="#{portfolioTableBean.portfolios}" selectionMode="single"
       selection="#{portfolioTableBean.selectedPortfolio}" rowKey="#{_portfolio.portId}" draggableColumns="true"
-      widgetVar="portsTable" filterDelay="300" filterEvent="keyup" emptyMessage="No cars found with given criteria"
-      
+      widgetVar="portsTable" filterDelay="300" filterEvent="keyup" 
+      emptyMessage="No Portfolios found with given criteria" 
+      resizableColumns="true" sortMode="multiple"
+      paginator="true" paginatorPosition="bottom"
       filteredValue="#{portfolioTableBean.filterPorts}" style="height : 438px">
 
       <f:facet name="header">
@@ -31,13 +33,14 @@
         <h:outputText value="#{_portfolio.portName}" />
       </p:column>
 
-      <p:column headerText="#{messages.portfoioReturnPresValue}" sortBy="#{_portfolio.presValue}">
+      <p:column headerText="#{messages.portfoioReturnPresValue}" sortBy="#{_portfolio.presValue}"
+                filterBy="#{_portfolio.presValue}" filterMatchMode="contains" filterStyle="display:none; visibility:hidden">
         <h:outputText value="#{_portfolio.presValue}" />
       </p:column>
 
-      <p:column headerText="#{messages.portfoioReturnDailyReturn}" sortBy="#{_portfolio.dailyReturn}">
+     <!--  <p:column headerText="#{messages.portfoioReturnDailyReturn}" sortBy="#{_portfolio.dailyReturn}">
         <h:outputText value="#{_portfolio.dailyReturn}" />
-      </p:column>
+      </p:column> -->
 
       <f:facet name="footer">
 

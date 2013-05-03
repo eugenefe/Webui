@@ -1,0 +1,72 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.org/schema/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+  
+  <h:form id="dataExporter">
+  
+  <p:dataTable id="tbl" var="car" value="#{tableBean.cars}" 
+  paginator="true" rows="10"
+  draggableColumns="true"
+  >
+  <p:column>
+    <f:facet name="header">
+      <h:outputText value="Model" />
+    </f:facet>
+    <h:outputText value="#{car.model}" />
+  </p:column>
+
+  <p:column>
+    <f:facet name="header">
+      <h:outputText value="Year" />
+    </f:facet>
+    <h:outputText value="#{car.year}"/>
+  </p:column>
+
+  <p:column>
+    <f:facet name="header">
+      <h:outputText value="Manufacturer" />
+    </f:facet>
+    <h:outputText value="#{car.manufacturer}" />
+  </p:column>
+
+  <p:column>
+    <f:facet name="header">
+      <h:outputText value="Color" />
+    </f:facet>
+    <h:outputText value="#{car.color}" />
+  </p:column>
+</p:dataTable>
+  
+  <p:panel header="Export All Data">
+      <h:commandLink style="float: right">
+          <p:graphicImage value="/img/primefaces/csv.png" />
+          <p:dataExporter type="csv" target="tbl" fileName="PortfolioReturn" />
+        </h:commandLink>
+<!--     <h:commandLink>
+      <p:graphicImage value="/ima/excel.png" />
+      <p:dataExporter type="xls" target="tbl" fileName="cars" />
+    </h:commandLink>
+
+    <h:commandLink>
+      <p:graphicImage value="/images/pdf.png" />
+      <p:dataExporter type="pdf" target="tbl" fileName="cars"/>
+    </h:commandLink>
+    
+    <h:commandLink>
+      <p:graphicImage value="/images/csv.png" />
+      <p:dataExporter type="csv" target="tbl" fileName="cars" />
+    </h:commandLink>
+    
+    <h:commandLink>
+      <p:graphicImage value="/images/xml.png" />
+      <p:dataExporter type="xml" target="tbl" fileName="cars" />
+    </h:commandLink> -->
+  </p:panel>
+  
+  
+                    
+  </h:form>
+  
+</ui:composition>

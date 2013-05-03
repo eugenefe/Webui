@@ -1,5 +1,6 @@
 package com.eugenefe.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,17 +10,23 @@ import javax.persistence.EntityManager;
 
 import com.eugenefe.entity.IPortfolio;
 import com.eugenefe.entity.Portfolio;
+import com.eugenefe.entity.PortfolioReturn;
 import com.eugenefe.session.PortfolioList;
+import com.eugenefe.session.PortfolioReturnList;
+
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Create;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.core.Events;
 import org.jboss.seam.log.Log;
 import org.primefaces.event.NodeSelectEvent;
+import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
@@ -33,9 +40,12 @@ public class PortfolioTreeBean {
 
 	@In(create = true)
 	private PortfolioList portfolioList;
+	@In(create = true)
+	private PortfolioReturnList portfolioReturnList;
 	
 //	@In(required= false)
 	List<Portfolio> fullPort = new ArrayList<Portfolio>();
+	
 
 //	@DataModelSelection 
 	@Out(required=false)
@@ -97,9 +107,30 @@ public class PortfolioTreeBean {
 
 	@Create
 	public void init(){
-		fullPort = portfolioList.getResultList();
+//		fullPort = portfolioList.getResultList();
+		for(PortfolioReturn aa: portfolioReturnList.getResultList()){
+			log.info("After Portfolio Tree Creation 01: #0" , aa.getBasedate().getBssd());
+			fullPort.add(aa.getPortfolio());
+		}
 //		portfolios = portfolioList.getResultList();
-		log.info("Call after creation : #0" , fullPort.size());
+		log.info("After Portfolio Tree Creation 02: #0" );
+	}
+	
+	@Observer("changeBssd")
+	public void onDateSelect(String bssd){
+//		fullPort = portfolioList.getResultList();
+		fullPort.clear();
+		log.info("Change BaseDate Event 1: #0, #1");
+		for(PortfolioReturn aa: portfolioReturnList.getResultList()){
+			fullPort.add(aa.getPortfolio());
+			log.info("Change BaseDate Event 2: #0, #1");
+		}
+//		portfolios = portfolioList.getResultList();
+		
+		log.info("Change BaseDate Event 3 : #0, #1" , fullPort.size());
+		initTree();
+		
+		
 	}
 	
 //	@Factory(value="portfolioRoot" , autoCreate=true)
@@ -131,9 +162,14 @@ public class PortfolioTreeBean {
 			TreeNode childNode = new DefaultTreeNode(bb, portfolioRoot);
 			childNode.setExpanded(true);
 			recursive(fullPort, childNode);
-			
 		}
 		log.info("Init portfolio Tree :#0" , portfolioRoot.getChildCount());
+		
+		if(portfolioRoot.getChildCount()!=0){
+			portfolioRoot.getChildren().get(0).setSelected(true);
+			selectedPortfolio= (Portfolio)(portfolioRoot.getChildren().get(0).getData());
+			Events.instance().raiseEvent("changeTree", selectedPortfolio);
+		}
 	}
 	
 	// -----------------Evnet Listener---------------------------------

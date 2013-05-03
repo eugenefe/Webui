@@ -11,6 +11,7 @@ import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.log.Log;
@@ -97,6 +98,11 @@ public class PortfolioTableBean implements Serializable {
 //		 portfolios = portfolioList.getResultList();
 //		 filterPorts = portfolioList.getResultList();
 		log.info("Call after creation : #0", fullPort.size());
+	}
+	
+	@Observer("changeTree")
+	public void onChangeTree(Portfolio selectedPortfolio){
+		portfolios = selectedPortfolio.getChildPortfolios();
 	}
 
 	@Factory(value = "portfolios" )

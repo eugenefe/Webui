@@ -21,7 +21,7 @@
         <p:tree id="portfolioTree" value="#{portfolioRoot}" var="node" 
                 selection="#{portfolioTreeBean.selectedNode}"   selectionMode="single">
 
-          <p:ajax event="select" listener="#{portfolioTableBean.onNodeSelect}" update="@(form)">
+          <p:ajax event="select" listener="#{portfolioTableBean.onNodeSelect}" update="@(.ui-datatable)">
               <!-- <p:resetInput target=":#{p:component('globalFilter')}" /> -->
            </p:ajax> 
 
