@@ -2,12 +2,20 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.org/schema/seam/taglib"
   xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:h="http://java.sun.com/jsf/html" 
-  xmlns:p="http://primefaces.org/ui"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
   template="/templates/templatePrimeFull.xhtml">
 
   <ui:define name="layoutCenter">
-    <ui:include src="/fragment/portfolioTreeTable.xhtml" />
+    <p:layout style="min-width:400px;min-height:200px;" id="layout">
+      <p:layoutUnit position="center">
+        <!-- <ui:include src="/fragment/portfolioTreeTable.xhtml" /> -->
+        <ui:include src="/fragment/portfolioTabView.xhtml" />
+      </p:layoutUnit>
+      <p:layoutUnit position="south" resizable="true" size="100" minSize="40" >
+        Sub Table
+      </p:layoutUnit>
+    </p:layout>
+    <!-- <ui:include src="/fragment/portfolioTreeTable.xhtml" /> -->
   </ui:define>
   <ui:define name="layoutBottom">
     <ui:include src="/templates/footer.xhtml" />

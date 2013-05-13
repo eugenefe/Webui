@@ -1,12 +1,46 @@
-<p:toolbar height="40px" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:p="http://primefaces.org/ui">
-  <p:toolbarGroup align="right">
-    <h:outputText id="toolbar1WelcomeId" value="signed in as: #{credentials.username}" rendered="#{identity.loggedIn}" />
-    <p:separator />
-    <s:link id="toolbar1LoginId" view="/login.xhtml" value="Login" rendered="#{not identity.loggedIn}" propagation="none" />
-    <s:link id="toolbar1LogoutId" view="/home.xhtml" action="#{identity.logout}" value="Logout"
-      rendered="#{identity.loggedIn}" propagation="none" />
-  </p:toolbarGroup>
-</p:toolbar>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+  xmlns:s="http://jboss.org/schema/seam/taglib">
+  <h:form id="formzzzzzzz">
+    <p:growl id="growl" showDetail="true" />
+     
+    <p:toolbar style="color:rgb(190, 214, 248); border:none"  >
+      <p:toolbarGroup align="left" styleClass="tak">
+        <p:separator />
+        <s:link id="toolbarHomeId" view="/home.xhtml" value="#{messages.Home}" propagation="none" />
+        <p:separator />
+        <s:link id="toolbarPrimeHomeId" view="/view/primeHome.xhtml" value="PrimeHome" propagation="begin" />
+        <p:separator />
+        <s:link id="toolbarSampleId" view="/view/sample.xhtml" value="Sample" propagation="none" />
+        <p:separator />
+        <s:link id="toolbarSampleOldId" view="/view/sampleOld.xhtml" value="Old Sample" propagation="none" />
+        <p:separator />
+        <s:link id="toolbarSampleNewId" view="/view/sampleNew.xhtml" value="New Sample" propagation="none" />
+        <p:separator />
+        <s:link id="toolbarSettingsId" view="/view/settings.xhtml" value="Settings" propagation="begin" />
+      </p:toolbarGroup>
+
+      <p:toolbarGroup align="right">
+        <h:outputText id="toolbarWelcomeId" value="#{messages.signedAs}: #{credentials.username}"
+          rendered="#{identity.loggedIn}" />
+        <p:separator />
+        <s:link id="toolbarLoginId" view="/login.xhtml" value="Login" rendered="#{not identity.loggedIn}"
+          propagation="none" />
+        <s:link id="toolbarLogoutId" view="/home.xhtml" action="#{identity.logout}" value="Logout"
+          rendered="#{identity.loggedIn}" propagation="none" />
+      </p:toolbarGroup>
+    </p:toolbar>
+    
+    
+    
+    <p:panelGrid columns="2" style="padding: 10px; border:none; float:right">
+      <h:outputText value="#{messages.baseDate}:" />
+      <p:calendar id="popupButtonCal" value="#{basedateBean.date1}" showButtonPanel="true" pattern="yyyy/MM/dd"
+        navigator="true" label="Takion">
+        <p:ajax event="dateSelect" listener="#{basedateBean.handleDateSelect}" update="@(form)" />
+      </p:calendar>
+    </p:panelGrid>
+  
+  </h:form>
+</ui:composition>
 

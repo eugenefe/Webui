@@ -20,7 +20,7 @@
       
       <h:outputText value="#{messages.baseDate}:" />
       <p:calendar id="popupButtonCal" value="#{basedateBean.date1}" showButtonPanel="true" pattern="yyyy/MM/dd"
-        navigator="true" disabledWeekends="true" label="Takion" >
+        navigator="true"  label="Takion" >
         <p:ajax event="dateSelect" listener="#{basedateBean.handleDateSelect}" update="@(form)" />
       </p:calendar>
       <!-- </h:panelGrid> -->

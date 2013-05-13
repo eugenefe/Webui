@@ -3,11 +3,20 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.org/schema/seam/taglib"
   xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
   xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
-  <h:form id="portTab" >
-    <p:tabView id="tabView" >
+  <!-- <h:form id="portTab" >
+     <p:tabView id="tabView" >
       <p:tab id="portfolioTab" title="Portfolio Info" >
         <ui:include src="/fragment/portfolioReturn.xhtml" />
       </p:tab>
-    </p:tabView>
-  </h:form>
+    </p:tabView> 
+  </h:form> -->
+     <p:tabView id="tabView" styleClass="horizontalTab">
+      <p:tab id="portfolioTab" title="Portfolio Info" >
+        <ui:include src="/fragment/portfolioReturn.xhtml" />
+      </p:tab>
+      <p:tab id="portfolioTab2" title="Portfolio">
+        aasdf
+      </p:tab>
+    </p:tabView> 
+    
 </ui:composition>

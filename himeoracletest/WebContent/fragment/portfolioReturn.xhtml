@@ -6,17 +6,40 @@
 
   <h:form id="portReturnForm" >
 
-    <p:dataTable id="portReturnId" var="_portfolio" value="#{portfolioTableBean.portfolios}" selectionMode="single"
-      selection="#{portfolioTableBean.selectedPortfolio}" rowKey="#{_portfolio.portId}" draggableColumns="true"
-      widgetVar="portsTable" filterDelay="300" filterEvent="keyup" 
-      emptyMessage="No Portfolios found with given criteria" 
-      resizableColumns="true" sortMode="multiple"
+    <!-- <p:contextMenu for="portReturnId">
+      <p:menuitem value="aaaa" onclick="portListDialog3.show();" />
+      <p:menuitem value="bbbb" id="qqq" />
+      <p:menuitem value="ccc" id="www">
+        <p:dataExporter type="csv" target="portReturnId" fileName="PortfolioReturn" />
+      </p:menuitem>
+    </p:contextMenu>
+    <p:overlayPanel for="qqq">
+          asdf
+        </p:overlayPanel>
+    <p:dialog header="Tbbb" widgetVar="portListDialog3">
+      <h:outputText value="bbb" />
+    </p:dialog>
+    <p:dialog header="Taaa" widgetVar="portListDialog4">
+      <h:outputText value="aaa" />
+    </p:dialog> -->
+
+    <p:dataTable id="portReturnId"  var="_portfolio" value="#{portfolioTableBean.portfolios}" 
+      selectionMode="single" 
+      selection="#{portfolioTableBean.selectedPortfolio}" 
+      rowKey="#{_portfolio.portId}" 
+      widgetVar="portsTable" 
+      emptyMessage="No Portfolios found with given criteria"
+      filterDelay="300" filterEvent="keyup" 
+      filteredValue="#{portfolioTableBean.filterPorts}" 
+      resizableColumns="true" 
+      draggableColumns="true" 
+      sortMode="multiple" 
       paginator="true" paginatorPosition="bottom"
-      filteredValue="#{portfolioTableBean.filterPorts}" style="height : 438px">
+      style="height : 100%">
 
       <f:facet name="header">
         <p:outputPanel style="float: right">
-          <h:outputText value="#{messages.datatableGlobalSearch}" style="color : rgb(137, 139, 139)"/>
+          <h:outputText value="#{messages.datatableGlobalSearch}" style="color : rgb(137, 139, 139)" />
           <p:inputText id="globalFilter" onkeyup="portsTable.filter()" style="width:150px" />
         </p:outputPanel>
       </f:facet>
@@ -32,13 +55,16 @@
         filterBy="#{_portfolio.portName}" filterMatchMode="contains" filterStyle="display:none; visibility:hidden">
         <h:outputText value="#{_portfolio.portName}" />
       </p:column>
-
-      <p:column headerText="#{messages.portfoioReturnPresValue}" sortBy="#{_portfolio.presValue}"
-                filterBy="#{_portfolio.presValue}" filterMatchMode="contains" filterStyle="display:none; visibility:hidden">
+      <p:column id="portGroup" headerText="#{messages.portfoioReturnGroup}" sortBy="#{_portfolio.groupId}"
+        filterBy="#{_portfolio.groupId}" filterMatchMode="contains" filterStyle="display:none; visibility:hidden">
+        <h:outputText value="#{_portfolio.groupId}" />
+      </p:column>
+      <p:column id="portPresValue" headerText="#{messages.portfoioReturnPresValue}" sortBy="#{_portfolio.presValue}"
+        filterBy="#{_portfolio.presValue}" filterMatchMode="contains" filterStyle="display:none; visibility:hidden">
         <h:outputText value="#{_portfolio.presValue}" />
       </p:column>
 
-     <!--  <p:column headerText="#{messages.portfoioReturnDailyReturn}" sortBy="#{_portfolio.dailyReturn}">
+      <!--  <p:column headerText="#{messages.portfoioReturnDailyReturn}" sortBy="#{_portfolio.dailyReturn}">
         <h:outputText value="#{_portfolio.dailyReturn}" />
       </p:column> -->
 
@@ -59,6 +85,8 @@
         <h:outputText value="#{messages.datatableExport}" style="float: right; vertical-aling:middle" />
       </f:facet>
     </p:dataTable>
+    <ui:include src="/fragment/portfolioDetailDialog.xhtml" />
+    <ui:include src="/fragment/portfolioDetailOverlay.xhtml" />
   </h:form>
   <script type="text/javascript"
     src="#{facesContext.externalContext.requestContextPath}/javax.faces.resource/jsf.js.xhtml?ln=javax.faces">

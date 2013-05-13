@@ -1,42 +1,59 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
-  xmlns:s="http://jboss.org/schema/seam/taglib" contentType="text/html">
-  <h:html>
-  <h:head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>HimeTest</title>
-    <link rel="shortcut icon" href="#{request.contextPath}/favicon.ico" />
-    <link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/default.css" />
-    <link type="text/css" rel="stylesheet"
-      href="#{request.contextPath}/resources/css/syntaxhighlighter/syntaxhighlighter.css" />
-  </h:head>
-  <h:body>
-  <h:form>
-    <ui:include src="/templates/primeToolbar.xhtml" />
-    <p:panelGrid columns="2">
-      <f:facet name="header">  
-        General Settings  
-    </f:facet>
-      <h:outputText value="Default Switcher:" />
-      <p:themeSwitcher value="#{themeSwitcher.theme}" style="width:200px" id="defaultSwitcher" >
-        <f:selectItem itemLabel="#{messages.SelectTheme}" itemValue="" />
-        <f:selectItems value="#{themeSwitcher.themes}" var="theme" itemLabel="#{theme.name}" itemValue="#{theme}" />
-        <p:ajax listener="#{themeSwitcher.saveTheme}" />
-      </p:themeSwitcher>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.org/schema/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:p="http://primefaces.org/ui"
+  template="/templates/templatePrimeTop.xhtml">
 
-      <h:outputText value=" #{messages.Language} :" />
-      <p:selectOneMenu value="#{localeSelector.localeString}" style="width:200px">
-        <f:selectItems value="#{localeSelector.supportedLocales}" />
-      </p:selectOneMenu>
-      <!-- <h:commandButton action="#{localeSelector.select}" value="#{messages.ChangeLanguage}" /> -->
+  <ui:define name="layoutCenter">
+    <h:form id="xxxform">
 
-      <f:facet name="footer">
-        <h:commandButton value="Save" icon="ui-icon-check" action="#{localeSelector.select}" style="margin:0" />
-      </f:facet>
-    </p:panelGrid>
-  </h:form>
-  </h:body>
-  </h:html>
-</f:view>
+      <p:contextMenu for="tabxxx:acordionId:xxx">
+              <p:menuitem value="View" onclick="portListDialog3.show();" icon="ui-icon-search" />
+            </p:contextMenu>
+            
+      <p:tabView id="tabxxx" orientation="left" >
+        <p:tab title="#{messages.generalSettings} ">
+          <p:panelGrid columns="2" cellpadding="100">
+            <h:outputText value="Default Switcher:" />
+            <p:themeSwitcher value="#{themeSwitcher.theme}" style="width:200px" id="defaultSwitcher">
+              <f:selectItem itemLabel="#{messages.SelectTheme}" itemValue="" />
+              <f:selectItems value="#{themeSwitcher.themes}" var="theme" itemLabel="#{theme.name}" itemValue="#{theme}" />
+              <p:ajax listener="#{themeSwitcher.saveTheme}" />
+            </p:themeSwitcher>
+
+            <h:outputText value=" #{messages.Language} :" />
+            <p:selectOneMenu value="#{localeSelector.localeString}" style="width:200px">
+              <f:selectItems value="#{localeSelector.supportedLocales}" />
+            </p:selectOneMenu>
+            <!-- <h:commandButton action="#{localeSelector.select}" value="#{messages.ChangeLanguage}" /> -->
+
+            <f:facet name="footer">
+              <h:commandButton value="Save" icon="ui-icon-check" action="#{localeSelector.select}" style="margin:0" />
+            </f:facet>
+          </p:panelGrid>
+        </p:tab>
+
+        <p:tab title="#{messages.aaa}">
+          <p:commandButton id="basiczzz" value="Basic" onclick="portListDialog3.show();" type="button" />
+        </p:tab>
+        <p:tab id="tabzzzz" title="Test Accordion">
+          <p:accordionPanel id="acordionId" multiple="true">
+            <p:tab title="#{messages.userDefined}" disabled="#{not identity.loggedIn}">
+              <p:outputLabel id="xyz" value="AAAA" />
+              <s:link value="BBB" onclick="portListDialog3.show();" />
+              <h:outputLink value="javascript:void(0)" onclick="portListDialog3.show();">CCC </h:outputLink>
+            </p:tab>
+            <p:tab id="xxx" title="#{messages.userDefined}" disabled="#{not identity.loggedIn}">
+              <p:commandButton type="button" value="AAA222" onclick="portListDialog3.show();" />
+            </p:tab>
+          </p:accordionPanel>
+        </p:tab>
+      </p:tabView>
+
+      <p:dialog header="Taaa" widgetVar="portListDialog3">
+        <h:outputText value="AAA" />
+      </p:dialog>
+    </h:form>
+  </ui:define>
+</ui:composition>

@@ -44,7 +44,7 @@ public class PortfolioTableBean implements Serializable {
 	@Out
 	List<Portfolio> portfolios = new ArrayList<Portfolio>();
 
-	List<Portfolio> filterPorts;
+	List<Portfolio> filterPorts ;
 
 	public PortfolioTableBean() {
 		// System.out.println("In the Creation CTRL");

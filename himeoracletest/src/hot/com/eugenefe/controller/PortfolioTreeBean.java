@@ -59,7 +59,26 @@ public class PortfolioTreeBean {
 	private TreeNode portfolioRoot;
 	private TreeNode portfolioSuperRoot;
 
+	private List<IPortfolio> rootPort = new ArrayList<IPortfolio>();
+	private List<String> rootPortString = new ArrayList<String>();
+	private List<IPortfolio> selRootPort ;
 
+
+	public List<IPortfolio> getSelRootPort() {
+		return selRootPort;
+	}
+
+	public void setSelRootPort(List<IPortfolio> selRootPort) {
+		this.selRootPort = selRootPort;
+	}
+
+	public List<String> getRootPortString() {
+		return rootPortString;
+	}
+
+	public void setRootPortString(List<String> rootPortString) {
+		this.rootPortString = rootPortString;
+	}
 
 	public PortfolioTreeBean() {
 		System.out.println("In the Creation CTRL");
@@ -91,11 +110,19 @@ public class PortfolioTreeBean {
 		this.selectedPortfolio = selectedPortfolio;
 	}
 	
-	
+	public List<IPortfolio> getRootPort() {
+		return rootPort;
+	}
+
+	public void setRootPort(List<IPortfolio> rootPort) {
+		this.rootPort = rootPort;
+	}
 	
 	
 //-----------------------End of Getter and Setter--------------------------------
 	
+
+
 
 	public void displaySelectedSingle() {
 		if (selectedNode != null) {
@@ -150,11 +177,13 @@ public class PortfolioTreeBean {
 
 //		fullPort = portfolioList.getResultList();
 		// Hierarchy º° Root Portfolio
-		List<IPortfolio> rootPort = new ArrayList<IPortfolio>();
+//		List<IPortfolio> rootPort = new ArrayList<IPortfolio>();
+		rootPort.clear();
 
 		for (Portfolio aa : fullPort) {
 			if (aa.getParentPortfolio() == null) {
 				rootPort.add(aa);
+				rootPortString.add(aa.getPortName());
 			}
 		}
 

@@ -4,7 +4,7 @@ body {
 	color: #616161;
 }
 
-h1, h2, h3 {
+h1,h2,h3 {
 	margin-top: 0;
 }
 
@@ -19,10 +19,11 @@ h2 {
 
 h3 {
 	font-size: 1.2em;
-	margin-top:20px;
+	margin-top: 20px;
 }
 
 ul {
+	
 }
 
 a {
@@ -49,23 +50,23 @@ img.right {
 
 /* Header */
 #header {
-    padding: 4px 0px;
-    height: 75px;
-    position: relative;
+	padding: 4px 0px;
+	height: 75px;
+	position: relative;
 }
 
 #logo {
-    text-align: left;
+	text-align: left;
 }
 
 /* Menu */
 #menu {
-    position: absolute;
-    top:25px;
-    right:15px;
+	position: absolute;
+	top: 25px;
+	right: 15px;
 	padding: 0;
 	height: 59px;
-    overflow: hidden;
+	overflow: hidden;
 }
 
 #menu ul {
@@ -92,9 +93,9 @@ img.right {
 }
 
 #globalthemeswitcher {
-    position:absolute;
-    top:5px;
-    right:50px;
+	position: absolute;
+	top: 5px;
+	right: 50px;
 }
 
 /* Page */
@@ -106,7 +107,7 @@ img.right {
 /* Content */
 #content {
 	width: 70%;
-    float:left;
+	float: left;
 }
 
 .post {
@@ -133,11 +134,11 @@ img.right {
 }
 
 .submenu-title {
-    padding: 4px 10px;
+	padding: 4px 10px;
 }
 
 .submenu-content {
-    text-align:center;
+	text-align: center;
 }
 
 .byline {
@@ -171,6 +172,7 @@ img.right {
 }
 
 .links a:hover {
+	
 }
 
 #sidebar {
@@ -178,32 +180,31 @@ img.right {
 	width: 25%;
 	padding: 0 10px;
 	margin-left: -1px;
-    overflow: hidden;
+	overflow: hidden;
 }
 
-#sidebar a.ui-state-hover, 
-#sidebar a.ui-state-highlight {
-    border:0 none;
-    text-decoration: none;
-    font-weight: normal;
+#sidebar a.ui-state-hover,#sidebar a.ui-state-highlight {
+	border: 0 none;
+	text-decoration: none;
+	font-weight: normal;
 }
 
 #sidebar table {
-    width: 100%;
+	width: 100%;
 }
 
 #sidebar table td {
-    vertical-align: top;
+	vertical-align: top;
 }
 
 #sidebar ul {
-    padding: 0;
-    margin: 0;
+	padding: 0;
+	margin: 0;
 }
 
 #sidebar ul li {
-    list-style-type: none;
-    padding: 1px;
+	list-style-type: none;
+	padding: 1px;
 }
 
 /* Footer */
@@ -211,7 +212,7 @@ img.right {
 	height: 70px;
 	margin: 0 auto;
 	padding: 0 20px;
-    font-size: 14px;
+	font-size: 14px;
 }
 
 #footer p {
@@ -221,6 +222,7 @@ img.right {
 }
 
 #footer a {
+	
 }
 
 #footer .link {
@@ -236,62 +238,208 @@ img.right {
 }
 
 .homeMenu {
-	width:200px;
-	float:left;
-	margin-right:10px
+	width: 200px;
+	float: left;
+	margin-right: 10px
 }
 
 .themeMenu {
-    overflow: auto;
-    height:300px;
-    width:200px;
+	overflow: auto;
+	height: 300px;
+	width: 200px;
 }
 
 .dp-xml {
-    width:1000px;
+	width: 1000px;
 }
 
 .ui-themeswitcher a.ui-selectonemenu-label-container {
-    text-decoration: none !important;
+	text-decoration: none !important;
 }
 
 .ui-widget {
-    font-size: 12px !important;
+	font-size: 12px !important;
 }
 /* ---------------------------------------customizing-------------------------*/
+.ui-layout-unit {
+	border: none;
+	padding: 0em;
+	background: white;
+	/* background: white; */
+}
+
+.ui-layout-unit .ui-layout-unit-content {
+	padding: 0em;
+	background: none;
+}
+
+.ui-layout-unit-footer {
+	border: 0px;
+	background: red;
+}
+
+.centerLayout .ui-layout-unit-header {
+	border: 0px;
+	background: none;
+}
+
+.ui-corner-all { /* -webkit-border-radius: 6px; */
+	border-radius: 8px;
+}
+
 .ui-toolbar {
-	background-color: yellow;
+	background:none;
 	padding: 0.2em;
 }
-.ui-datatable .ui-datatable-header , .ui-datatable-footer {
+
+ 
+/* -------------------------------Panel---------------------- */
+
+.ui-accordion .ui-accordion-content {
+	padding: 1px;
+}
+
+/* tr.ui-widget-content{
+	 border: none;
+	padding: 0px;
+} */
+.ui-panelgrid tr{
+	 border: none;
+	padding-right: 2px;
+	background: none;
+}
+.ui-panelgrid td{
+	border: none;
+	padding-right: 2px;
+	background: none;
+}
+/* --------------------Tree------------- */
+.ui-tree {
+	border: none;
+	width: 100%;
+}
+
+.ui-tree .ui-widget-content {
+	border: none;
+}
+
+.ui-tree-container {
+	width: 100%;
+}
+
+/* .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+	background: yellow;
+}
+.ui-widget-header .ui-state-default {
+	background : white;
+} */	
+
+/* .tabtakion .ui-widget-header .ui-state-active {
+	background: white;
+}
+.tabtakion .ui-widget-header .ui-state-hover {
+	background: white;
+}
+.tabtakion .ui-widget-header .ui-state-focus {
+	background: white;
+} */
+
+.horizontalTab .ui-widget-header .ui-state-default {
+	background : none;
+}
+
+/* ----------------------tab-------------------- */
+.ui-tabs {
+	border: none;
+	background: none;
+	padding: 0px;
+}
+
+.ui-tabs .ui-tabs-nav li {
+/* 	background: none; */
+	border:none;
+	top: 0px;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+}
+
+/* .ui-tabs.ui-widget-content {
+	background: none;
+} */
+
+/* .ui-tabs-panel {
+	background: red;
+} */
+
+.ui-tabs.ui-tabs-top > .ui-tabs-nav {
+	padding: 0px
+}
+/* .ui-tabs-nav{
+	background: white;
+	border-bottom: 1px grey dotted;
+} */
+
+
+.ui-tabs-panel.ui-widget-content {
+	/* background: rgb(137, 139, 139); */
+	background: none;
+}
+
+li.ui-tabs-selected a {
+	background: white;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	
+}
+/* ---------------------------------dtatTable----------------- */
+.ui-datatable .ui-datatable-header,.ui-datatable-footer {
 	background-color: rgb(137, 139, 139);
 	background: white;
 	border-color: white;
-}
-.ui-accordion .ui-accordion-content {
-	padding :1px;
-}
-.ui-tree{
-	border :none;
-}
-.ui-tree .ui-widget-content{
-	border :none;
-}
-.ui-tabs {
+	padding: 0px;
 	border: none;
 }
-.ui-tabs .ui-widget-content{
-	background: white;
-}
 
-.ui-tabs-panel .ui-widget-content{
-	background: rgb(137, 139, 139);
-}
-.ui-datatable-odd{
-	background-color:#F2F5F9;
+/* .ui-datatable-header{
+	background-color: rgb(137, 139, 139);
+	background: white;
+	border-color: white;
+	height: 20px;
+	padding: 0px;
+	border: none;
+} */
+
+.ui-datatable-odd {
+	background-color: #F2F5F9;
 	background-repeat: repeat;
 	/* background: none repeat scroll 0 0 #F2F5F9; */
 }
- 
 
+.contextBar.ui-widget-header {
+	height: 1.2em;
+	border: none;
+	background: white;
+	padding: 0.0em;
+}
 
+/* .contextButton .ui-icon{
+	backgroud :url('/img/primefaces/add.png')
+} */
+.contextButton .ui-button {
+	border: none;
+	height: 1em;
+	width: 20px;
+	text-align: right;
+	background: none;
+	float: right;
+}
+
+.contextButton .ui-button.ui-state-focus,.ui-button.ui-state-active {
+	border: none;
+	box-shadow: none;
+	background: none;
+}
+
+.portDialog .ui-widget-footer {
+	border: none;
+}

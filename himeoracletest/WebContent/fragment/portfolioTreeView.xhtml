@@ -5,48 +5,96 @@
   xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
 
   <h:form id="portTreeForm">
+    <!--  <p:contextMenu >
+      <p:menuitem value="#{messages.ctxtSelectPortfolio}"  onclick="portListDialog3.show();" />
+      <p:menuitem value="View Details" onclick="portDialog.show()" icon="ui-icon-search" />
+      <p:menuitem value="Add New..." update="messages" actionListener="#{portfolioTreeBean.displaySelectedSingle}"
+        icon="ui-icon-circle-plus" />
+      <p:menuitem value="Delete" actionListener="#{portfolioTree.deleteNode}" icon="ui-icon-close" disabled="true" />
+      
+    </p:contextMenu> -->
+    <p:contextMenu for="accoId:portfolioTree">
+      <p:menuitem value="View Detail" id="qqqqq" icon="ui-icon-circle-plus" />
+      <p:separator />
+      <p:menuitem value="Select Hierarchies..." onclick="portDialog.show();" />
+      <p:separator />
+      <p:menuitem value="Create Portfolio..." id="qqq" icon="ui-icon-circle-plus" />
+    </p:contextMenu>
 
-    <p:accordionPanel value="#{messages.portfolio}" multiple="true">
-      <p:tab title="#{messages.hierarchy}">
-         <p:growl id="messages" showDetail="true" />  
+    <p:overlayPanel for="qqq">
+          asdfasdfa
+    </p:overlayPanel>
 
-        <p:contextMenu for="portfolioTree">
-          <p:menuitem value="View Details" onclick="portDialog.show()"
-            icon="ui-icon-search" />
-           <p:menuitem value="Add New..." update="messages" actionListener="#{portfolioTreeBean.displaySelectedSingle}"
-            icon="ui-icon-circle-plus" /> 
-          <p:menuitem value="Delete" actionListener="#{portfolioTree.deleteNode}" icon="ui-icon-close" disabled="true" />
-        </p:contextMenu>
+    <p:toolbar styleClass="contextBar">
+      <p:toolbarGroup align="right">
+        <!-- <p:commandButton icon="ui-icon-document" styleClass="contextButton"></p:commandButton> -->
+        <h:commandLink value="" rendered="true">
+          <p:graphicImage value="/img/primefaces/add.png" />
+        </h:commandLink>
+        <h:commandLink value="" rendered="true">
+          <p:graphicImage value="/img/primefaces/minus.png" />
+        </h:commandLink>
+        <p:menuButton id="treeMenu" value="" styleClass="contextButton">
+          <p:menuitem value="Select Hierarchies..." onclick="portDialog.show();" icon="ui-icon-document" />
+          <p:separator />
+          <p:menuitem value="Create Portfolio..." id="qqqa" icon="ui-icon-circle-plus" />
+          <p:menuitem value="Change Portfolio..." id="qqqaa" />
+        </p:menuButton>
+        <!-- <p:tooltip for="treeMenu" showEffect="fade" value="#{messages.treeMenu}"  /> -->
+      </p:toolbarGroup>
+    </p:toolbar>
 
-        <p:tree id="portfolioTree" value="#{portfolioRoot}" var="node" 
-                selection="#{portfolioTreeBean.selectedNode}"   selectionMode="single">
+    <p:accordionPanel id="accoId" value="#{messages.portfolio}" multiple="true">
+      <p:tab id="zzzz" title="#{messages.hierarchy}">
 
-          <p:ajax event="select" listener="#{portfolioTableBean.onNodeSelect}" update="@(.ui-datatable)">
-              <!-- <p:resetInput target=":#{p:component('globalFilter')}" /> -->
-           </p:ajax> 
+        <!--  <p:toolbar styleClass="contextBar">
+          <p:toolbarGroup align="right" >
+              <p:commandButton icon="ui-icon-document" styleClass="contextButton"></p:commandButton>
+              <h:commandLink value=""  rendered="true">
+                <p:graphicImage value="/img/primefaces/add.png" />
+              </h:commandLink>
+              <h:commandLink value=""  rendered="true">
+                <p:graphicImage value="/img/primefaces/minus.png" />
+              </h:commandLink>  
+              <p:menuButton id="treeMenu"  value="" styleClass="contextButton">
+              <p:menuitem value="aaa" onclick="portDialog.show();" />
+              <p:menuitem value="bbb" id="qqq" />
+            </p:menuButton>
+            <p:tooltip for="treeMenu" showEffect="fade" value="#{messages.treeMenu}"  />
+          </p:toolbarGroup>
+        </p:toolbar> -->
+
+        <p:growl id="messages" showDetail="true" />
+
+
+        <p:tree id="portfolioTree" value="#{portfolioRoot}" var="node" selection="#{portfolioTreeBean.selectedNode}"
+          selectionMode="single" style="width:95%">
+
+          <p:ajax event="select" listener="#{portfolioTableBean.onNodeSelect}" update="@(.ui-datatable)" />
 
           <p:treeNode expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed">
             <h:outputText value="#{node.name}" />
           </p:treeNode>
-
         </p:tree>
       </p:tab>
 
       <p:tab title="#{messages.userDefined}" disabled="#{not identity.loggedIn}">
-        <p:commandButton value="AAA222" />
+        <p:commandButton type="button" update="messages" value="AAA222" onclick="portListDialog3.show();" />
       </p:tab>
+
       <p:tab title="#{messages.virtual}" disabled="#{not identity.loggedIn}">
         <f:facet name="asdf" />
         <p:menubar>
           <p:menuitem value="aa" icon="ui-icon-disk">
           </p:menuitem>
         </p:menubar>
-        <p:commandButton value="AAA" />
-        
+        <p:commandButton value="AAAa" />
+
       </p:tab>
     </p:accordionPanel>
-    
-    <ui:include src="/fragment/portfolioDetailDialog.xhtml" />
+
+    <!-- <ui:include src="/fragment/portfolioDetailDialog.xhtml" /> -->
+    <!-- <ui:include src="/fragment/portfolioRootList.xhtml" /> -->
 
   </h:form>
 

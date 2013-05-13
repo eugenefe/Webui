@@ -26,6 +26,7 @@ import com.eugenefe.session.BasedateList;
 
 @Name("basedateBean")
 @Scope(ScopeType.SESSION)
+//@Scope(ScopeType.CONVERSATION)
 public class BaseDateBean implements Serializable {
 
 	@Logger

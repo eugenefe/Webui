@@ -13,31 +13,19 @@
     <link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/syntaxhighlighter/syntaxhighlighter.css" />
 
   </h:head>
-  <h:body  style="background:grey">
-  
-    <p:layout fullPage="true" >
-      <p:layoutUnit position="north" resizable="true" size="60"  collapsible="true"  gutter="3" style="background:rgb(190, 214, 248);">
-<!--         <h:graphicImage value="/img/inkwell.jpg" height="20" width="100%" /> -->
-        <!-- <ui:include src="localeMenuAlt.xhtml" />
+  <h:body>
+    <p:layout fullPage="true">
+      <p:layoutUnit position="north" resizable="true" size="60" style="background:rgb(190, 214, 248);">
+        
+<!--         <ui:include src="localeMenuAlt.xhtml" />
         <ui:include src="primeToolbar.xhtml" /> -->
         <ui:include src="primeToolbarAlt.xhtml" />
         <ui:insert name="layoutTop" />
-        
       </p:layoutUnit>
-      
-      <p:layoutUnit position="west" header="#{messages.portfolio}"  resizable="true" collapsible="true" size="200" gutter="4">
-        <ui:insert name="layoutLeft" />
-      </p:layoutUnit>
-      
-      <p:layoutUnit position="east" header="#{messages.scenario}"   resizable="true" collapsible="true" size="150" gutter="4">
-        <ui:insert name="layoutRight" />
-      </p:layoutUnit>
-      
-      <p:layoutUnit position="center"  resizable="true"   gutter="4">
+      <p:layoutUnit position="center" resizable="true">
         <ui:insert name="layoutCenter" />
       </p:layoutUnit>
-      
-      <p:layoutUnit position="south"    resizable="true" collapsible="true"  gutter="2">
+      <p:layoutUnit position="south" resizable="true">
         <ui:insert name="layoutBottom" />
       </p:layoutUnit>
     </p:layout>

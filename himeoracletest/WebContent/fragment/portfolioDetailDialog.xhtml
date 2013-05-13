@@ -4,30 +4,28 @@
   xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
   xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
 
-  <h:form id="portDialogForm">
-    <p:dialog id="dialog" header="AAA" widgetVar="portDialog" resizable="false" width="200" showEffect="clip"
-      hideEffect="fold">
+  <!-- <h:form id="portDialogForm"> -->
+  <p:dialog id="dialog" header="Select Hierarchy To Show" widgetVar="portDialog" 
+    resizable="true" width="300" height="400" 
+    showEffect="fade" hideEffect="explode" style="border:none">
 
-      <h:panelGrid id="takiondisplay" columns="2" cellpadding="4">
+    <p:selectManyMenu id="scroll" value="#{portfolioTreeBean.selRootPort}" var="p" showCheckbox="true"
+      style="width:100%;height:95%; border:none; box-shadow:none">
+      <f:selectItems value="#{portfolioTreeBean.rootPort}" var="player" itemLabel="#{player.stringId}"
+        itemValue="#{player}" />
+      <p:column headerText="Portfolio Id">  
+                #{p.stringId}  
+      </p:column>
+      <p:column headerText="Portfolio Name">  
+                #{p.name}  
+      </p:column>
 
-        <f:facet name="header">
-          <p:graphicImage value="/img/primefaces/excel.png" />
-        </f:facet>
+    </p:selectManyMenu>
+    <f:facet name="footer" >
+      <p:commandButton value="Cancel" oncomplete="portDialog.hide()" style="float:right"/>
+      <p:commandButton value="OK" oncomplete="portDialog.hide()" style="float:right"/>
+    </f:facet>
+  </p:dialog>
 
-        <h:outputText value="Name:" />
-        <h:outputText value="AAA" />
-        <!-- <h:outputText value="#{portfolioTreeBean.selectedNode.type}" /> -->
-
-        <!-- <h:outputText value="Year:" />
-        <h:outputText value="#{portfolioTreeBean.selectedPort.name}" />
-
-        <h:outputText value="Manufacturer:" />
-        <h:outputText value="#{portfolioBean.selectedPort.presValue}" /> 
-
-        <h:outputText value="Color:" />
-        <h:outputText value="#{portfolioBean.selectedPort.dailyReturn}" />-->
-      </h:panelGrid>
-    </p:dialog>
-
-  </h:form>
+  <!-- </h:form> -->
 </ui:composition>
