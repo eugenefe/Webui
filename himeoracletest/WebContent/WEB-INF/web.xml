@@ -50,7 +50,7 @@
  </servlet>
  <servlet-mapping>
   <servlet-name>Faces Servlet</servlet-name>
-  <url-pattern>*.seam</url-pattern>
+  <url-pattern>*.jsf</url-pattern>
  </servlet-mapping>
  <servlet-mapping>
   <servlet-name>Seam Resource Servlet</servlet-name>

@@ -443,3 +443,18 @@ li.ui-tabs-selected a {
 .portDialog .ui-widget-footer {
 	border: none;
 }
+
+.ui-wizard-step-titles {
+	height: 20px;
+}
+/* .ui-helper-reset{
+	line-height: 1;
+} */
+.ui-wizard-step-title{
+	height: 20px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 0.6 em;
+	padding-right: 0.6 em;
+	font-size:  1em;
+}

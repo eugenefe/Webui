@@ -85,6 +85,7 @@ public class Portfolio implements IPortfolio, Serializable {
 
 //	@ManyToOne(fetch = FetchType.LAZY, targetEntity=Portfolio.class)
 	@ManyToOne(fetch = FetchType.LAZY)
+//	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PARENT_PORT_ID")
 	public Portfolio getParentPortfolio() {
 		return this.parentPortfolio;

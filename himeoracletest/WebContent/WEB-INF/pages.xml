@@ -5,7 +5,11 @@
 
        no-conversation-view-id="/home.xhtml"
        login-view-id="/login.xhtml">
-
+    
+<!--     <conversation parameter-name="" name="portfolioConversation"/>   
+    
+    <page view-id="/View/portfolilio.xhtml" conversation="#{portfolioConersation}" />
+ -->    
     <page view-id="*">
         <navigation>
             <rule if-outcome="home">

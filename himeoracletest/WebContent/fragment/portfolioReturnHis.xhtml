@@ -12,14 +12,23 @@
       </p:menuitem>
     </p:contextMenu>
 
-    <p:dataTable id="portReturnHisId" var="_portfolio" value="#{portfolioReturnBean.portReturns}"
-      widgetVar="portsTableHis" filterDelay="300" filterEvent="keyup" 
+    <p:dataTable id="portReturnHisId" var="_portfolio" 
+      value="#{portfolioReturnBean.portReturns}"
+      widgetVar="portsTableHis" 
+      selectionMode="single"
+      selection="#{portfolioReturnBean.selectedPort}"
+      rowKey="#{_portfolio.id}"
+      sortMode="multiple"
+      filterDelay="300" filterEvent="keyup" 
       emptyMessage="No Ports found with given criteria">
 
-      <p:column id="portId" headerText="#{messages.portfoioReturnId}" sortBy="#{_portfolio.basedate.bssd}">
+      <p:column id="bssd" headerText="#{messages.portfoioReturnBssd}" sortBy="#{_portfolio.basedate.bssd}">
         <h:outputText value="#{_portfolio.basedate.bssd}" />
       </p:column>
-
+      
+      <p:column id="portId" headerText="#{messages.portfoioReturnId}" sortBy="#{_portfolio.portfolio.portId}">
+        <h:outputText value="#{_portfolio.portfolio.portId}" />
+      </p:column>
       <p:column id="portName" headerText="#{messages.portfoioReturnName}" sortBy="#{_portfolio.portfolio.portId}">
         <h:outputText value="#{_portfolio.portfolio.portId}" />
       </p:column>

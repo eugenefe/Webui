@@ -10,6 +10,19 @@
   </ui:define>
   <ui:define name="layoutCenter">
     <ui:include src="/fragment/portfolioTabView.xhtml" />
+    
+     <ui:include src="/fragment/portfolioDetailDialog.xhtml" />
+ <!--   <ui:include src="/fragment/portfolioDetailOverlay.xhtml" />
+ -->    
+      <p:ajaxStatus style="width:64px;height:64px;"  id="ajaxStatusPanel" >
+      <f:facet name="start">
+        <h:graphicImage value="/img/primefaces/ajaxloading.gif" />
+      </f:facet>
+      <f:facet name="complete">
+        <h:outputText value="" />
+      </f:facet>
+    </p:ajaxStatus>
+    
   </ui:define>
   <ui:define name="layoutBottom">
     <ui:include src="/templates/footer.xhtml" />

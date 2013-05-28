@@ -2,22 +2,34 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.org/schema/seam/taglib"
   xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:p="http://primefaces.org/ui"
   template="/templates/templatePrimeFull.xhtml">
-
+  
+  <ui:define name="layoutLeft">
+    <ui:include src="/fragment/allinone/portfolioTreeView.xhtml" />
+  </ui:define>
   <ui:define name="layoutCenter">
-    <p:layout style="min-width:400px;min-height:200px;" id="layout">
-      <p:layoutUnit position="center">
-        <!-- <ui:include src="/fragment/portfolioTreeTable.xhtml" /> -->
-        <ui:include src="/fragment/portfolioTabView.xhtml" />
-      </p:layoutUnit>
-      <p:layoutUnit position="south" resizable="true" size="100" minSize="40" >
-        Sub Table
-      </p:layoutUnit>
-    </p:layout>
-    <!-- <ui:include src="/fragment/portfolioTreeTable.xhtml" /> -->
+    <ui:include src="/fragment/allinone/portfolioTabView.xhtml" />
+    
+     <ui:include src="/fragment/allinone/portfolioDetailDialog.xhtml" />
+
+     <!-- <ui:include src="/fragment/allinone/portfolioNewDialog.xhtml" /> -->
+     <ui:include src="/fragment/allinone/portfolioNewDialogPanel.xhtml" />
+ <!--   <ui:include src="/fragment/portfolioDetailOverlay.xhtml" />
+ -->    
+      <p:ajaxStatus style="width:64px;height:64px;"  id="ajaxStatusPanel" >
+      <f:facet name="start">
+        <h:graphicImage value="/img/primefaces/ajaxloading.gif" />
+      </f:facet>
+      <f:facet name="complete">
+        <h:outputText value="" />
+      </f:facet>
+    </p:ajaxStatus>
+    
   </ui:define>
   <ui:define name="layoutBottom">
     <ui:include src="/templates/footer.xhtml" />
+    <ui:include src="/templates/primeDock.xhtml" />
   </ui:define>
+
 </ui:composition>
