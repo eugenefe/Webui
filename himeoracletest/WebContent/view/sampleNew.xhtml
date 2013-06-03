@@ -15,19 +15,99 @@
   </h:head>
   <h:body>
 
-    <h:form>
-     <ui:include src="/templates/primeToolbarAlt.xhtml" />
-      <!-- <ui:include src="/fragment/portfolioReturnHis.xhtml" /> -->
-      <!--      <h:outputLink id="loginLink" value="javascript:void(0)" onclick="logDlg.show()" title="login">
+    <ui:include src="/templates/primeToolbarAlt.xhtml" />
+    <!-- <ui:include src="/fragment/portfolioReturnHis.xhtml" /> -->
+    <!--      <h:outputLink id="loginLink" value="javascript:void(0)" onclick="logDlg.show()" title="login">
         <p:graphicImage value="/img/primefaces/login.png" />
       </h:outputLink>
        <ui:include src="/fragment/portfolioTabView.xhtml" />
       <ui:include src="/fragment/loginDialog.xhtml" /> -->
-      <ui:include src="/fragment/portfolioTreeView.xhtml" />
-      
+    <!-- <ui:include src="/fragment/portfolioTreeView.xhtml" /> -->
+
+    <ui:include src="/fragment/portfolioAddNew.xhtml" />
+    
+    
+<!--     <h:form>
+      <p:wizard id="wizid" widgetVar="wiz" flowListener="#{portfolioWizardBean.onFlowProcess}" showStepStatus="false">
+          <p:growl id="growl" sticky="true" showDetail="true" />
+          <p:tab id="loadPorts" title="Portfolio Name">
+
+          <p:outputLabel value="Info of New Portfolio" />
+          <p:separator />
+          <p:messages id="messages" />
+          <p:panelGrid columns="2" style="height : 280px">
+            <p:outputLabel for="newPortNameId" value="Portfolio Name" />
+            <p:inputText id="newPortNameId" value="#{portfolioWizardBean.newPortName}" required="true" />
+
+            <p:outputLabel value="Base Date" />
+            <p:outputLabel id="basedateId" value="#{basedateBean.bssd}" />
+
+            <h:outputLabel value="Compared Portfolio" />
+            <h:outputLabel id="compPortId" value="#{portfolioWizardBean.portfolioBean.parentPortfolio.portName}" />
+
+            <h:outputLabel value="Ignore Compared Portfolio" />
+            <p:selectBooleanCheckbox value="#{portfolioWizardBean.ignoreCompare}" />
+
+          </p:panelGrid>
+          <p:separator />
+        </p:tab>
+
+        <p:tab id="pickPorts" title="Pick Sub Portfolios">
+          <p:outputLabel value="#{portfolioWizardBean.newPortName}" />
+          <h:outputText value="#{portfolioWizardBean.newPortName}" />
+          <p:separator />
+
+          <p:pickList id="pojoPickList" value="#{portfolioWizardBean.ports}" var="_port" effect="bounce"
+            itemValue="#{_port}" itemLabel="#{_port}" showSourceControls="true" showTargetControls="true"
+            showCheckbox="true" showSourceFilter="true" showTargetFilter="true" filterMatchMode="endsWith"
+            style="height : 300px; float : middle;">
+
+            <f:facet name="sourceCaption">Available</f:facet>
+            <f:facet name="targetCaption">Selecting</f:facet>
+            <p:column style="width:100%;">  
+                  #{_port}  
+              </p:column>
+
+          </p:pickList>
+
+          <p:separator />
+        </p:tab>
+
+        <p:tab title="Add Sub Positions">
+          <p:panel style="height : 300px;">
+            <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">
+              <h:outputText value="Firstname: *" />
+              <p:inputText required="true" label="Firstname" value="#{portfolioWizardBean.parentPortfolio.portName}" />
+            </h:panelGrid>
+          </p:panel>
+        </p:tab>
+
+        <p:tab id="confirm" title="Confirmation">
+          <p:outputLabel value="Confirm Information" />
+          <p:separator />
+          <p:panelGrid id="confirmation" columns="4" style="height : 300px;">
+            <h:outputText value="New Portfolio : " />
+            <h:outputText styleClass="outputLabel" value="#{portfolioWizardBean.newPortName}" />
+
+            <h:outputText value="Target: " style="font-weight:bold" />
+            <ui:repeat value="#{portfolioWizardBean.ports.target}" var="_port">
+              <h:outputText value="#{_port}" style="margin-right:5px" />
+            </ui:repeat>
+          </p:panelGrid>
+          <p:separator />
+          <s:button value="Cancel" view="/view/sample.xhtml" propagation="none" style="float:right"/>
+          <p:commandButton id="newPortSubmitId" value="Submit" actionListener="#{portfolioWizardBean.saveaction}"
+            update="growl" style="float:right" />
+        </p:tab>
+
+      </p:wizard> 
+
+    </h:form>-->
+
       <ui:include src="/templates/footer.xhtml" />
-      <h:outputStylesheet library="css" name="primetakion.css" />
-    </h:form>
+      <!--       <h:outputStylesheet library="css" name="primetakion.css" /> -->
+
+
   </h:body>
   </h:html>
 </f:view>

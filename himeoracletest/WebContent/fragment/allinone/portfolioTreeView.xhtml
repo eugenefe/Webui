@@ -1,0 +1,90 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.org/schema/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+  <h:form id="portTreeAllForm">
+    <p:toolbar id="toolbarId" styleClass="contextBar">
+      <p:toolbarGroup id="toolgroupId1" align="left">
+        <p:commandLink id="expandMenu" update="@(.ui-accordion)" actionListener="#{portfolioBean.expandAll}">
+          <p:graphicImage value="/img/primefaces/add.png" />
+        </p:commandLink>
+        <p:commandLink id="collapseMenu" update="@(.ui-accordion)" action="#{portfolioBean.collapseAll}">
+          <p:graphicImage value="/img/primefaces/minus.png" />
+        </p:commandLink>
+        <p:tooltip for="expandMenu" showEffect="fade" value="#{messages.expandMenu}" />
+        <p:tooltip for="collapseMenu" showEffect="fade" value="#{messages.collapseMenu}" />
+      </p:toolbarGroup>
+
+
+      <p:toolbarGroup id="toolgroupId2" align="right" >
+        <p:menuButton id="treeMenu" value="" styleClass="contextButton" >
+          <p:menuitem value="Select Hierarchies..." onclick="portDialogAll.show();" icon="ui-icon-circle-check" />
+          <p:separator />
+          <p:menuitem value="Create Portfolio..." oncomplete="portNewDialog.show();"
+            update=":portNewDialogPanelForm:wizId" icon="ui-icon-circle-plus" />
+
+          <p:menuitem value="Change Portfolio..." id="changePortId" action="#{portfolioBean.loadPickList}"
+            oncomplete="portNewDialog.show();" update=":portNewDialogPanelForm:wizId"
+            rendered="#{portfolioBean.userDefined}" disabled="#{not identity.loggedIn}" />
+        </p:menuButton>
+        <!-- <p:tooltip for="treeMenu" showEffect="fade" value="#{messages.treeMenu}" /> -->
+      </p:toolbarGroup>
+
+
+    </p:toolbar>
+
+    <p:contextMenu for="accoId:portfolioTree">
+      <p:menuitem value="View Detail" id="qqqqq" icon="ui-icon-circle-zoomin" />
+      <p:separator />
+      <p:menuitem value="Select Hierarchies..." onclick="portDialogAll.show()" icon="ui-icon-circle-check" />
+      <p:menuitem value="Create Portfolio..." oncomplete="portNewDialog.show();" update=":portNewDialogPanelForm:wizId"
+        icon="ui-icon-circle-plus" />
+      <p:separator />
+    </p:contextMenu>
+
+    <p:contextMenu for="accoId:portfolioTree1">
+      <p:menuitem value="View Detail" icon="ui-icon-circle-zoomin" />
+      <p:separator />
+      <p:menuitem value="Select Hierarchies..." onclick="portDialogAll.show()" icon="ui-icon-circle-check" />
+      <p:menuitem value="Create Portfolio..." oncomplete="portNewDialog.show();" update=":portNewDialogPanelForm:wizId"
+        icon="ui-icon-circle-plus" />
+      <p:menuitem value="Delete" update=":portTreeAllForm:accoId:portfolioTree1" action= "#{portfolioBean.delete}"
+        icon="ui-icon-circle-minus" />
+      <p:separator />
+    </p:contextMenu>
+     
+    
+    <p:accordionPanel id="accoId" multiple="false">
+      <p:growl id="messages" showDetail="true" />
+
+      <p:ajax event="tabChange" listener="#{portfolioBean.onTabChange}" update="@(.ui-toolbar)" />
+
+      <p:tab id="zzzz" title="#{messages.hierarchy}">
+        <p:tree id="portfolioTree" value="#{portfolioBean.portfolioRoot}" var="node"
+          selection="#{portfolioBean.selectedNode}" selectionMode="single" style="width:95%">
+
+          <p:ajax event="select" listener="#{portfolioBean.onNodeSelect}" update="@(.ui-datatable) :tabView:sample" />
+
+          <p:treeNode expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed">
+            <h:outputText value="#{node.portId}" />
+           (<h:outputText value="#{node.childPortfolios.size}"/>)
+          </p:treeNode>
+        </p:tree>
+      </p:tab>
+
+      <p:tab id="userDefined" title="#{messages.userDefined}" disabled="#{not identity.loggedIn}">
+        <p:tree id="portfolioTree1" value="#{portfolioBean.portfolioRoot}" var="node"
+          selection="#{portfolioBean.selectedNode}" selectionMode="single" style="width:95%">
+
+          <p:ajax event="select" listener="#{portfolioBean.onNodeSelect}" update="@(.ui-datatable)" />
+
+          <p:treeNode expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed">
+            <h:outputText value="#{node.portId}" />
+          </p:treeNode>
+        </p:tree>
+      </p:tab>
+    </p:accordionPanel>
+  </h:form>
+</ui:composition>

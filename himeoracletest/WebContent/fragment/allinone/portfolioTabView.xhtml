@@ -1,0 +1,22 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.org/schema/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+<!-- <h:form id="formTabView"> -->
+     <p:tabView id="tabView" dynamic="true" orientation="top"  >
+      <!-- <p:ajax event="tabChange"  listener="#{portfolioChartBean.loadChart}" update="sample"/> -->
+      <p:tab id="portfolioTab" title="Portfolio Info"  >
+        <ui:include src="/fragment/allinone/portfolioReturn.xhtml" />
+      </p:tab>
+      <p:tab id="portfolioTab2" title="Portfolio">
+        aasdf
+      </p:tab>
+      <p:tab id="portfolioTab3" title="Portfolio Chart">
+        <ui:include src="/fragment/allinone/portfolioChart.xhtml" />
+      </p:tab>
+    </p:tabView> 
+<!-- </h:form> -->
+    
+</ui:composition>

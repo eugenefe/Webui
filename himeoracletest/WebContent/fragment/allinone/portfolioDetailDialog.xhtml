@@ -1,0 +1,62 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.org/schema/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+<h:form id="portDialogForm">
+  <p:dialog id="dialog" header="Select Hierarchy To Show" 
+    widgetVar="portDialogAll" 
+    resizable="true" width="300" height="400" 
+    showEffect="fade" hideEffect="explode" closeOnEscape="true" style="border:none">
+
+<!--     <p:selectManyMenu id="scroll" value="#{portfolioBean.selectedHierarchies}" var="_hier" 
+      showCheckbox="true" converter="#{portfolioConverters}"
+      style="width:100%;height:95%; border:none; box-shadow:none">
+      
+      <f:selectItems value="#{portfolioBean.hierarchies}" var="_hierarchy" 
+        itemLabel="#{_hierarchy.portId}" itemValue="#{_hierarchy}" />
+      <p:column headerText="Portfolio Id">  
+                #{_hier.portId}  
+      </p:column>
+      <p:column headerText="Portfolio Name">  
+                #{_hier.presValue}  
+      </p:column>
+    </p:selectManyMenu> -->
+<!--     <h:selectOneMenu value="#{portfolioTreeInitBean.selHier}"  >
+      <s:selectItems value="#{portfolioTreeInitBean.hierarchies}" var="_hierarchy" label="#{_hierarchy.portName}"/>
+      <s:convertEntity />
+     </h:selectOneMenu> -->
+     
+    <!--  <h:selectManyMenu value="#{portfolioBean.selectedHierarchies}" var="_hier" >
+      <s:selectItems id="asdfa" value="#{portfolioBean.hierarchies}" var="_hierarchy" label="#{_hierarchy.portName}"/>
+      <s:convertEntity /> 
+      <f:param name="conversationId" value="#{conversation.id}"/>
+     </h:selectManyMenu>-->
+     
+    <p:selectManyMenu id="scroll" value="#{portfolioBean.selectedHierarchyIds}" var="_hier" 
+      showCheckbox="true" 
+       style="width:100%;height:95%; border:none; box-shadow:none">
+      
+      <f:selectItems value="#{portfolioBean.hierarchies}" var="_hierarchy" 
+        itemLabel="#{_hierarchy.portId}" itemValue="#{_hierarchy.portId}" />
+      <p:column headerText="Portfolio Id">  
+                #{_hier}  
+      </p:column>
+      <p:column headerText="Portfolio Name">  
+                #{_hier}  
+      </p:column>
+    </p:selectManyMenu>
+    
+    <f:facet name="footer" >
+      <p:commandButton value="Cancel" oncomplete="portDialog.hide()" style="float:right"/>
+      <p:commandButton id="zzzzOK" value="OK" action="#{portfolioBean.onChangeHierarchy}" 
+            update="@(.ui-tree) @(.ui-datatable)" oncomplete="portDialog.hide()" style="float:right">
+            <!-- <s:conversationPropagation type="join"/> -->
+            <s:defaultAction />
+      </p:commandButton>
+    </f:facet>
+  </p:dialog>
+
+  </h:form>
+</ui:composition>

@@ -8,7 +8,7 @@
     
 <!--     <conversation parameter-name="" name="portfolioConversation"/>   
     
-    <page view-id="/View/portfolilio.xhtml" conversation="#{portfolioConersation}" />
+    <page view-id="/View/portfolilio.xhtml" conversation="#{portfolioConversation}" />
  -->    
     <page view-id="*">
         <navigation>

@@ -288,13 +288,11 @@ img.right {
 }
 
 .ui-toolbar {
-	background:none;
+	background: none;
 	padding: 0.2em;
 }
 
- 
 /* -------------------------------Panel---------------------- */
-
 .ui-accordion .ui-accordion-content {
 	padding: 1px;
 }
@@ -303,12 +301,13 @@ img.right {
 	 border: none;
 	padding: 0px;
 } */
-.ui-panelgrid tr{
-	 border: none;
+.ui-panelgrid tr {
+	border: none;
 	padding-right: 2px;
 	background: none;
 }
-.ui-panelgrid td{
+
+.ui-panelgrid td {
 	border: none;
 	padding-right: 2px;
 	background: none;
@@ -332,7 +331,7 @@ img.right {
 }
 .ui-widget-header .ui-state-default {
 	background : white;
-} */	
+} */
 
 /* .tabtakion .ui-widget-header .ui-state-active {
 	background: white;
@@ -343,9 +342,8 @@ img.right {
 .tabtakion .ui-widget-header .ui-state-focus {
 	background: white;
 } */
-
 .horizontalTab .ui-widget-header .ui-state-default {
-	background : none;
+	background: none;
 }
 
 /* ----------------------tab-------------------- */
@@ -356,8 +354,8 @@ img.right {
 }
 
 .ui-tabs .ui-tabs-nav li {
-/* 	background: none; */
-	border:none;
+	/* 	background: none; */
+	border: none;
 	top: 0px;
 	border-top-left-radius: 8px;
 	border-top-right-radius: 8px;
@@ -370,16 +368,13 @@ img.right {
 /* .ui-tabs-panel {
 	background: red;
 } */
-
-.ui-tabs.ui-tabs-top > .ui-tabs-nav {
+.ui-tabs.ui-tabs-top>.ui-tabs-nav {
 	padding: 0px
 }
 /* .ui-tabs-nav{
 	background: white;
 	border-bottom: 1px grey dotted;
 } */
-
-
 .ui-tabs-panel.ui-widget-content {
 	/* background: rgb(137, 139, 139); */
 	background: none;
@@ -389,7 +384,6 @@ li.ui-tabs-selected a {
 	background: white;
 	border-top-left-radius: 8px;
 	border-top-right-radius: 8px;
-	
 }
 /* ---------------------------------dtatTable----------------- */
 .ui-datatable .ui-datatable-header,.ui-datatable-footer {
@@ -408,7 +402,6 @@ li.ui-tabs-selected a {
 	padding: 0px;
 	border: none;
 } */
-
 .ui-datatable-odd {
 	background-color: #F2F5F9;
 	background-repeat: repeat;
@@ -450,11 +443,21 @@ li.ui-tabs-selected a {
 /* .ui-helper-reset{
 	line-height: 1;
 } */
-.ui-wizard-step-title{
+.ui-wizard-step-title {
 	height: 20px;
 	padding-top: 0px;
 	padding-bottom: 0px;
 	padding-left: 0.6 em;
 	padding-right: 0.6 em;
-	font-size:  1em;
+	font-size: 1em;
+}
+
+.ui-state-active,.ui-widget-content .ui-state-active,.ui-widget-header .ui-state-active {
+	color: #cc9900;
+	font: bold;
+}
+
+.ui-state-active a,.ui-state-active a:link,.ui-state-active a:visited {
+	color: #cc9900;
+	font: bold;
 }

@@ -1,48 +1,44 @@
 package com.eugenefe.controller;
 
+import groovyjarjarantlr.debug.Event;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.persistence.EntityManager;
 
+import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Begin;
+import org.jboss.seam.annotations.End;
+import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Logger;
+import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Observer;
+import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.core.Events;
+import org.jboss.seam.log.Log;
+import org.primefaces.component.wizard.Wizard;
+import org.primefaces.event.FlowEvent;
+import org.primefaces.event.NodeSelectEvent;
+import org.primefaces.event.TabChangeEvent;
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.DualListModel;
+import org.primefaces.model.TreeNode;
+
+import com.eugenefe.converter.NewPortfolioWizard;
 import com.eugenefe.entity.IPortfolio;
 import com.eugenefe.entity.Portfolio;
 import com.eugenefe.entity.PortfolioReturn;
 import com.eugenefe.session.PortfolioHome;
 import com.eugenefe.session.PortfolioReturnBssdList;
-import com.eugenefe.session.PortfolioReturnList;
-
-import org.hibernate.validator.constraints.CreditCardNumber;
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Begin;
-import org.jboss.seam.annotations.Create;
-import org.jboss.seam.annotations.Factory;
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Logger;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Observer;
-import org.jboss.seam.annotations.Out;
-import org.jboss.seam.annotations.Scope;
-import org.jboss.seam.core.Events;
-import org.jboss.seam.log.Log;
-import org.primefaces.event.FlowEvent;
-import org.primefaces.event.NodeSelectEvent;
-import org.primefaces.event.SelectEvent;
-import org.primefaces.event.TabChangeEvent;
-import org.primefaces.event.TabCloseEvent;
-import org.primefaces.event.UnselectEvent;
-import org.primefaces.model.DefaultTreeNode;
-import org.primefaces.model.DualListModel;
-import org.primefaces.model.TreeNode;
-
-import com.sun.xml.internal.ws.wsdl.writer.document.Port;
 
 @Name("portfolioBean")
 @Scope(ScopeType.CONVERSATION)
 public class PortfolioBean implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Logger
 	private Log log;
@@ -214,12 +210,16 @@ public class PortfolioBean implements Serializable {
 
 	
 	public void onNodeSelect(NodeSelectEvent event) {
+		searchString = null;
+		filterPorts = null;
+		pvTemp =0;
+				
 		parentPortfolio = (Portfolio) selectedNode.getData();
 		portfolios = parentPortfolio.getChildPortfolios();
 		
-		log.info("Call Node Select Event: #0, #1, #2");
-//		log.info("Call Node Select Event: #0, #1, #2", selectedPortfolio.getPortId());
-//		log.info("Call Node Select Event: #0, #1, #2", selectedPortfolio.getPortId(), subPortfolios.size());
+		Events.instance().raiseEvent("enterChart", parentPortfolio);
+//		log.info("Call Node Select Event: #0, #1, #2");
+		log.info("Call Node Select Event: #0, #1, #2", parentPortfolio.getPortId(), portfolios.size());
 	}
 
 	public void onTabChange(TabChangeEvent event) {
@@ -343,25 +343,6 @@ public class PortfolioBean implements Serializable {
 	public void setIgnoreCompare(boolean ignoreCompare) {
 		this.ignoreCompare = ignoreCompare;
 	}
-	
-	public String onFlowProcess(FlowEvent event) {  
-		log.info("Current wizard step:" + event.getOldStep());  
-        log.info("Next step:" + event.getNewStep());  
-          
-        for(Portfolio aa : fullPortfolios){
-        	if(aa.getPortId().equals(newPortName)){
-        		FacesContext facesContext = FacesContext.getCurrentInstance();  
-        		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error : Portfolio Name is Duplicated", newPortName));
-//        		FacesMessage msg = new FacesMessage("Portfolio Name Error", "asdfadf" + newPortName);
-        		return event.getOldStep();
-        	}
-        }	
-        if(event.getOldStep()!=null && event.getOldStep().equals("loadPorts")){
-        		loadPickList();
-        }
-        return event.getNewStep();  
-	}
-
 	private String newPortName;
 	
 	public String getNewPortName() {
@@ -379,6 +360,33 @@ public class PortfolioBean implements Serializable {
 
 	public void setPorts(DualListModel<String> ports) {
 		this.ports = ports;
+	}
+	
+	@Begin(join=true)
+	public String onFlowProcess(FlowEvent event) {  
+		log.info("Current wizard step:" + event.getOldStep());  
+        log.info("Next step:" + event.getNewStep());  
+        
+    	log.info("Next step1 #0,#1:" , event.getNewStep(), fullPortfolios.size());
+    	log.info("Next step2 #0,#1:" , event.getNewStep(), userDefined);
+        for(Portfolio aa : fullPortfolios){
+//        	log.info("Next step3 #0,#1:" , event.getNewStep());
+        	if(newPortName!= null && aa.getPortId().equals(newPortName)){
+        		FacesContext facesContext = FacesContext.getCurrentInstance();  
+        		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error : Portfolio Name is Duplicated", newPortName));
+////        		FacesMessage msg = new FacesMessage("Portfolio Name Error", "asdfadf" + newPortName);
+        		return event.getOldStep();
+        	}
+        }	
+        if(event.getOldStep()!=null && event.getOldStep().equals("loadPorts")){
+        		loadPickList();
+        }
+        if(event.getOldStep()!=null && event.getOldStep().equals("pickPorts")){
+//    		loadPickList();
+        }
+        log.info("Next step4 #0,#1:" );
+//        log.info("Next step5 #0,#1:" , myWizard.getWizard().getStep());
+        return event.getNewStep();  
 	}
 
 	public void loadPickList(){
@@ -401,13 +409,61 @@ public class PortfolioBean implements Serializable {
 	@In(create=true)
 	private PortfolioHome portfolioHome;
 	
+	@End
 	public  void save(){
 		portfolioHome.getInstance().setPortId(newPortName);
 		log.info("Save1 :#0", portfolioHome.getPortfolioPortId());
 		portfolioHome.persist();
+		portfolioHome.clearInstance();
 		log.info("Save3");
 
 		newPortName =null;
+		
 
 	}
+	
+	@End
+	public  void delete(){
+		portfolioHome.setInstance(parentPortfolio);
+		log.info("Delete 1 :#0", portfolioHome.getPortfolioPortId());
+//		portfolioHome.remove();
+		portfolioHome.clearInstance();
+	}
+	
+	
+	private double pvTemp =0;
+
+	public double getPvTemp() {
+		pvTemp =0;
+		for (PortfolioReturn aa : portfolioReturnBssdList.getResultList()) {
+			if(portfolios.contains(aa.getPortfolio())){
+				pvTemp = pvTemp + aa.getDailyReturn().doubleValue();
+			}
+		}
+		return pvTemp;
+	}
+
+	public void setPvTemp(double pvTemp) {
+		this.pvTemp = pvTemp;
+	}
+	
+	public void onTabViewChange(TabChangeEvent event) {
+		log.info("Tab View Change :#0", event.getTab().getId());
+		if(event.getTab().getId().equals("portfolioTab3")){
+			Events.instance().raiseEvent("enterChart", parentPortfolio);
+		}
+	}
+//	@In(create=true)
+//	private NewPortfolioWizard myWizard;
+//
+//	public NewPortfolioWizard getMyWizard() {
+//		return myWizard;
+//	}
+//
+//	public void setMyWizard(NewPortfolioWizard myWizard) {
+//		this.myWizard = myWizard;
+//	}
+
+	
+	
 }

@@ -1,0 +1,97 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.org/schema/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+  <h:form id="portNewDialogForm">
+    <p:dialog id="dialogNew" header="New Portfolio Wizard" widgetVar="portNewDialog" resizable="true" width="700"
+      height="400" showEffect="fade" hideEffect="explode" style="border:none">
+
+      <p:wizard widgetVar="wiz" flowListener="#{portfolioBean.onFlowProcess}" showStepStatus="false">
+        <p:tab title="Portfolio Name">
+          <p:panel style="height : 320px">
+            <p:outputLabel value="Info of New Portfolio" />
+            <p:separator />
+            <s:decorate template="/layout/display.xhtml">
+                <ui:define name="label">Portfolio Name*:</ui:define>
+                <p:inputText id="portName" value="#{portfolioBean.newPortName}" required="true"/>
+            </s:decorate>
+            <s:decorate template="/layout/display.xhtml">
+                <ui:define name="label">Compared Portfolio:</ui:define>
+                <p:outputLabel id="compPortName" value="#{portfolioBean.parentPortfolio.portName}" />
+            </s:decorate>
+            <s:decorate template="/layout/display.xhtml">
+                <ui:define name="label">Base Date :</ui:define>
+                <p:outputLabel id="bssd" value="#{basedateBean.bssd}" />
+            </s:decorate>
+            
+          <!--   <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">
+              <h:outputText value="Portfolio Name*     :" />
+              <p:inputText required="true" label="Firstname" value="#{portfolioBean.newPortName}" />
+              <h:outputText value="Compared Portfolio :" />
+              <p:outputLabel value="#{portfolioBean.parentPortfolio.portName}" />
+              
+              <h:outputText value="Base Date :" />
+              <p:outputLabel value="#{basedateBean.bssd}" />
+            </h:panelGrid> -->
+          </p:panel>
+        </p:tab>
+
+        <p:tab title="Add Sub Portfolios">
+          <p:panel style="height : 320px;">
+            <p:outputLabel value="Add Sub Portfolios" />
+            <p:separator />
+            <p:pickList id="pojoPickList" value="#{portfolioBean.ports}" var="_port" effect="bounce"
+              itemValue="#{_port}" itemLabel="#{_port}" 
+              showSourceControls="true" 
+              showTargetControls="true"
+              showCheckbox="true" 
+              showSourceFilter="true" 
+              showTargetFilter="true" 
+              filterMatchMode="endsWith">
+
+              <f:facet name="sourceCaption">Available</f:facet>
+              <f:facet name="targetCaption">Selecting</f:facet>
+              <!--          <p:column style="width:25%">
+                <p:graphicImage value="/images/barca/#{player.photo}" width="30" height="40" />
+              </p:column> -->
+
+              <p:column style="width:100%;">  
+                  #{_port}  
+              </p:column>
+
+            </p:pickList>
+
+          </p:panel>
+        </p:tab>
+
+        <!-- <p:tab title="Add Sub Positions">
+          <p:panel style="height : 300px;">
+            <h:panelGrid columns="2" columnClasses="label, value" styleClass="grid">
+              <h:outputText value="Firstname: *" />
+              <p:inputText required="true" label="Firstname" value="#{portfolioBean.parentPortfolio.portName}" />
+            </h:panelGrid>
+          </p:panel>
+        </p:tab> -->
+
+        <p:tab title="Confirmation">
+          <p:panel style="height : 320px;">
+           <p:outputLabel value="Confirm Information" />
+          <p:separator />
+            <p:panelGrid id="confirmation" columns="4" >
+              <h:outputText value="New Portfolio : " />
+              <h:outputText styleClass="outputLabel" value="#{portfolioBean.newPortName}" />
+
+              <h:outputText value="Target: " style="font-weight:bold" />
+              <ui:repeat value="#{portfolioBean.ports.target}" var="_port">
+                <h:outputText value="#{_port}" style="margin-right:5px" />
+              </ui:repeat>
+            </p:panelGrid>
+           </p:panel> 
+           <p:commandButton value="Submit" actionListener="#{portfolioBean.save}" style="float:right" />
+        </p:tab>
+      </p:wizard>
+    </p:dialog>
+  </h:form>
+</ui:composition>
