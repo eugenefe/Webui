@@ -27,11 +27,11 @@ import javax.validation.constraints.NotNull;
 @Table(name = "POSITION_RETURN")
 public class PositionReturn implements java.io.Serializable {
 
-	private PositionReturnId id;
-	private Basedate basedate;
-	private Position position;
-	private BigDecimal bookAmt;
-	private BigDecimal presValue;
+	public PositionReturnId id;
+	public Basedate basedate;
+	public Position position;
+	public BigDecimal bookAmt;
+	public BigDecimal presValue;
 	private BigDecimal dailyReturn;
 	private BigDecimal monthlyReturn;
 	private BigDecimal quartlyReturn;

@@ -45,6 +45,7 @@ public class PortfolioBean implements Serializable {
 	
 	@In(create = true)
 	private PortfolioReturnBssdList portfolioReturnBssdList;
+	
 
 	private List<Portfolio> fullPortfolios;
 	private List<Portfolio> hierarchies;

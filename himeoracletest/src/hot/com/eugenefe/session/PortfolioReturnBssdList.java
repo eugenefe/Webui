@@ -1,19 +1,24 @@
 package com.eugenefe.session;
 
 import com.eugenefe.entity.*;
+
+import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.framework.EntityQuery;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Name("portfolioReturnBssdList")
 public class PortfolioReturnBssdList extends EntityQuery<PortfolioReturn> {
 
-	private static final String EJBQL = "select portfolioReturn from PortfolioReturn portfolioReturn";
+	private static final String EJBQL = "select aa from PortfolioReturn aa";
 
 	private static final String[] RESTRICTIONS = {
-			"portfolioReturn.id.bssd = #{basedateBean.bssd}",	
-			"lower(portfolioReturn.id.bssd) like lower(concat(#{portfolioReturnList.portfolioReturn.id.bssd},'%'))",
-			"lower(portfolioReturn.id.portId) like lower(concat(#{portfolioReturnList.portfolioReturn.id.portId},'%'))", };
+			"aa.id.bssd = #{basedateBean.bssd}",	
+			"lower(aa.id.bssd) like lower(concat(#{portfolioReturnBssdList.portfolioReturn.id.bssd},'%'))",
+			"lower(aa.id.portId) like lower(concat(#{portfolioReturnBssdList.portfolioReturn.id.portId},'%'))", };
 
 	private PortfolioReturn portfolioReturn;
 
@@ -29,4 +34,6 @@ public class PortfolioReturnBssdList extends EntityQuery<PortfolioReturn> {
 	public PortfolioReturn getPortfolioReturn() {
 		return portfolioReturn;
 	}
+	
+	
 }

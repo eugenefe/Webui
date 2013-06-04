@@ -1,0 +1,91 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.org/schema/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+  template="/templates/templatePrimeTLCB.xhtml">
+
+  <ui:define name="layoutLeft">
+    <h:form id="portTreeForm">
+      <p:accordionPanel id="accoId" multiple="false">
+
+<!--         <p:growl id="messages" showDetail="true" />
+
+        <p:ajax event="tabChange" listener="#{portfolioTreeAction.onTabChange}" update="@(.ui-toolbar)" />
+ -->
+        <p:tab title="#{messages.hierarchy}">
+
+          <p:tree id="portfolioTree" value="#{portRoot}" var="_node" 
+            selection="#{portfolioTreeActionOn.selectedNode}" selectionMode="single" style="width:95%">
+
+            <p:ajax event="select" listener="#{portfolioTreeActionOn.onNodeSelect}" update="@(.ui-datatable)" />
+
+            <p:treeNode expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed">
+              <h:outputText value="#{_node.portId}" />
+            </p:treeNode>
+          </p:tree>
+
+        </p:tab>
+
+        <p:tab id="userDefined" title="#{messages.userDefined}" disabled="#{not identity.loggedIn}">
+        </p:tab>
+      </p:accordionPanel>
+    </h:form>
+  </ui:define>
+
+  <ui:define name="layoutCenter">
+    <p:dataTable id="posReturnId" var="_pos" value="#{model}" widgetVar="posReturnTable"  
+      lazy="true"
+      resizableColumns="true"
+      sortMode="single"
+      paginator="true"
+      paginatorPosition="bottom" rows="10" 
+      rowsPerPageTemplate="5,10,15" style="height : 100%">
+
+     <!--  <f:facet name="header">
+        <p:outputPanel style="float: right">
+          <h:outputText value="#{messages.datatableGlobalSearch}" style="color : rgb(137, 139, 139)" />
+          <p:inputText id="globalFilter" onkeyup="posReturnTable.filter()" style="width:150px" value="#{portfolioTableBean.searchString}"/>
+        </p:outputPanel>
+      </f:facet> -->
+
+      <!-- <p:ajax event="rowSelect" update="#{p:component('takiondisplay')}"  oncomplete="portDialog.show()" /> -->
+
+      <p:column id="posId" headerText="#{messages.portfoioReturnId}" 
+        filterBy="#{_pos.id.posId}" filterMatchMode="contains" >
+        <h:outputText value="#{_pos.id.posId}" />
+      </p:column>
+      
+      <p:column id="posId1" headerText="#{messages.portfoioReturnId}" 
+        filterBy="#{_pos.position.posName}" filterMatchMode="contains" filterStyle="display:none; visibility:hidden">
+        <h:outputText value="#{_pos.position.posName}" />
+        
+      </p:column>
+      
+      <p:column id="posId2" headerText="#{messages.portfoioReturnId}" sortBy="#{_pos.bookAmt}"
+        filterBy="#{_pos.bookAmt}" filterMatchMode="contains" filterStyle="display:none; visibility:hidden" style="text-align: right;">
+        <h:outputText value="#{_pos.bookAmt}"  >
+          <f:convertNumber type="currency"  currencySymbol="$"/>
+        </h:outputText>
+      </p:column>
+      
+      <p:column id="posId3" headerText="#{messages.portfoioReturnId}" sortBy="#{_pos.presValue}"
+        filterBy="#{_pos.presValue}" filterMatchMode="contains" filterStyle="display:none; visibility:hidden" >
+        <h:outputText value="#{_pos.presValue}" style="text-align: right;">
+          <f:convertNumber pattern="##,000" />
+        </h:outputText>
+      </p:column> 
+ </p:dataTable>
+ <p:ajaxStatus style="width:64px;height:64px;"  id="ajaxStatusPanel" >
+      <f:facet name="start">
+        <h:graphicImage value="/img/primefaces/ajaxloading.gif" />
+      </f:facet>
+      <f:facet name="complete">
+        <h:outputText value="" />
+      </f:facet>
+    </p:ajaxStatus>
+  </ui:define>
+  <ui:define name="layoutBottom">
+    <ui:include src="/templates/footer.xhtml" />
+  </ui:define>
+</ui:composition>

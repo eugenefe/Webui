@@ -243,7 +243,7 @@ public class Portfolio implements IPortfolio, Serializable {
 	@Transient
 	public double getPresValue() {
 //		log.info("In the pv calculation :#0",getPortfolioReturns().size());
-		System.out.println("In the Pv calculation :"+ getPortfolioReturns().size());
+//		System.out.println("In the Pv calculation :"+ getPortfolioReturns().size());
 		double tempPv =0.0;
 		for(PortfolioReturn aa: this.getPortfolioReturns()){
 			tempPv = tempPv + aa.getDailyReturn().doubleValue();

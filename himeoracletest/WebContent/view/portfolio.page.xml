@@ -2,7 +2,8 @@
 <page xmlns="http://jboss.org/schema/seam/pages" 
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://jboss.org/schema/seam/pages http://jboss.org/schema/seam/pages-2.3.xsd">
-  <begin-conversation join="true"  />
+  <!-- <begin-conversation join="true"  /> -->
+   <action execute="#{portfolioTreeInitBean.init()}"  if="#{!conversation.longRunning}"/>
    <!-- <action execute="#{portfolioChartBean.loadChart}"/> -->
    <!-- <action execute="#{portfolioChartBean.loadChart(portfolioBean.parentPortfolio)}"/> -->
   

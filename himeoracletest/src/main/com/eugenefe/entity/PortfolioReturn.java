@@ -26,13 +26,13 @@ import org.hibernate.annotations.FetchMode;
 @Table(name = "PORTFOLIO_RETURN")
 public class PortfolioReturn implements Serializable{
 
-	private PortfolioReturnId id;
-	private Basedate basedate;
-	private Portfolio portfolio;
-	private BigDecimal bookAmt;
-	private BigDecimal presValue;
-	private BigDecimal dailyReturn;
-	private BigDecimal monthlyReturn;
+	public PortfolioReturnId id;
+	public Basedate basedate;
+	public Portfolio portfolio;
+	public BigDecimal bookAmt;
+	public BigDecimal presValue;
+	public BigDecimal dailyReturn;
+	public BigDecimal monthlyReturn;
 	private BigDecimal quartlyReturn;
 	private BigDecimal annualReturn;
 	private BigDecimal fiscalReturn;

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <components xmlns="http://jboss.org/schema/seam/components"
             xmlns:core="http://jboss.org/schema/seam/core"
+            xmlns:framework="http://jboss.org/schema/seam/framework"
             xmlns:persistence="http://jboss.org/schema/seam/persistence"
             xmlns:drools="http://jboss.org/schema/seam/drools"
             xmlns:bpm="http://jboss.org/schema/seam/bpm"
@@ -10,6 +11,7 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation=
                 "http://jboss.org/schema/seam/core http://jboss.org/schema/seam/core-2.3.xsd
+                 http://jboss.org/schema/seam/framework http://jboss.org/schema/seam/framework-2.3.xsd
                  http://jboss.org/schema/seam/persistence http://jboss.org/schema/seam/persistence-2.3.xsd
                  http://jboss.org/schema/seam/drools http://jboss.org/schema/seam/drools-2.3.xsd
                  http://jboss.org/schema/seam/bpm http://jboss.org/schema/seam/bpm-2.3.xsd
@@ -63,5 +65,21 @@
       <bpm:pageflow-definitions></bpm:pageflow-definitions>
    </bpm:jbpm>
    -->
-
+   
+  <framework:entity-query name="currentPortflioList" 
+    scope="conversation"
+    ejbql="select portReturn 
+          from PortfolioReturn portReturn 
+                join fetch portReturn.portfolio
+          where portReturn.id.bssd = #{basedateBean.bssd}" />
+          
+    <!-- <framework:restrictions>
+      <value>
+        portReturn.id.bssd = #{basedateBean.bssd}"
+      </value>
+    </framework:restrictions>
+   </framework:entity-query> -->
+  
+<!--   <factory name="fullHierarchies" scope="conversation" auto-create="true"  
+            value="#{currentPortflioList.resultList}" />   -->
 </components>
