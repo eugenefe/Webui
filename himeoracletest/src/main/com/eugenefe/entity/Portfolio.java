@@ -245,11 +245,12 @@ public class Portfolio implements IPortfolio, Serializable {
 //		log.info("In the pv calculation :#0",getPortfolioReturns().size());
 //		System.out.println("In the Pv calculation :"+ getPortfolioReturns().size());
 		double tempPv =0.0;
-		for(PortfolioReturn aa: this.getPortfolioReturns()){
-			tempPv = tempPv + aa.getDailyReturn().doubleValue();
-		}
+//		for(PortfolioReturn aa: this.getPortfolioReturns()){
+//			tempPv = tempPv + aa.getDailyReturn().doubleValue();
+//		}
 		return tempPv;
 	}
+	
 	@Override
 	@Transient
 	public double getCalcuatedPv() {
@@ -279,9 +280,9 @@ public class Portfolio implements IPortfolio, Serializable {
 	@Override
 	@Transient
 	public double getDailyReturn() {
-		if(getPortfolioReturns().size()!=0){
-			return getPortfolioReturns().get(0).getDailyReturn().doubleValue();
-		}
+//		if(getPortfolioReturns().size()!=0){
+//			return getPortfolioReturns().get(0).getDailyReturn().doubleValue();
+//		}
 		return 0;
 	}
 

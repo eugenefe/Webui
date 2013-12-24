@@ -3,23 +3,21 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.org/schema/seam/taglib"
   xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
   xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
-
+  <p:tooltip />
   <h:form id="portTreeAllForm">
     <p:toolbar id="toolbarId" styleClass="contextBar">
       <p:toolbarGroup id="toolgroupId1" align="left">
-        <p:commandLink id="expandMenu" update="@(.ui-accordion)" actionListener="#{portfolioBean.expandAll}">
+        <p:commandLink id="expandMenu" update="@(.ui-accordion)" actionListener="#{portfolioBean.expandAll}" title="#{messages.expandMenu}">
           <p:graphicImage value="/img/primefaces/add.png" />
         </p:commandLink>
-        <p:commandLink id="collapseMenu" update="@(.ui-accordion)" action="#{portfolioBean.collapseAll}">
+        <p:commandLink id="collapseMenu" update="@(.ui-accordion)" action="#{portfolioBean.collapseAll}" title="#{messages.collapseMenu}">
           <p:graphicImage value="/img/primefaces/minus.png" />
         </p:commandLink>
-        <p:tooltip for="expandMenu" showEffect="fade" value="#{messages.expandMenu}" />
-        <p:tooltip for="collapseMenu" showEffect="fade" value="#{messages.collapseMenu}" />
+<!--         <p:tooltip for="collapseMenu" showEffect="fade" value="#{messages.collapseMenu}" /> -->
       </p:toolbarGroup>
 
-
       <p:toolbarGroup id="toolgroupId2" align="right" >
-        <p:menuButton id="treeMenu" value="" styleClass="contextButton" >
+        <p:menuButton id="treeMenu" value="" styleClass="contextButton"  >
           <p:menuitem value="Select Hierarchies..." onclick="portDialogAll.show();" icon="ui-icon-circle-check" />
           <p:separator />
           <p:menuitem value="Create Portfolio..." oncomplete="portNewDialog.show();"

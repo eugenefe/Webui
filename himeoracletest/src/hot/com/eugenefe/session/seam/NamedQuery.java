@@ -6,8 +6,12 @@ public enum NamedQuery {
 			+ "join fetch a.portfolioReturns b "
 			+ "where b.id.bssd = #{basedateBean.bssd} "),
 			
-	Position("select a from PositionReturn a where a.id.bssd = #{basedateBean.bssd}");
+	Position("select a from Position a "),
 
+	PositionReturn("select a from PositionReturn a where a.id.bssd = #{basedateBean.bssd}")
+	
+	;
+	
 	private String query;
 	
 	private NamedQuery(String query) {

@@ -17,10 +17,11 @@ import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
 import com.eugenefe.entity.Portfolio;
+import com.eugenefe.entity.Position;
 import com.eugenefe.entity.PositionReturn;
 
-@Name("positionReturnAction")
-public class PositionReturnAction {
+@Name("positionAction")
+public class PositionAction {
 	@Logger
 	private Log log;
 	
@@ -28,27 +29,29 @@ public class PositionReturnAction {
 	private EntityManager entityManager;
 	
 //	@Out(scope=ScopeType.CONVERSATION)
-	private List<PositionReturn> posReturn;
+	private List<Position> posReturn;
 	
 	@Out(scope=ScopeType.CONVERSATION)
-	private  LazyDataModel<PositionReturn> model;
+	private  LazyDataModel<Position> posModel;
 	
-	public LazyDataModel<PositionReturn> getModel() {
-		return model;
+	public LazyDataModel<Position> getModel() {
+		return posModel;
 	}
-	public void setModel(LazyDataModel<PositionReturn> model) {
-		this.model = model;
+	public void setModel(LazyDataModel<Position> model) {
+		this.posModel = model;
 	}
 
-	@Factory(value="model")
+	@Factory(value="posModel")
 	public void initModel(){
-		posReturn = entityManager.createQuery(NamedQuery.PositionReturn.getQuery()).getResultList();
-		model = new LazyModelPositionReturn(posReturn); 
+		posReturn = entityManager.createQuery(NamedQuery.Position.getQuery()).getResultList();
+		posModel = new LazyModelPosition(posReturn); 
 	}
 
 //	@Factory (value="posReturn")
 	public void init(){
-		posReturn = entityManager.createQuery(NamedQuery.PositionReturn.getQuery()).getResultList();
+		posReturn = entityManager.createQuery(NamedQuery.Position.getQuery()).getResultList();
+		
+		
 	}
 	
 	

@@ -22,13 +22,13 @@ import javax.persistence.Transient;
 @Table(name = "POSITION")
 public class Position implements IPortfolio, Serializable {
 
-	private String posId;
-	private String posName;
+	public String posId;
+	public String posName;
 	private String initTxDate;
 	private String lastTxDate;
 	private BigDecimal initTxPrice;
 	private BigDecimal initFeeAmt;
-	private BigDecimal initTxAmt;
+	public BigDecimal initTxAmt;
 	private BigDecimal holdingQty;
 
 	public Position() {

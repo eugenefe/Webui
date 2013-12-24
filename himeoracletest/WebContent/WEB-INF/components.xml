@@ -82,4 +82,11 @@
   
 <!--   <factory name="fullHierarchies" scope="conversation" auto-create="true"  
             value="#{currentPortflioList.resultList}" />   -->
+
+ <!-- <framework:entity-query name="PortfolioJoinReturnBssd" 
+    scope="conversation"
+    ejbql=" select a 
+            from Portfolio a  
+                 join fetch a.portfolioReturns b 
+            where b.id.bssd = #{basedateBean.bssd} " />       -->      
 </components>

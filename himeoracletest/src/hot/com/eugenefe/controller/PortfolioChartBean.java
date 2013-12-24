@@ -42,6 +42,10 @@ public class PortfolioChartBean {
 	
 	@Observer("enterChart")
 	public void loadChart(Portfolio port){
+		if(port == null){
+			log.info("in the load chart Event Null port ");
+			return ;
+		}
 		log.info("in the load chart Event ");
 //		log.info("in the load chart : #0", port.getChildPortfolios().size());
 		pieModel = new PieChartModel();
@@ -53,8 +57,8 @@ public class PortfolioChartBean {
 				temp = 5;
 			}
 			else{
-				temp =aa.getChildPortfolios().size() *10;
 				log.info("in the load chart13 : #0" , temp);
+				temp =aa.getChildPortfolios().size() *10;
 			}
 			log.info("in the load chart14 :#0", aa.getPortId());
 			pieModel.set(aa.getPortId(), temp );

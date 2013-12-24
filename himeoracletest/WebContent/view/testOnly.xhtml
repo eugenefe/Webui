@@ -34,6 +34,7 @@
   </ui:define>
 
   <ui:define name="layoutCenter">
+    <h:form id="posTableForm">
     <p:dataTable id="posReturnId" var="_pos" value="#{model}" widgetVar="posReturnTable"  
       lazy="true"
       resizableColumns="true"
@@ -42,14 +43,6 @@
       paginatorPosition="bottom" rows="10" 
       rowsPerPageTemplate="5,10,15" style="height : 100%">
 
-     <!--  <f:facet name="header">
-        <p:outputPanel style="float: right">
-          <h:outputText value="#{messages.datatableGlobalSearch}" style="color : rgb(137, 139, 139)" />
-          <p:inputText id="globalFilter" onkeyup="posReturnTable.filter()" style="width:150px" value="#{portfolioTableBean.searchString}"/>
-        </p:outputPanel>
-      </f:facet> -->
-
-      <!-- <p:ajax event="rowSelect" update="#{p:component('takiondisplay')}"  oncomplete="portDialog.show()" /> -->
 
       <p:column id="posId" headerText="#{messages.portfoioReturnId}" 
         filterBy="#{_pos.id.posId}" filterMatchMode="contains" >
@@ -70,12 +63,59 @@
       </p:column>
       
       <p:column id="posId3" headerText="#{messages.portfoioReturnId}" sortBy="#{_pos.presValue}"
-        filterBy="#{_pos.presValue}" filterMatchMode="contains" filterStyle="display:none; visibility:hidden" >
+        filterBy="#{_pos.presValue}" filterMatchMode="contains"  >
         <h:outputText value="#{_pos.presValue}" style="text-align: right;">
           <f:convertNumber pattern="##,000" />
         </h:outputText>
       </p:column> 
  </p:dataTable>
+ 
+ <!--     <p:dataTable id="positionId" var="_pos" value="#{posModel}" widgetVar="posTable"  
+      lazy="true"
+      resizableColumns="true"
+      sortMode="single"
+      paginator="true"
+      paginatorPosition="bottom" rows="10" 
+      rowsPerPageTemplate="5,10,15" style="height : 100%">
+
+      <f:facet name="header">
+        <p:outputPanel style="float: right">
+          <h:outputText value="#{messages.datatableGlobalSearch}" style="color : rgb(137, 139, 139)" />
+          <p:inputText id="globalFilter" onkeyup="posReturnTable.filter()" style="width:150px" value="#{portfolioTableBean.searchString}"/>
+        </p:outputPanel>
+      </f:facet>
+
+      <p:ajax event="rowSelect" update="#{p:component('takiondisplay')}"  oncomplete="portDialog.show()" />
+
+   
+      
+     <p:column id="posId" headerText="#{messages.portfoioReturnId}"  sortBy="#{_pos.posId}"
+        filterBy="#{_pos.posId}" filterMatchMode="contains" >
+        <h:outputText value="#{_pos.posId}" />
+      </p:column>
+      
+      <p:column id="posId1" headerText="#{messages.portfoioReturnId}" sortBy="#{_pos.posName}"
+        filterBy="#{_pos.posName}" filterMatchMode="contains"  >
+        <h:outputText value="#{_pos.posName}" />
+      </p:column>
+
+
+      <p:column id="posId2" headerText="#{messages.portfoioReturnId}" sortBy="#{_pos.initTxAmt}"
+        filterBy="#{_pos.initTxAmt}" filterMatchMode="contains" style="text-align: right;">
+        <h:outputText value="#{_pos.initTxAmt}"  >
+          <f:convertNumber type="currency"  currencySymbol="$"/>
+        </h:outputText>
+      </p:column>
+      
+      <p:column id="posId3" headerText="#{messages.portfoioReturnId}" sortBy="#{_pos.presValue}"
+        filterBy="#{_pos.presValue}" filterMatchMode="contains"  >
+        <h:outputText value="#{_pos.presValue}" style="text-align: right;">
+          <f:convertNumber pattern="##,000" />
+        </h:outputText>
+      </p:column> 
+ </p:dataTable>
+  -->
+ 
  <p:ajaxStatus style="width:64px;height:64px;"  id="ajaxStatusPanel" >
       <f:facet name="start">
         <h:graphicImage value="/img/primefaces/ajaxloading.gif" />
@@ -84,7 +124,9 @@
         <h:outputText value="" />
       </f:facet>
     </p:ajaxStatus>
+   </h:form> 
   </ui:define>
+  
   <ui:define name="layoutBottom">
     <ui:include src="/templates/footer.xhtml" />
   </ui:define>

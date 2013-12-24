@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EnumType;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Factory;
@@ -43,6 +42,7 @@ public class FullPortfolioAction {
 		init();
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void init(){
 //		String qr = NamedQuery.PortfolioJoinReturnBssd.getQuery();
 		fullPorts = entityManager.createQuery(NamedQuery.PortfolioJoinReturnBssd.getQuery()).getResultList();

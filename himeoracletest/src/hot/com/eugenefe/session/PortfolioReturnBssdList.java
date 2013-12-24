@@ -17,8 +17,9 @@ public class PortfolioReturnBssdList extends EntityQuery<PortfolioReturn> {
 
 	private static final String[] RESTRICTIONS = {
 			"aa.id.bssd = #{basedateBean.bssd}",	
-			"lower(aa.id.bssd) like lower(concat(#{portfolioReturnBssdList.portfolioReturn.id.bssd},'%'))",
-			"lower(aa.id.portId) like lower(concat(#{portfolioReturnBssdList.portfolioReturn.id.portId},'%'))", };
+//			"lower(aa.id.bssd) like lower(concat(#{portfolioReturnBssdList.portfolioReturn.id.bssd},'%'))",
+//			"lower(aa.id.portId) like lower(concat(#{portfolioReturnBssdList.portfolioReturn.id.portId},'%'))", 
+			};
 
 	private PortfolioReturn portfolioReturn;
 

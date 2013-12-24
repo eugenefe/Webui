@@ -31,7 +31,7 @@ public class PortfolioReturn implements Serializable{
 	public Portfolio portfolio;
 	public BigDecimal bookAmt;
 	public BigDecimal presValue;
-	public BigDecimal dailyReturn;
+	private BigDecimal dailyReturn;
 	public BigDecimal monthlyReturn;
 	private BigDecimal quartlyReturn;
 	private BigDecimal annualReturn;

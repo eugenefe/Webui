@@ -57,28 +57,29 @@
         <h:outputText value="#{_portfolio.groupId}" />
       </p:column>
       
-      <p:column id="portPresValue" headerText="#{messages.portfoioReturnPresValue}" sortBy="#{_portfolio.presValue}"
+<!--       <p:column id="portPresValue" headerText="#{messages.portfoioReturnPresValue}" sortBy="#{_portfolio.presValue}"
         filterBy="#{_portfolio.presValue}" filterMatchMode="contains" filterStyle="display:none; visibility:hidden">
         <h:outputText value="#{_portfolio.presValue}" />
-      </p:column>
+      </p:column> -->
 
        <p:column headerText="#{messages.portfoioReturnDailyReturn}" >
         <h:outputText value="#{_portfolio.childPortfolios.size()}" />
       </p:column>
       <p:column headerText="#{messages.portfoioReturnDaily}" >
-        <h:outputText value="#{_portfolio.childPortfolios.size()}" />
+        <h:outputText value="#{_portfolio.dailyReturn}" />
       </p:column>
       
-      <p:columnGroup type="footer">
+     <!--  <p:columnGroup type="footer">
         <p:row >
         <p:column  footerText="#{portfolioBean.parentPortfolio.portId}" />
         <p:column  footerText="#{portfolioBean.parentPortfolio.portName}" />
         <p:column  footerText="#{portfolioBean.parentPortfolio.groupId}" />
         <p:column  footerText="#{portfolioBean.parentPortfolio.presValue}" />
+        <p:column  footerText="#{portfolioBean.pvTemp}" />
         <p:column  footerText="#{portfolioBean.parentPortfolio.childPortfolios.size()}" />
         <p:column  footerText="#{portfolioBean.pvTemp}" />
         </p:row>
-      </p:columnGroup>
+      </p:columnGroup> -->
       
       <f:facet name="footer">
 

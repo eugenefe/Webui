@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Logger;
@@ -14,26 +15,27 @@ import org.jboss.seam.log.Log;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
+import com.eugenefe.entity.Position;
 import com.eugenefe.entity.PositionReturn;
 
-@Name("lazyModel")
+@Name("lazyModelPosition")
 @Scope(ScopeType.CONVERSATION)
-public class LazyModelPositionReturn  extends LazyDataModel<PositionReturn>{
+public class LazyModelPosition  extends LazyDataModel<Position>{
 	
 //	@Logger
 //	private Log log;
 	
-	private List<PositionReturn> datasource;  
+	private List<Position> datasource;  
     
     
-	public LazyModelPositionReturn(List<PositionReturn> datasource) {  
+	public LazyModelPosition(List<Position> datasource) {  
         this.datasource = datasource;  
     }  
       
     @Override  
-    public PositionReturn getRowData(String rowKey) {  
-        for(PositionReturn aa : datasource) {  
-            if(aa.getId().getPosId().equals(rowKey))  
+    public Position getRowData(String rowKey) {  
+        for(Position aa : datasource) {  
+            if(aa.getPosId().equals(rowKey))  
                 return aa;  
         }  
   
@@ -41,26 +43,25 @@ public class LazyModelPositionReturn  extends LazyDataModel<PositionReturn>{
     }  
   
     @Override  
-    public Object getRowKey(PositionReturn posReturn) {  
-        return posReturn.getId().getPosId();  
+    public Object getRowKey(Position posReturn) {  
+        return posReturn.getPosId();  
     }  
   
     @Override  
-    public List<PositionReturn> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String,String> filters) {  
-        List<PositionReturn> data = new ArrayList<PositionReturn>();  
+    public List<Position> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String,String> filters) {  
+        List<Position> data = new ArrayList<Position>();  
                 
         //filter  
-        for(PositionReturn aa : datasource) {  
+        System.out.println("Before in the filter Position :"+ filters.keySet().size());
+        for(Position aa : datasource) {  
             boolean match = true;  
-//            System.out.println("Before in the filter :"+ filters.keySet().size());
-            for(Iterator<String> it = filters.keySet().iterator(); it.hasNext();) {  
-                try {  
-                    String filterProperty = it.next();  
+            for(String it: filters.keySet()){	
+            	try {  
+                    String filterProperty = it;
                     String filterValue = filters.get(filterProperty);  
                     String fieldValue = String.valueOf(aa.getClass().getField(filterProperty).get(aa));  
-//                    System.out.println("filter Value : " + filterValue+ ":"+fieldValue);
   
-                    if(filterValue == null || fieldValue.contains(filterValue)) {  
+                    if(filterValue == null || fieldValue.startsWith(filterValue)) {  
                         match = true;  
                     }  
                     else {  
@@ -80,7 +81,7 @@ public class LazyModelPositionReturn  extends LazyDataModel<PositionReturn>{
         //sort  
         if(sortField != null) {  
         	System.out.println("in the sort1 :"+ data.size()+sortField +":" + sortOrder.toString());
-        	Collections.sort(data, new LazySorter(sortField, sortOrder));  
+        	Collections.sort(data, new PositionLazySorter(sortField, sortOrder));  
             System.out.println("in the sort2");
         }  
         System.out.println("After in the sort");
